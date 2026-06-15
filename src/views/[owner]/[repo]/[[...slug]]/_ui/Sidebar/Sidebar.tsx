@@ -10,7 +10,7 @@ import { Heading, Text } from '@primer/react-brand';
 
 import type { RepoTreeNode } from '@/features/repo-tree';
 
-import { normalizeTitle } from '../../lib';
+import { normalizeTitle } from '../../_lib';
 
 import styles from './Sidebar.module.scss';
 

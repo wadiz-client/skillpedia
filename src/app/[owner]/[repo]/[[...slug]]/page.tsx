@@ -1,4 +1,4 @@
-import { OwnerRepoSlugPage } from '@/views/[owner]/[repo]/[[...slug]]';
+import { OwnerRepoSlugPage } from '@/views/[owner]/[repo]/[[...slug]]/OwnerRepoSlugPage';
 
 interface PageProps {
   params: Promise<{ owner: string; repo: string; slug?: string[] }>;

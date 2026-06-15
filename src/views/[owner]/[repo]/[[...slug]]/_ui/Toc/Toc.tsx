@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { ActionList } from '@primer/react';
 import { Text } from '@primer/react-brand';
 
-import type { TocHeading } from '../../lib';
+import type { TocHeading } from '../../_lib';
 
 import styles from './Toc.module.scss';
 

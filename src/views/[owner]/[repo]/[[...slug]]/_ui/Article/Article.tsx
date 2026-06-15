@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { UnderlineNav } from '@primer/react';
 import { Breadcrumbs, Heading, Prose, Stack, Text } from '@primer/react-brand';
 
-import type { ArticleContent, Breadcrumb } from '../../lib';
+import type { ArticleContent, Breadcrumb } from '../../_lib';
 import { Toc } from '../Toc';
 
 import styles from './Article.module.scss';

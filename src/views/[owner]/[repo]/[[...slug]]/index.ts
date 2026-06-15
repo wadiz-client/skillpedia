@@ -1,1 +1,0 @@
-export { OwnerRepoSlugPage } from './ui';

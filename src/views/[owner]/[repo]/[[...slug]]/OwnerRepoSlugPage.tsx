@@ -1,11 +1,11 @@
 import { getRepoReadmeMarkdown, getRepoSkillMarkdown } from '@/features/repo-markdown';
 import { getRepoTreeNodes } from '@/features/repo-tree';
 
-import { getBreadcrumbs, normalizeTitle, parseMarkdown } from '../lib';
+import { getBreadcrumbs, normalizeTitle, parseMarkdown } from './_lib';
 
-import { Article } from './Article';
-import type { ArticleTab } from './Article';
-import { Sidebar } from './Sidebar';
+import { Article } from './_ui/Article';
+import type { ArticleTab } from './_ui/Article';
+import { Sidebar } from './_ui/Sidebar';
 
 import styles from './OwnerRepoSlugPage.module.scss';
 

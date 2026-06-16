@@ -1,0 +1,45 @@
+.container {
+  overflow: hidden;
+  margin-block: var(--base-size-16);
+  border-radius: var(--brand-borderRadius-medium);
+  background-color: var(--brand-color-canvas-inset);
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: var(--base-size-8) var(--base-size-16);
+    border-block-end: 1px solid var(--brand-color-border-muted);
+
+    background-color: var(--brand-color-canvas-subtle);
+  }
+
+  .language {
+    font-family: var(--brand-fontStack-monospace);
+    font-size: var(--brand-text-size-100);
+    color: var(--brand-color-text-muted);
+    text-transform: uppercase;
+  }
+
+  .copy {
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: var(--base-size-4);
+    border: 1px solid var(--brand-color-border-default);
+    border-radius: var(--brand-borderRadius-small);
+
+    color: var(--brand-color-text-muted);
+
+    background-color: var(--brand-color-canvas-default);
+
+    &:hover {
+      color: var(--brand-color-text-default);
+      background-color: var(--brand-color-canvas-subtle);
+    }
+  }
+}

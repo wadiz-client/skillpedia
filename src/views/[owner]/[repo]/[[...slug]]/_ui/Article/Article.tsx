@@ -3,9 +3,10 @@
 import { useState } from 'react';
 
 import { UnderlineNav } from '@primer/react';
-import { Breadcrumbs, Heading, Prose, Stack, Text } from '@primer/react-brand';
+import { Breadcrumbs, Heading, Stack, Text } from '@primer/react-brand';
 
 import type { ArticleContent, Breadcrumb } from '../../_lib';
+import { Prose } from '../Prose';
 import { Toc } from '../Toc';
 
 import styles from './Article.module.scss';
@@ -87,10 +88,10 @@ export const Article = ({ breadcrumbs, tabs, title, description }: ArticleProps)
             alignItems="flex-start"
             direction="horizontal"
             gap={32}
-            justifyContent="space-between"
+            justifyContent="space-around"
             padding="none"
           >
-            <Prose className={styles.prose} html={activeTab?.content.html} />
+            <Prose markdown={activeTab?.content.markdown ?? ''} />
             <Toc headings={tocHeadings} />
           </Stack>
         </article>

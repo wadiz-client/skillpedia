@@ -1,4 +1,3 @@
-export { HeadingIdResolver } from './HeadingIdResolver';
 export { getBreadcrumbs } from './getBreadcrumbs';
 export type { Breadcrumb } from './getBreadcrumbs';
 export { normalizeTitle } from './normalizeTitle';

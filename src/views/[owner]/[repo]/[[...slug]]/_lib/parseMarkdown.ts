@@ -1,7 +1,6 @@
+import GithubSlugger from 'github-slugger';
 import matter from 'gray-matter';
 import { Marked } from 'marked';
-
-import { HeadingIdResolver } from './HeadingIdResolver';
 
 export interface TocHeading {
   depth: number;
@@ -11,7 +10,7 @@ export interface TocHeading {
 
 export interface ArticleContent {
   headings: TocHeading[];
-  html: string;
+  markdown: string;
 }
 
 interface Frontmatter {
@@ -26,35 +25,29 @@ export interface RenderedMarkdown {
 }
 
 /**
- * 마크다운 본문을 HTML로 변환하면서 heading id와 목차 데이터를 함께 산출합니다.
+ * 목차용 heading을 추출합니다.
+ *
+ * @description
+ * 렌더링 단계의 rehype-slug와 같은 id를 만들기 위해 github-slugger를 사용합니다.
+ * rehype-slug가 h1까지 순서대로 처리하므로, 중복 접미사(-1, -2)를 맞추려고 모든 heading을 같은 순서로 입력합니다.
  */
-const renderContent = (content: string): ArticleContent => {
-  const headings: TocHeading[] = [];
-  const headingIdResolver = new HeadingIdResolver();
+const extractHeadings = (markdown: string): TocHeading[] => {
+  const slugger = new GithubSlugger();
   const marked = new Marked({ gfm: true });
+  const tokens = marked.lexer(markdown);
+  const headings: TocHeading[] = [];
 
-  marked.use({
-    renderer: {
-      heading({ tokens, depth }) {
-        // h1 제목은 상단 Heading과 중복되므로 본문에서 제외합니다.
-        if (depth === 1) {
-          return '';
-        }
+  for (const token of tokens) {
+    if (token.type === 'heading') {
+      const inlineHtml = marked.parseInline(token.text) as string;
+      const value = inlineHtml.replace(/<[^>]*>/g, '');
+      const id = slugger.slug(value);
 
-        const inlineHtml = this.parser.parseInline(tokens);
-        const value = inlineHtml.replace(/<[^>]*>/g, '');
-        const id = headingIdResolver.resolve(value);
+      headings.push({ depth: token.depth, id, value });
+    }
+  }
 
-        headings.push({ depth, id, value });
-
-        return `<h${depth} id="${id}">${inlineHtml}</h${depth}>\n`;
-      },
-    },
-  });
-
-  const html = marked.parse(content) as string;
-
-  return { headings, html };
+  return headings;
 };
 
 /**
@@ -64,14 +57,17 @@ const renderContent = (content: string): ArticleContent => {
  * const source = '---\ntitle: 시작하기\n---\n# 제목\n본문\n## 섹션';
  * const result = parseMarkdown(source);
  * result.frontmatter.title; // '시작하기'
- * result.content.html; // '<p>본문</p>\n<h2 id="섹션">섹션</h2>\n' (h1 제외)
- * result.content.headings; // [{ depth: 2, id: '섹션', value: '섹션' }]
+ * result.content.markdown; // '# 제목\n본문\n## 섹션'
+ * result.content.headings; // [{ depth: 1, ... }, { depth: 2, id: '섹션', value: '섹션' }]
  */
 export const parseMarkdown = (source: string): RenderedMarkdown => {
   const matterFile = matter(source);
 
   return {
-    content: renderContent(matterFile.content),
+    content: {
+      headings: extractHeadings(matterFile.content),
+      markdown: matterFile.content,
+    },
     frontmatter: matterFile.data as Frontmatter,
   };
 };

@@ -51,8 +51,8 @@ export const Article = ({ breadcrumbs, tabs, title, description }: ArticleProps)
         )}
 
         <Stack gap="spacious" padding="none">
-          <Stack gap={12} padding="none">
-            <Heading as="h1" size="3">
+          <Stack gap="normal" padding="none">
+            <Heading as="h1" size="2" weight="bold">
               {title}
             </Heading>
             {description && (
@@ -64,7 +64,7 @@ export const Article = ({ breadcrumbs, tabs, title, description }: ArticleProps)
         </Stack>
 
         {tabs.length > 1 && (
-          <UnderlineNav aria-label="문서 종류">
+          <UnderlineNav aria-label="문서 유형">
             {tabs.map((tab, index) => {
               return (
                 <UnderlineNav.Item
@@ -83,10 +83,14 @@ export const Article = ({ breadcrumbs, tabs, title, description }: ArticleProps)
         )}
 
         <article>
-          <Stack alignItems="flex-start" direction="horizontal" gap={32} padding="none">
-            <div className={styles.main}>
-              <Prose html={activeTab?.content.html} />
-            </div>
+          <Stack
+            alignItems="flex-start"
+            direction="horizontal"
+            gap={32}
+            justifyContent="space-between"
+            padding="none"
+          >
+            <Prose className={styles.prose} html={activeTab?.content.html} />
             <Toc headings={tocHeadings} />
           </Stack>
         </article>

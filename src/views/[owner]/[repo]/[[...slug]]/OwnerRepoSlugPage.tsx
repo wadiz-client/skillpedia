@@ -2,7 +2,6 @@ import { getRepoReadmeMarkdown, getRepoSkillMarkdown } from '@/features/repo-mar
 import { getRepoTreeNodes } from '@/features/repo-tree';
 
 import { getBreadcrumbs, normalizeTitle, parseMarkdown } from './_lib';
-
 import { Article } from './_ui/Article';
 import type { ArticleTab } from './_ui/Article';
 import { Sidebar } from './_ui/Sidebar';

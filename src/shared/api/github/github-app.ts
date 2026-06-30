@@ -5,7 +5,7 @@ const app = new App({
   privateKey: process.env.GITHUB_PRIVATE_KEY!,
 });
 
-const octokit = new Octokit();
+const octokit = new Octokit({ auth: process.env.GITHUB_ACCESS_TOKEN });
 
 export const getRepoOctokit = async (owner: string, repo: string) => {
   try {

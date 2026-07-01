@@ -14,6 +14,7 @@ import {
   Grid,
   Heading,
   Hero,
+  Label,
   MinimalFooter,
   Section,
   SectionIntro,
@@ -85,8 +86,11 @@ export const HomePage = ({ repoGroups }: HomePageProps) => {
         paddingBlockStart="spacious"
       >
         <Box paddingInlineEnd={40} paddingInlineStart={40}>
-          <Hero align="center">
-            <Hero.Heading letterSpacing="condensed" weight="extrabold">
+          <Hero>
+            <Label color="green-blue-purple" size="large">
+              Beta
+            </Label>
+            <Hero.Heading letterSpacing="condensed" style={{ marginTop: 12 }} weight="extrabold">
               흩어진 스킬 문서를 한곳에서, 정확하게
             </Hero.Heading>
             <Hero.Description size="400" variant="muted">

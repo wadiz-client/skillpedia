@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import { useState } from 'react';
-import type { ChangeEventHandler, KeyboardEventHandler, MouseEventHandler } from 'react';
 
 import { SearchIcon } from '@primer/octicons-react';
 import { ActionList } from '@primer/react';
@@ -30,23 +29,20 @@ interface HomePageProps {
   repoGroups: RepoGroup[];
 }
 
+const DEFAULT_REPO_URL = 'https://github.com/anthropics/skills';
+
 export const HomePage = ({ repoGroups }: HomePageProps) => {
   const router = useRouter();
   const [repo, setRepo] = useState('');
-  const [status, setStatus] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // 입력한 저장소를 정규화한 뒤 문서 경로로 이동합니다.
-  const submitRepo = () => {
-    const value = repo
-      .trim()
+  // 입력한 저장소를 정규화한 뒤 문서 경로로 이동합니다. 입력이 없으면 기본 저장소로 이동합니다.
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
+    event.preventDefault();
+
+    const value = (repo.trim() || DEFAULT_REPO_URL)
       .replace(/^https?:\/\/github\.com\//i, '')
       .replace(/\/$/, '');
-
-    if (value.length === 0) {
-      setStatus('저장소를 owner/repo 형식으로 입력해 주세요.');
-
-      return;
-    }
 
     const isValidFormat = /^[\w.-]+\/[\w.-]+$/.test(value);
 
@@ -56,25 +52,8 @@ export const HomePage = ({ repoGroups }: HomePageProps) => {
       return;
     }
 
-    setStatus('올바른 형식이 아니에요. 예: anthropics/skills');
+    setErrorMessage('owner/repo 형식으로 작성해 주세요. 예: anthropics/skills');
   };
-
-  const handleRepoChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    setRepo(event.target.value);
-    setStatus(null);
-  };
-
-  const handleRepoKeyDown: KeyboardEventHandler<HTMLInputElement> = (event) => {
-    if (event.key === 'Enter') {
-      submitRepo();
-    }
-  };
-
-  const handleSubmitClick: MouseEventHandler<HTMLButtonElement> = () => {
-    submitRepo();
-  };
-
-  const submitDisabled = repo.trim().length === 0;
 
   return (
     <div className={styles.container}>
@@ -97,24 +76,30 @@ export const HomePage = ({ repoGroups }: HomePageProps) => {
               GitHub 저장소에 흩어져 있는 SKILL.md 문서들을 찾아서 구조화된 형태로 제공합니다.
             </Hero.Description>
             <Box marginBlockStart={32} style={{ width: '100%' }}>
-              <FormControl fullWidth size="large" validationStatus={status ? 'error' : undefined}>
-                <FormControl.Label>GitHub 저장소 주소</FormControl.Label>
-                <TextInput
-                  fullWidth
-                  leadingVisual={<SearchIcon />}
-                  placeholder="https://github.com/skills/introduction-to-github"
-                  size="medium"
-                  type="search"
-                  value={repo}
-                  onChange={handleRepoChange}
-                  onKeyDown={handleRepoKeyDown}
-                />
-                {status ? <FormControl.Validation>{status}</FormControl.Validation> : null}
-              </FormControl>
+              <form onSubmit={handleSubmit}>
+                <FormControl fullWidth size="large" validationStatus={errorMessage ? 'error' : undefined}>
+                  <FormControl.Label>GitHub 저장소 주소</FormControl.Label>
+                  <TextInput
+                    fullWidth
+                    leadingVisual={<SearchIcon />}
+                    placeholder={DEFAULT_REPO_URL}
+                    size="medium"
+                    type="search"
+                    value={repo}
+                    onChange={(event) => {
+                      setRepo(event.target.value);
+                      setErrorMessage(null);
+                    }}
+                  />
+                  {errorMessage ? <FormControl.Validation>{errorMessage}</FormControl.Validation> : null}
+                </FormControl>
+                <Box marginBlockStart={16}>
+                  <Hero.PrimaryAction as="button" href="#" size="large">
+                    문서 보기
+                  </Hero.PrimaryAction>
+                </Box>
+              </form>
             </Box>
-            <Hero.PrimaryAction as="button" href="#" size="large">
-              문서 보기
-            </Hero.PrimaryAction>
             <Hero.Image
               alt=""
               position="inline-end"

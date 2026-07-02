@@ -31,6 +31,7 @@
 - 단일 if문에도 중괄호 {}를 사용합니다.
 - 화살표 함수는 단일 표현식이라도 블록 본문과 명시적 return을 사용합니다.
 - 타입을 import하는 경우 별도 행에 `import type`으로 작성합니다.
+- React 내장 타입은 전역 `React` 네임스페이스로 참조합니다. (예: `React.ChangeEventHandler`, `React.FormEventHandler`, `React.ReactNode`)
 - 컴포넌트는 선언(상태·라우터 훅) → 메서드 → 핸들러 → 부수 효과 훅(`useEffect`) → 렌더 순으로 작성합니다. 부수 효과 훅이 의존하는 함수보다 아래에 위치하도록 합니다.
 - 코드 분석 및 작성이 필요한 경우 다음 문서를 참조합니다:
   - 프로젝트 정보: [README.md](./README.md)

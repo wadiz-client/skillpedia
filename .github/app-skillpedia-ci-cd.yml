@@ -1,10 +1,20 @@
-name: "[app] skillpedia - CI/CD"
+name: "[app] skillpedia - CI/CD (${{ inputs.runner }})"
 
 on:
   push:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      runner:
+        default: self-hosted
+        description: ""
+        options:
+          - macos-latest
+          - self-hosted
+          - ubuntu-latest
+        required: true
+        type: choice
 
 permissions:
   contents: write
@@ -19,7 +29,7 @@ env:
 jobs:
   build-and-deploy:
     name: Build and deploy
-    runs-on: self-hosted
+    runs-on: ${{ inputs.runner == 'self-hosted' && fromJSON('["self-hosted", "skillpedia"]') || inputs.runner }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4

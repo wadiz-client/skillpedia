@@ -1,4 +1,4 @@
-name: "[app] skillpedia - CI/CD (${{ inputs.runner }})"
+name: "[app] skillpedia - CI/CD"
 
 on:
   push:
@@ -29,7 +29,7 @@ env:
 jobs:
   build-and-deploy:
     name: Build and deploy
-    runs-on: ${{ inputs.runner == 'self-hosted' && fromJSON('["self-hosted", "skillpedia"]') || inputs.runner }}
+    runs-on: ${{ (inputs.runner == 'self-hosted' || inputs.runner == '') && fromJSON('["self-hosted", "skillpedia"]') || inputs.runner || fromJSON('["self-hosted", "skillpedia"]') }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4

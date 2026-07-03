@@ -67,8 +67,8 @@ npm install
 `.env.local.example` 파일을 복사하여 `.env.local` 파일을 생성하고 GitHub App 정보를 입력합니다.
 
 ```properties
-GITHUB_APP_ID=
-GITHUB_PRIVATE_KEY=
+APP_ID=
+APP_PRIVATE_KEY=
 ```
 
 ### 프로젝트 실행

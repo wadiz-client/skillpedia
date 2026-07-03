@@ -2,34 +2,14 @@
 
 import Link from 'next/link';
 
-import { useEffect, useState } from 'react';
-
 import { MoonIcon, SunIcon } from '@primer/octicons-react';
+
+import { useColorMode } from '@/app/providers';
 
 import styles from './Header.module.scss';
 
-type ColorMode = 'light' | 'dark';
-
 export const Header = () => {
-  const [colorMode, setColorMode] = useState<ColorMode>('light');
-
-  // 초기 색상 모드를 시스템 설정에서 읽어옵니다.
-  useEffect(() => {
-    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-    setColorMode(isDarkMode ? 'dark' : 'light');
-  }, []);
-
-  // 선택한 색상 모드를 문서 루트에 반영합니다.
-  useEffect(() => {
-    document.documentElement.setAttribute('data-color-mode', colorMode);
-  }, [colorMode]);
-
-  const toggleColorMode = () => {
-    setColorMode((mode) => {
-      return mode === 'light' ? 'dark' : 'light';
-    });
-  };
+  const { colorMode, toggleColorMode } = useColorMode();
 
   return (
     <header className={styles.container}>

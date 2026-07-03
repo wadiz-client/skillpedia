@@ -100,12 +100,7 @@ export const HomePage = ({ repoGroups }: HomePageProps) => {
                 </Box>
               </form>
             </Box>
-            <Hero.Image
-              alt=""
-              position="inline-end"
-              src="/images/hero.svg"
-              style={{ height: '100%' }}
-            />
+            <Hero.Image alt="" position="inline-end" src="/images/hero.svg" />
           </Hero>
         </Box>
       </Section>

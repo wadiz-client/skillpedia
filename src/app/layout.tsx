@@ -9,7 +9,7 @@ import '@primer/react-brand/fonts/fonts.css';
 import '@primer/react-brand/lib/css/main.css';
 import 'modern-normalize/modern-normalize.css';
 
-import { PrimerThemeProvider } from './providers';
+import { ColorModeProvider, PrimerThemeProvider } from './providers';
 
 import './styles/style.scss';
 
@@ -24,9 +24,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html data-color-mode="auto" data-dark-theme="dark" data-light-theme="light" lang="ko">
+    <html data-dark-theme="dark" data-light-theme="light" lang="ko">
       <body>
-        <PrimerThemeProvider>{children}</PrimerThemeProvider>
+        <ColorModeProvider>
+          <PrimerThemeProvider>{children}</PrimerThemeProvider>
+        </ColorModeProvider>
       </body>
     </html>
   );

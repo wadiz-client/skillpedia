@@ -1,0 +1,44 @@
+name: "Build and deploy"
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build-and-deploy:
+    name: Build and deploy
+    runs-on: ['self-hosted', 'skillpedia']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+
+      - name: Create .env file
+        run: |
+          {
+            echo "APP_ID=${{ vars.APP_ID }}"
+            echo "APP_PRIVATE_KEY=${{ secrets.APP_PRIVATE_KEY }}"
+            echo "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}"
+          } > .env
+
+      - name: Build and deploy
+        run: |
+          command -v pm2 >/dev/null || npm install --global pm2
+          npm install
+          npm run build
+          pm2 startOrRestart ecosystem.config.cjs

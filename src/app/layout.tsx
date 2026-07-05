@@ -14,7 +14,14 @@ import { ColorModeProvider, PrimerThemeProvider } from './providers';
 import './styles/style.scss';
 
 export const metadata: Metadata = {
-  description: 'GitHub App 기반의 멀티 테넌트 문서 렌더링 엔진',
+  description:
+    'GitHub 저장소에 흩어진 SKILL.md 파일을 수집하여 구조화된 문서를 제공합니다. 개발자가 작성한 스킬 문서를 읽고 정확한 사용법을 파악할 수 있도록 합니다.',
+  icons: {
+    icon: [
+      { media: '(prefers-color-scheme: light)', type: 'image/svg+xml', url: '/favicon_dark.svg' },
+      { media: '(prefers-color-scheme: dark)', type: 'image/svg+xml', url: '/favicon_light.svg' },
+    ],
+  },
   title: 'Skillpedia',
 };
 

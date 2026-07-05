@@ -3,20 +3,3 @@
   flex: 1;
   min-width: 0;
 }
-
-.error {
-  padding: var(--base-size-40) 0;
-  color: var(--brand-color-text-muted);
-
-  h1 {
-    margin: 0 0 var(--base-size-12);
-    font-size: 24px;
-    font-weight: 600;
-    color: var(--brand-color-text-default);
-  }
-
-  p {
-    margin: 0;
-    font-size: 16px;
-  }
-}

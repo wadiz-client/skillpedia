@@ -4,6 +4,7 @@ import { getRepoTreeNodes } from '@/features/repo-tree';
 import { getBreadcrumbs, normalizeTitle, parseMarkdown } from './_lib';
 import { Article } from './_ui/Article';
 import type { ArticleTab } from './_ui/Article';
+import { Empty } from './_ui/Empty';
 import { Sidebar } from './_ui/Sidebar';
 
 import styles from './OwnerRepoSlugPage.module.scss';
@@ -66,12 +67,7 @@ export const OwnerRepoSlugPage = async ({ owner, repo, slug }: OwnerRepoSlugPage
       {tabs.length > 0 ? (
         <Article breadcrumbs={breadcrumbs} description={description} tabs={tabs} title={title} />
       ) : (
-        <div className={styles.error}>
-          <h1>문서를 불러올 수 없습니다.</h1>
-          <p>
-            {owner}/{repo} 저장소에서 스킬 문서를 찾을 수 없습니다.
-          </p>
-        </div>
+        <Empty owner={owner} repo={repo} />
       )}
     </div>
   );

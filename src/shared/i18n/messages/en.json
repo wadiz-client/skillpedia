@@ -1,29 +1,29 @@
 {
   "HomePage": {
     "HeroSection": {
-      "title": "Scattered skill docs, in one place, precisely",
-      "description": "Finds SKILL.md documents scattered across GitHub repositories and presents them in a structured form.",
+      "title": "Scattered Skill Docs, in One Place, Precisely",
+      "description": "Finds <code>SKILL.md</code> documents scattered across GitHub repositories and presents them in a structured form.",
       "form": {
         "error": "Please use the owner/repo format. Example: anthropics/skills",
         "label": "GitHub repository URL",
-        "submit": "View docs"
+        "submit": "View Docs"
       }
     },
     "PrivateRepoSection": {
-      "title": "Private repo skills,<br></br>safely within your team",
+      "title": "Private Repo Skills,<br></br>Safely Within Your Team",
       "description": "Install it directly on your own infrastructure. Structure your internal repository's skill docs safely without exposing them externally.",
-      "link": "Read the guide"
+      "link": "Read the Guide"
     },
     "RepoSection": {
-      "title": "Browse repositories"
+      "title": "Browse Repositories"
     }
   },
   "Layout": {
     "Footer": {
       "about": "About",
       "copyright": "© {year} Skillpedia · Open-source skill doc encyclopedia",
-      "footnote": "<strong>Skillpedia is not an official GitHub page; it is an unofficial project run by an individual.</strong> Its purpose is to collect SKILL.md files scattered across GitHub repositories and provide them as structured documentation. It helps developers read skill docs written by engineers and understand exactly how to use them. For an AI agent to use a tool correctly, it needs a verified guide written by engineers. Skillpedia is the channel that delivers that guide most efficiently.",
-      "guide": "Writing guide"
+      "footnote": "<strong>Skillpedia is not an official GitHub page. It is an unofficial project run by an individual.</strong> Its purpose is to collect <code>SKILL.md</code> files scattered across GitHub repositories and provide them as structured documentation. It helps developers read skill docs written by engineers and understand exactly how to use them. For an AI agent to use a tool correctly, it needs a verified guide written by engineers. Skillpedia is the channel that delivers that guide most efficiently.",
+      "guide": "Writing Guide"
     },
     "Header": {
       "language": {

@@ -15,6 +15,9 @@ export const Footer = () => {
       <MinimalFooter.Footnotes>
         <Text>
           {t.rich('footnote', {
+            code: (chunks) => {
+              return <code>{chunks}</code>;
+            },
             strong: (chunks) => {
               return <strong>{chunks}</strong>;
             },

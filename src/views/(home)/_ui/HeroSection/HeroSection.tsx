@@ -65,7 +65,11 @@ export const HeroSection = () => {
             size="400"
             variant="muted"
           >
-            {t('description')}
+            {t.rich('description', {
+              code: (chunks) => {
+                return <code>{chunks}</code>;
+              },
+            })}
           </Hero.Description>
           <Box
             marginBlockStart={32}

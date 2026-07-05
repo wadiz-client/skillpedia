@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import { UnderlineNav } from '@primer/react';
 import { Breadcrumbs, Heading, Stack, Text } from '@primer/react-brand';
+import { useTranslations } from 'next-intl';
 
 import type { ArticleContent, Breadcrumb } from '../../_lib';
 import { Prose } from '../Prose';
@@ -24,6 +25,7 @@ interface ArticleProps {
 }
 
 export const Article = ({ breadcrumbs, tabs, title, description }: ArticleProps) => {
+  const t = useTranslations('OwnerRepoSlugPage.Article');
   const [activeIndex, setActiveIndex] = useState(0);
   const activeTab = tabs[activeIndex] ?? tabs[0];
 
@@ -65,7 +67,7 @@ export const Article = ({ breadcrumbs, tabs, title, description }: ArticleProps)
         </Stack>
 
         {tabs.length > 1 && (
-          <UnderlineNav aria-label="문서 유형">
+          <UnderlineNav aria-label={t('tabs.ariaLabel')}>
             {tabs.map((tab, index) => {
               return (
                 <UnderlineNav.Item

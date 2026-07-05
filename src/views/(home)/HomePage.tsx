@@ -15,7 +15,7 @@ export const HomePage = ({ isPublicDomain, repoGroups }: HomePageProps) => {
     <div className={styles.container}>
       <HeroSection />
       <RepoSection repoGroups={repoGroups} />
-      {isPublicDomain && <PrivateRepoSection />}
+      {(isPublicDomain || process.env.NODE_ENV === 'development') && <PrivateRepoSection />}
       <Layout.Footer />
     </div>
   );

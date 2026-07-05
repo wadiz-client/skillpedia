@@ -1,3 +1,5 @@
+'use client';
+
 import { Box, Section, SectionIntro } from '@primer/react-brand';
 
 export const PrivateRepoSection = () => {

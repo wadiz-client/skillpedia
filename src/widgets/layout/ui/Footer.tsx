@@ -1,3 +1,5 @@
+'use client';
+
 import { MinimalFooter, Text } from '@primer/react-brand';
 
 export const Footer = () => {

@@ -2,6 +2,7 @@
 
 import { SearchIcon } from '@primer/octicons-react';
 import { Box, Heading, Text } from '@primer/react-brand';
+import { useTranslations } from 'next-intl';
 
 import styles from './Empty.module.scss';
 
@@ -11,6 +12,8 @@ interface EmptyProps {
 }
 
 export const Empty = ({ owner, repo }: EmptyProps) => {
+  const t = useTranslations('OwnerRepoSlugPage.Empty');
+
   return (
     <Box className={styles.container}>
       <SearchIcon size={64} />
@@ -26,7 +29,11 @@ export const Empty = ({ owner, repo }: EmptyProps) => {
         size="300"
         variant="muted"
       >
-        <code>SKILL.md</code> 문서를 찾을 수 없습니다.
+        {t.rich('description', {
+          code: (chunks) => {
+            return <code>{chunks}</code>;
+          },
+        })}
       </Text>
     </Box>
   );

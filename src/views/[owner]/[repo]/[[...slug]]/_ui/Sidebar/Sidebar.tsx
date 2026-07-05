@@ -1,14 +1,13 @@
 'use client';
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-
 import type { ReactNode } from 'react';
 
 import { NavList } from '@primer/react';
 import { Heading, Text } from '@primer/react-brand';
+import { useTranslations } from 'next-intl';
 
 import type { RepoTreeNode } from '@/features/repo-tree';
+import { Link, usePathname } from '@/shared/i18n/navigation';
 
 import { normalizeTitle } from '../../_lib';
 
@@ -87,10 +86,11 @@ const renderNavNode = (node: RepoTreeNode, pathname: string, isRoot: boolean): R
 };
 
 export const Sidebar = ({ owner, repo, treeNodes }: SidebarProps) => {
+  const t = useTranslations('OwnerRepoSlugPage.Sidebar');
   const pathname = usePathname();
 
   return (
-    <aside aria-label={`${owner}/${repo} 사이드바`} className={styles.container}>
+    <aside aria-label={t('ariaLabel', { owner, repo })} className={styles.container}>
       <div className={styles.inner}>
         <Heading as="h2" className={styles.title} id={NAV_LANDMARK_LABEL_ID} size="subhead-large">
           {owner}/{repo}

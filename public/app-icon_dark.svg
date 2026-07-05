@@ -1,0 +1,13 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <title>Skillpedia App Icon — Dark</title>
+  <desc>Skillpedia app icon concept — white symbol on black, iOS squircle radius, ~26% clearspace.</desc>
+
+  <rect width="1024" height="1024" rx="224" fill="#0B0B0C"></rect>
+
+  <g fill="#fff">
+    <rect x="272" y="320" width="192" height="96"></rect>
+    <circle cx="656" cy="368" r="96"></circle>
+    <circle cx="368" cy="656" r="96"></circle>
+    <rect x="560" y="608" width="192" height="96"></rect>
+  </g>
+</svg>

@@ -1,0 +1,54 @@
+{
+  "HomePage": {
+    "HeroSection": {
+      "title": "Scattered Skill Docs, in One Place, Precisely",
+      "description": "Finds <code>SKILL.md</code> documents scattered across GitHub repositories and presents them in a structured form.",
+      "form": {
+        "error": "Please use the owner/repo format. Example: anthropics/skills",
+        "label": "GitHub repository URL",
+        "submit": "View Docs"
+      }
+    },
+    "PrivateRepoSection": {
+      "title": "Private Repo Skills,<br></br>Safely Within Your Team",
+      "description": "Install it directly on your own infrastructure. Structure your internal repository's skill docs safely without exposing them externally.",
+      "link": "Read the Guide"
+    },
+    "RepoSection": {
+      "title": "Browse Repositories"
+    }
+  },
+  "Layout": {
+    "Footer": {
+      "about": "About",
+      "copyright": "© {year} Skillpedia · Open-source skill doc encyclopedia",
+      "footnote": "<strong>Skillpedia is not an official GitHub page. It is an unofficial project run by an individual.</strong> Its purpose is to collect <code>SKILL.md</code> files scattered across GitHub repositories and provide them as structured documentation. It helps developers read skill docs written by engineers and understand exactly how to use them. For an AI agent to use a tool correctly, it needs a verified guide written by engineers. Skillpedia is the channel that delivers that guide most efficiently.",
+      "guide": "Writing Guide"
+    },
+    "Header": {
+      "language": {
+        "ariaLabel": "Language"
+      },
+      "theme": {
+        "ariaLabel": "{colorMode, select, light {Switch to dark mode} other {Switch to light mode}}"
+      }
+    }
+  },
+  "Metadata": {
+    "title": "Skillpedia",
+    "description": "Collects SKILL.md files scattered across GitHub repositories and presents them as structured documentation. Helps developers read skill docs written by engineers and understand exactly how to use them."
+  },
+  "OwnerRepoSlugPage": {
+    "Article": {
+      "tabs": {
+        "ariaLabel": "Document type"
+      }
+    },
+    "Empty": {
+      "description": "No <code>SKILL.md</code> document was found."
+    },
+    "Sidebar": {
+      "ariaLabel": "{owner}/{repo} sidebar"
+    }
+  }
+}

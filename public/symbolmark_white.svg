@@ -1,0 +1,11 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <title>Skillpedia Symbolmark (white, transparent)</title>
+  <desc>Skillpedia symbolmark — square cut, white mark on transparent background, for dark surfaces.</desc>
+
+  <g transform="translate(256, 256)" fill="#fff">
+    <rect x="-220" y="-176" width="176" height="88"></rect>
+    <circle cx="132" cy="-132" r="88"></circle>
+    <circle cx="-132" cy="132" r="88"></circle>
+    <rect x="44" y="88" width="176" height="88"></rect>
+  </g>
+</svg>

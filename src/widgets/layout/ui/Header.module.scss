@@ -38,9 +38,17 @@
         }
 
         .title {
+          font-size: 18px;
           font-weight: 600;
         }
       }
+    }
+
+    .actions {
+      display: flex;
+      flex-shrink: 0;
+      gap: var(--base-size-8);
+      align-items: center;
     }
 
     .themeToggle {

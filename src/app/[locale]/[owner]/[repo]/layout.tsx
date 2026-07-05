@@ -1,12 +1,15 @@
+import { setRequestLocale } from 'next-intl/server';
+
 import { Layout } from '@/widgets/layout/ui';
 
 interface RepoLayoutProps {
   children: React.ReactNode;
-  params: Promise<{ owner: string; repo: string }>;
+  params: Promise<{ locale: string; owner: string; repo: string }>;
 }
 
 export default async function RepoLayout({ children, params }: RepoLayoutProps) {
-  const { owner, repo } = await params;
+  const { locale, owner, repo } = await params;
+  setRequestLocale(locale);
 
   return (
     <Layout owner={owner} repo={repo}>

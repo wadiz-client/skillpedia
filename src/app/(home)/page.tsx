@@ -1,8 +1,13 @@
+import { headers } from 'next/headers';
+
 import { HomePage } from '@/views/(home)/HomePage';
 import { getRepoGroups } from '@/views/(home)/_lib';
 
-export default function Page() {
+export default async function Page() {
   const repoGroups = getRepoGroups();
 
-  return <HomePage repoGroups={repoGroups} />;
+  const headersList = await headers();
+  const isPublicDomain = headersList.get('host') === 'skillpedia.vercel.app';
+
+  return <HomePage isPublicDomain={isPublicDomain} repoGroups={repoGroups} />;
 }

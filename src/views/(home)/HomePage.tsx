@@ -5,30 +5,21 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { SearchIcon } from '@primer/octicons-react';
-import {
-  Box,
-  FormControl,
-  Hero,
-  Label,
-  MinimalFooter,
-  Section,
-  SectionIntro,
-  Text,
-  TextInput,
-} from '@primer/react-brand';
+import { Box, FormControl, Hero, Label, MinimalFooter, Section, Text, TextInput } from '@primer/react-brand';
 
 import type { RepoGroup } from './_lib';
-import { RepoSection } from './_ui';
+import { PrivateRepoSection, RepoSection } from './_ui';
 
 import styles from './HomePage.module.scss';
 
 interface HomePageProps {
+  isPublicDomain: boolean;
   repoGroups: RepoGroup[];
 }
 
 const DEFAULT_REPO_URL = 'https://github.com/anthropics/skills';
 
-export const HomePage = ({ repoGroups }: HomePageProps) => {
+export const HomePage = ({ isPublicDomain, repoGroups }: HomePageProps) => {
   const router = useRouter();
   const [repo, setRepo] = useState('');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -37,9 +28,7 @@ export const HomePage = ({ repoGroups }: HomePageProps) => {
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
 
-    const value = (repo.trim() || DEFAULT_REPO_URL)
-      .replace(/^https?:\/\/github\.com\//i, '')
-      .replace(/\/$/, '');
+    const value = (repo.trim() || DEFAULT_REPO_URL).replace(/^https?:\/\/github\.com\//i, '').replace(/\/$/, '');
 
     const isValidFormat = /^[\w.-]+\/[\w.-]+$/.test(value);
 
@@ -61,20 +50,40 @@ export const HomePage = ({ repoGroups }: HomePageProps) => {
         paddingBlockEnd="spacious"
         paddingBlockStart="spacious"
       >
-        <Box paddingInlineEnd={40} paddingInlineStart={40}>
+        <Box
+          paddingInlineEnd={40}
+          paddingInlineStart={40}
+        >
           <Hero>
-            <Label color="green-blue-purple" size="large">
+            <Label
+              color="green-blue-purple"
+              size="large"
+            >
               Beta
             </Label>
-            <Hero.Heading letterSpacing="condensed" style={{ marginTop: 12 }} weight="extrabold">
+            <Hero.Heading
+              letterSpacing="condensed"
+              style={{ marginTop: 12 }}
+              weight="extrabold"
+            >
               흩어진 스킬 문서를 한곳에서, 정확하게
             </Hero.Heading>
-            <Hero.Description size="400" variant="muted">
+            <Hero.Description
+              size="400"
+              variant="muted"
+            >
               GitHub 저장소에 흩어져 있는 SKILL.md 문서들을 찾아서 구조화된 형태로 제공합니다.
             </Hero.Description>
-            <Box marginBlockStart={32} style={{ width: '100%' }}>
+            <Box
+              marginBlockStart={32}
+              style={{ width: '100%' }}
+            >
               <form onSubmit={handleSubmit}>
-                <FormControl fullWidth size="large" validationStatus={errorMessage ? 'error' : undefined}>
+                <FormControl
+                  fullWidth
+                  size="large"
+                  validationStatus={errorMessage ? 'error' : undefined}
+                >
                   <FormControl.Label>GitHub 저장소 주소</FormControl.Label>
                   <TextInput
                     fullWidth
@@ -91,40 +100,28 @@ export const HomePage = ({ repoGroups }: HomePageProps) => {
                   {errorMessage ? <FormControl.Validation>{errorMessage}</FormControl.Validation> : null}
                 </FormControl>
                 <Box marginBlockStart={16}>
-                  <Hero.PrimaryAction as="button" href="#" size="large">
+                  <Hero.PrimaryAction
+                    as="button"
+                    href="#"
+                    size="large"
+                  >
                     문서 보기
                   </Hero.PrimaryAction>
                 </Box>
               </form>
             </Box>
-            <Hero.Image alt="" position="inline-end" src="/images/hero.svg" />
+            <Hero.Image
+              alt=""
+              position="inline-end"
+              src="/images/hero.svg"
+            />
           </Hero>
         </Box>
       </Section>
 
       <RepoSection repoGroups={repoGroups} />
 
-      <Section as="section" backgroundColor="subtle" data-color-mode="dark">
-        <Box
-          paddingBlockEnd={80}
-          paddingBlockStart={80}
-          paddingInlineEnd={40}
-          paddingInlineStart={40}
-        >
-          <SectionIntro>
-            <SectionIntro.Label>Private</SectionIntro.Label>
-            <SectionIntro.Heading size="2" weight="extrabold">
-              사내 저장소 스킬을
-              <br />팀 안에서 안전하게
-            </SectionIntro.Heading>
-            <SectionIntro.Description>
-              사내 인프라에 직접 설치해서 운영해 보세요. 외부에 공개하지 않고 사내 저장소의 스킬
-              문서를 안전하게 구조화할 수 있습니다.
-            </SectionIntro.Description>
-            <SectionIntro.Link href="#">가이드 보러 가기</SectionIntro.Link>
-          </SectionIntro>
-        </Box>
-      </Section>
+      {isPublicDomain && <PrivateRepoSection />}
 
       <MinimalFooter
         copyrightStatement={`© ${new Date().getFullYear()} Skillpedia · 오픈소스 스킬 문서 사전`}
@@ -134,13 +131,12 @@ export const HomePage = ({ repoGroups }: HomePageProps) => {
         <MinimalFooter.Footnotes>
           <Text>
             <strong>
-              Skillpedia(스킬피디아)는 GitHub의 공식 페이지가 아니며, 개인이 운영하는 비공식
-              프로젝트입니다.
+              Skillpedia(스킬피디아)는 GitHub의 공식 페이지가 아니며, 개인이 운영하는 비공식 프로젝트입니다.
             </strong>{' '}
-            GitHub 저장소에 흩어진 SKILL.md 파일을 수집하여 구조화된 문서를 제공하는 것이
-            목적입니다. 개발자가 작성한 스킬 문서를 읽고 정확한 사용법을 파악할 수 있도록 합니다. AI
-            에이전트가 도구를 정확하게 사용하려면 엔지니어가 작성한 검증된 지침서가 필요합니다.
-            Skillpedia는 그 지침서를 가장 효율적으로 전달하는 통로가 됩니다.
+            GitHub 저장소에 흩어진 SKILL.md 파일을 수집하여 구조화된 문서를 제공하는 것이 목적입니다. 개발자가 작성한
+            스킬 문서를 읽고 정확한 사용법을 파악할 수 있도록 합니다. AI 에이전트가 도구를 정확하게 사용하려면
+            엔지니어가 작성한 검증된 지침서가 필요합니다. Skillpedia는 그 지침서를 가장 효율적으로 전달하는 통로가
+            됩니다.
           </Text>
         </MinimalFooter.Footnotes>
         <MinimalFooter.Link href="/">소개</MinimalFooter.Link>

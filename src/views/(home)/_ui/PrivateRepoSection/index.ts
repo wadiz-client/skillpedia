@@ -1,2 +1,1 @@
 export { PrivateRepoSection } from './PrivateRepoSection';
-export { RepoSection } from './RepoSection';

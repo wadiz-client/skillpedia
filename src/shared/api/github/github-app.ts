@@ -1,4 +1,12 @@
 import { App, Octokit } from 'octokit';
+import { ProxyAgent, setGlobalDispatcher } from 'undici';
+
+// 사내망처럼 프록시로만 외부에 나갈 수 있는 환경에서, 프록시가 지정되면 전역 디스패처로 설정합니다.
+const proxyUrl = process.env.HTTPS_PROXY ?? process.env.HTTP_PROXY;
+
+if (proxyUrl) {
+  setGlobalDispatcher(new ProxyAgent(proxyUrl));
+}
 
 let app: App | undefined;
 let octokit: Octokit | undefined;

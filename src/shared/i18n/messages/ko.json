@@ -15,7 +15,11 @@
       "link": "가이드 보러 가기"
     },
     "RepoSection": {
-      "title": "저장소 둘러보기"
+      "title": "저장소 둘러보기",
+      "Empty": {
+        "title": "저장소 목록 구성하기",
+        "description": "<code>repositories.json</code> 또는 <code>repositories.yaml</code> 파일을 프로젝트 루트에 추가하거나, GitHub Secrets의 <code>REPOSITORIES</code>에 JSON 또는 YAML로 목록을 작성하면 저장소 목록을 표시합니다."
+      }
     }
   },
   "Layout": {

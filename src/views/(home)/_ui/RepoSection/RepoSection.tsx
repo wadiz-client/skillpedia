@@ -8,6 +8,8 @@ import { Link } from '@/shared/i18n/navigation';
 
 import type { RepoGroup } from '../../_lib';
 
+import { Empty } from './Empty';
+
 import styles from './RepoSection.module.scss';
 
 interface RepoSectionProps {
@@ -29,26 +31,30 @@ export const RepoSection = ({ repoGroups }: RepoSectionProps) => {
           {t('title')}
         </Heading>
 
-        <Grid style={{ marginTop: 40 }}>
-          {repoGroups.map((group) => {
-            return (
-              <Grid.Column key={group.name} span={{ xsmall: 12, small: 6, medium: 4, large: 3 }}>
-                <ActionList>
-                  <ActionList.Group>
-                    <ActionList.GroupHeading as="h3">{group.name}</ActionList.GroupHeading>
-                    {group.repos.map((repo) => {
-                      return (
-                        <ActionList.LinkItem as={Link} href={`/${repo}`} key={repo}>
-                          <Text size="200">{repo}</Text>
-                        </ActionList.LinkItem>
-                      );
-                    })}
-                  </ActionList.Group>
-                </ActionList>
-              </Grid.Column>
-            );
-          })}
-        </Grid>
+        {repoGroups.length > 0 ? (
+          <Grid style={{ marginTop: 40 }}>
+            {repoGroups.map((group) => {
+              return (
+                <Grid.Column key={group.name} span={{ xsmall: 12, small: 6, medium: 4, large: 3 }}>
+                  <ActionList>
+                    <ActionList.Group>
+                      <ActionList.GroupHeading as="h3">{group.name}</ActionList.GroupHeading>
+                      {group.repos.map((repo) => {
+                        return (
+                          <ActionList.LinkItem as={Link} href={`/${repo}`} key={repo}>
+                            <Text size="200">{repo}</Text>
+                          </ActionList.LinkItem>
+                        );
+                      })}
+                    </ActionList.Group>
+                  </ActionList>
+                </Grid.Column>
+              );
+            })}
+          </Grid>
+        ) : (
+          <Empty />
+        )}
       </Box>
     </Section>
   );

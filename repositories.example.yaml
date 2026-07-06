@@ -1,0 +1,45 @@
+# Local development sample. Copy this file to repositories.yaml.
+# Production injects the list via the GitHub Actions secret REPOSITORIES.
+
+- name: AI Agents
+  repos:
+    - anthropics/skills
+    - langchain-ai/langchain
+    - microsoft/autogen
+    - openai/openai-cookbook
+- name: Frontend
+  repos:
+    - facebook/react
+    - sveltejs/svelte
+    - vercel/next.js
+    - vuejs/core
+- name: Backend & API
+  repos:
+    - expressjs/express
+    - fastapi/fastapi
+    - nestjs/nest
+- name: Data & Storage
+  repos:
+    - prisma/prisma
+    - redis/redis
+    - supabase/supabase
+- name: DevOps & Cloud
+  repos:
+    - docker/compose
+    - hashicorp/terraform
+    - kubernetes/kubernetes
+- name: Security
+  repos:
+    - aquasecurity/trivy
+    - gitleaks/gitleaks
+    - ossf/scorecard
+- name: Documentation
+  repos:
+    - facebook/docusaurus
+    - mkdocs/mkdocs
+    - shuding/nextra
+- name: Community & Collaboration
+  repos:
+    - github/docs
+    - primer/react
+    - storybookjs/storybook

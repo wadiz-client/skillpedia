@@ -15,7 +15,11 @@
       "link": "Read the Guide"
     },
     "RepoSection": {
-      "title": "Browse Repositories"
+      "title": "Browse Repositories",
+      "Empty": {
+        "title": "Set up your repository list.",
+        "description": "Add a <code>repositories.json</code> or <code>repositories.yaml</code> file to the project root, or set the <code>REPOSITORIES</code> GitHub secret with your list in JSON or YAML."
+      }
     }
   },
   "Layout": {

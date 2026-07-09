@@ -42,6 +42,9 @@
     "title": "Skillpedia",
     "description": "Collects SKILL.md files scattered across GitHub repositories and presents them as structured documentation. Helps developers read skill docs written by engineers and understand exactly how to use them."
   },
+  "OwnerRepoSlugLoadingPage": {
+    "ariaLabel": "Loading document"
+  },
   "OwnerRepoSlugPage": {
     "Article": {
       "tabs": {

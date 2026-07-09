@@ -1,0 +1,50 @@
+.container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--base-size-16);
+  align-items: center;
+  justify-content: center;
+
+  padding: var(--base-size-40) var(--base-size-16);
+
+  .top {
+    .caption {
+      display: flex;
+      gap: var(--base-size-8);
+      align-items: center;
+      color: var(--brand-color-text-muted);
+    }
+  }
+
+  .middle {
+    .percent {
+      font-size: var(--base-size-80);
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .percentUnit {
+      margin-inline-start: var(--base-size-4);
+      font-size: var(--base-size-24);
+      font-weight: 600;
+      color: var(--brand-color-text-muted);
+    }
+  }
+
+  .bottom {
+    display: flex;
+    flex-direction: column;
+    gap: var(--base-size-16);
+    align-items: center;
+
+    .stage {
+      min-height: var(--base-size-24);
+    }
+
+    .progressBar {
+      width: 100%;
+      max-width: 460px;
+    }
+  }
+}

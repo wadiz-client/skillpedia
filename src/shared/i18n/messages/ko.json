@@ -43,7 +43,14 @@
     "description": "GitHub 저장소에 흩어진 SKILL.md 파일을 수집하여 구조화된 문서를 제공합니다. 개발자가 작성한 스킬 문서를 읽고 정확한 사용법을 파악할 수 있도록 합니다."
   },
   "OwnerRepoSlugLoadingPage": {
-    "ariaLabel": "문서를 불러오는 중"
+    "ariaLabel": "문서를 불러오는 중",
+    "ProgressPanel": {
+      "stages": {
+        "fetching": "GitHub 저장소에서 문서를 가져오고 있어요.",
+        "analyzing": "SKILL 문서를 분석하고 구조화하고 있어요.",
+        "preparing": "읽기 좋은 문서 화면을 준비하고 있어요."
+      }
+    }
   },
   "OwnerRepoSlugPage": {
     "Article": {

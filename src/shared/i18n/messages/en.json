@@ -43,7 +43,14 @@
     "description": "Collects SKILL.md files scattered across GitHub repositories and presents them as structured documentation. Helps developers read skill docs written by engineers and understand exactly how to use them."
   },
   "OwnerRepoSlugLoadingPage": {
-    "ariaLabel": "Loading document"
+    "ariaLabel": "Loading document",
+    "ProgressPanel": {
+      "stages": {
+        "fetching": "Fetching documents from the GitHub repository.",
+        "analyzing": "Analyzing and structuring SKILL documents.",
+        "preparing": "Preparing a readable document view."
+      }
+    }
   },
   "OwnerRepoSlugPage": {
     "Article": {

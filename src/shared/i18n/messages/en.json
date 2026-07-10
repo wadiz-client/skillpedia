@@ -1,7 +1,7 @@
 {
   "HomePage": {
     "HeroSection": {
-      "title": "Scattered Skill Docs, in One Place, Precisely",
+      "title": "<line>Scattered Skill Docs,</line><line>in One Place, Precisely</line>",
       "description": "Finds <code>SKILL.md</code> documents scattered across GitHub repositories and presents them in a structured form.",
       "form": {
         "error": "Please use the owner/repo format. Example: anthropics/skills",

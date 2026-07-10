@@ -5,7 +5,7 @@ import type { ReactNode } from 'react';
 import { ThemeProvider } from '@primer/react';
 import { ThemeProvider as BrandThemeProvider } from '@primer/react-brand';
 
-import { useColorMode } from './ColorModeProvider';
+import { useColorMode } from '@/shared/theme';
 
 interface PrimerThemeProviderProps {
   children: ReactNode;

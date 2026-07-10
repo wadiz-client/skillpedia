@@ -1,7 +1,7 @@
 {
   "HomePage": {
     "HeroSection": {
-      "title": "흩어진 스킬 문서를 한곳에서, 정확하게",
+      "title": "<line>흩어진 스킬 문서를</line><line>한곳에서, 정확하게</line>",
       "description": "GitHub 저장소에 흩어져 있는 <code>SKILL.md</code> 문서들을 찾아서 구조화된 형태로 제공합니다.",
       "form": {
         "error": "owner/repo 형식으로 작성해 주세요. 예: anthropics/skills",

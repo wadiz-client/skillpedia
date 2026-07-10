@@ -8,6 +8,9 @@ import { useTranslations } from 'next-intl';
 
 import { useRouter } from '@/shared/i18n/navigation';
 
+import { NetworkCanvas } from './NetworkCanvas';
+import { useHeroContent } from './useHeroContent';
+
 import styles from './HeroSection.module.scss';
 
 const DEFAULT_REPO_URL = 'https://github.com/anthropics/skills';
@@ -15,6 +18,7 @@ const DEFAULT_REPO_URL = 'https://github.com/anthropics/skills';
 export const HeroSection = () => {
   const t = useTranslations('HomePage.HeroSection');
   const router = useRouter();
+  const { rootRef, variant } = useHeroContent<HTMLDivElement>();
   const [repo, setRepo] = useState('');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -39,29 +43,47 @@ export const HeroSection = () => {
     <Section
       as="section"
       backgroundColor="default"
-      className={styles.section}
+      className={styles.container}
       paddingBlockEnd="spacious"
       paddingBlockStart="spacious"
+      ref={rootRef}
     >
+      {variant ? <NetworkCanvas variant={variant} /> : null}
+      <div
+        aria-hidden
+        className={styles.overlay}
+      />
       <Box
+        className={styles.content}
         paddingInlineEnd={40}
         paddingInlineStart={40}
       >
-        <Hero>
+        <Hero align="center">
           <Label
             color="green-blue-purple"
+            data-hero="1"
             size="large"
           >
             Beta
           </Label>
           <Hero.Heading
+            data-hero="2"
             letterSpacing="condensed"
             style={{ marginTop: 12 }}
             weight="extrabold"
           >
-            {t('title')}
+            {t.rich('title', {
+              line: (chunks) => {
+                return (
+                  <span className={styles.line}>
+                    <span data-hero-line="">{chunks}</span>
+                  </span>
+                );
+              },
+            })}
           </Hero.Heading>
           <Hero.Description
+            data-hero="3"
             size="400"
             variant="muted"
           >
@@ -72,6 +94,8 @@ export const HeroSection = () => {
             })}
           </Hero.Description>
           <Box
+            className={styles.form}
+            data-hero="4"
             marginBlockStart={32}
             style={{ width: '100%' }}
           >
@@ -107,11 +131,6 @@ export const HeroSection = () => {
               </Box>
             </form>
           </Box>
-          <Hero.Image
-            alt=""
-            position="inline-end"
-            src="/images/hero.svg"
-          />
         </Hero>
       </Box>
     </Section>

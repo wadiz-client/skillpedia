@@ -15,8 +15,9 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { routing } from '@/shared/i18n/routing';
 import type { Locale } from '@/shared/i18n/routing';
+import { ColorModeProvider } from '@/shared/theme';
 
-import { ColorModeProvider, PrimerThemeProvider } from '../providers';
+import { PrimerThemeProvider } from '../providers';
 import '../styles/style.scss';
 
 interface RootLayoutProps {

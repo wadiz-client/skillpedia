@@ -4,10 +4,10 @@ import { MoonIcon, SunIcon } from '@primer/octicons-react';
 import { Select } from '@primer/react';
 import { useLocale, useTranslations } from 'next-intl';
 
-import { useColorMode } from '@/app/providers';
 import { Link, usePathname, useRouter } from '@/shared/i18n/navigation';
 import { routing } from '@/shared/i18n/routing';
 import type { Locale } from '@/shared/i18n/routing';
+import { useColorMode } from '@/shared/theme';
 
 import styles from './Header.module.scss';
 

@@ -9,6 +9,7 @@ import { useTranslations } from 'next-intl';
 import { useRouter } from '@/shared/i18n/navigation';
 
 import { NetworkCanvas } from './NetworkCanvas';
+import { useHeroContent } from './useHeroContent';
 
 import styles from './HeroSection.module.scss';
 
@@ -17,6 +18,7 @@ const DEFAULT_REPO_URL = 'https://github.com/anthropics/skills';
 export const HeroSection = () => {
   const t = useTranslations('HomePage.HeroSection');
   const router = useRouter();
+  const { rootRef, variant } = useHeroContent<HTMLDivElement>();
   const [repo, setRepo] = useState('');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -44,8 +46,9 @@ export const HeroSection = () => {
       className={styles.section}
       paddingBlockEnd="spacious"
       paddingBlockStart="spacious"
+      ref={rootRef}
     >
-      <NetworkCanvas variant="float" />
+      {variant ? <NetworkCanvas variant={variant} /> : null}
       <div
         aria-hidden
         className={styles.overlay}

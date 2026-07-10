@@ -43,7 +43,7 @@ export const HeroSection = () => {
     <Section
       as="section"
       backgroundColor="default"
-      className={styles.section}
+      className={styles.container}
       paddingBlockEnd="spacious"
       paddingBlockStart="spacious"
       ref={rootRef}

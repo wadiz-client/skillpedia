@@ -34,6 +34,20 @@
     .form {
       max-width: 540px;
       margin-inline: auto;
+
+      form {
+        display: flex;
+        gap: var(--base-size-8);
+        align-items: flex-start;
+
+        > :first-child {
+          flex: 1;
+        }
+
+        input {
+          font-size: var(--brand-text-size-300);
+        }
+      }
     }
   }
 }

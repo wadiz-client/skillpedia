@@ -105,12 +105,12 @@ export const HeroSection = () => {
                 size="large"
                 validationStatus={errorMessage ? 'error' : undefined}
               >
-                <FormControl.Label>{t('form.label')}</FormControl.Label>
+                <FormControl.Label visuallyHidden>{t('form.label')}</FormControl.Label>
                 <TextInput
                   fullWidth
                   leadingVisual={<SearchIcon />}
                   placeholder={DEFAULT_REPO_URL}
-                  size="medium"
+                  size="large"
                   type="search"
                   value={repo}
                   onChange={(event) => {
@@ -120,15 +120,13 @@ export const HeroSection = () => {
                 />
                 {errorMessage ? <FormControl.Validation>{errorMessage}</FormControl.Validation> : null}
               </FormControl>
-              <Box marginBlockStart={16}>
-                <Hero.PrimaryAction
-                  as="button"
-                  href="#"
-                  size="large"
-                >
-                  {t('form.submit')}
-                </Hero.PrimaryAction>
-              </Box>
+              <Hero.PrimaryAction
+                as="button"
+                href="#"
+                size="large"
+              >
+                {t('form.submit')}
+              </Hero.PrimaryAction>
             </form>
           </Box>
         </Hero>

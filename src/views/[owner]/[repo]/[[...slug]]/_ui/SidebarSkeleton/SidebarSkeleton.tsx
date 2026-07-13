@@ -1,3 +1,5 @@
+import { SkeletonText } from '@primer/react/experimental';
+
 import styles from './SidebarSkeleton.module.scss';
 
 // 사이드바 항목 자리표시자의 너비를 정의합니다.
@@ -7,10 +9,10 @@ export const SidebarSkeleton = () => {
   return (
     <aside className={styles.container}>
       <div className={styles.inner}>
-        <div className={styles.title} />
+        <SkeletonText maxWidth="60%" size="titleMedium" />
 
         {ITEM_WIDTHS.map((width, index) => {
-          return <div className={styles.item} key={index} style={{ width }} />;
+          return <SkeletonText key={index} maxWidth={width} />;
         })}
       </div>
     </aside>

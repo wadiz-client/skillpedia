@@ -1,24 +1,5 @@
 @use 'breakpoint' as *;
 
-%bar {
-  border-radius: var(--base-size-4);
-
-  background-color: var(--brand-color-canvas-subtle);
-  background-image: linear-gradient(
-    90deg,
-    var(--brand-color-canvas-subtle) 0%,
-    var(--brand-color-canvas-inset) 50%,
-    var(--brand-color-canvas-subtle) 100%
-  );
-  background-size: 200% 100%;
-
-  animation: shimmer 1.4s ease-in-out infinite;
-
-  @media (prefers-reduced-motion: reduce) {
-    animation: none;
-  }
-}
-
 .container {
   flex-shrink: 0;
   width: 300px;
@@ -28,32 +9,12 @@
   .inner {
     position: sticky;
     top: 65px;
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--base-size-16);
+
     padding: var(--base-size-24) var(--base-size-16) 0;
-  }
-
-  .title {
-    @extend %bar;
-
-    width: 60%;
-    height: var(--base-size-20);
-    margin-bottom: var(--base-size-24);
-  }
-
-  .item {
-    @extend %bar;
-
-    height: var(--base-size-16);
-    margin-bottom: var(--base-size-16);
-  }
-}
-
-@keyframes shimmer {
-  from {
-    background-position: 200% 0;
-  }
-
-  to {
-    background-position: -200% 0;
   }
 }
 

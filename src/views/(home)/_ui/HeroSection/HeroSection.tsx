@@ -15,7 +15,11 @@ import styles from './HeroSection.module.scss';
 
 const DEFAULT_REPO_URL = 'https://github.com/anthropics/skills';
 
-export const HeroSection = () => {
+interface HeroSectionProps {
+  isMobile: boolean;
+}
+
+export const HeroSection = ({ isMobile }: HeroSectionProps) => {
   const t = useTranslations('HomePage.HeroSection');
   const router = useRouter();
   const { rootRef, variant } = useHeroContent<HTMLDivElement>();
@@ -102,7 +106,7 @@ export const HeroSection = () => {
             <form onSubmit={handleSubmit}>
               <FormControl
                 fullWidth
-                size="large"
+                size={isMobile ? 'medium' : 'large'}
                 validationStatus={errorMessage ? 'error' : undefined}
               >
                 <FormControl.Label visuallyHidden>{t('form.label')}</FormControl.Label>
@@ -110,7 +114,7 @@ export const HeroSection = () => {
                   fullWidth
                   leadingVisual={<SearchIcon />}
                   placeholder={DEFAULT_REPO_URL}
-                  size="large"
+                  size={isMobile ? 'medium' : 'large'}
                   type="search"
                   value={repo}
                   onChange={(event) => {
@@ -123,7 +127,7 @@ export const HeroSection = () => {
               <Hero.PrimaryAction
                 as="button"
                 href="#"
-                size="large"
+                size={isMobile ? 'medium' : 'large'}
               >
                 {t('form.submit')}
               </Hero.PrimaryAction>

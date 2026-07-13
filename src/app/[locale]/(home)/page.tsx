@@ -1,4 +1,5 @@
 import { headers } from 'next/headers';
+import { userAgent } from 'next/server';
 
 import { setRequestLocale } from 'next-intl/server';
 
@@ -17,6 +18,14 @@ export default async function Page({ params }: PageProps) {
 
   const headersList = await headers();
   const isPublicDomain = headersList.get('host') === 'skillpedia.vercel.app';
+  const { device } = userAgent({ headers: headersList });
+  const isMobile = device.type === 'mobile';
 
-  return <HomePage isPublicDomain={isPublicDomain} repoGroups={repoGroups} />;
+  return (
+    <HomePage
+      isMobile={isMobile}
+      isPublicDomain={isPublicDomain}
+      repoGroups={repoGroups}
+    />
+  );
 }

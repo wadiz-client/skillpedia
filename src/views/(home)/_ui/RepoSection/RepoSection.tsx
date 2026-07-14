@@ -1,80 +1,59 @@
 'use client';
 
 import { RepoIcon } from '@primer/octicons-react';
-import { ActionList } from '@primer/react';
 import { Blankslate } from '@primer/react/experimental';
-import { Box, Grid, Heading, Section, Text } from '@primer/react-brand';
+import { Box, Heading, Section, Text } from '@primer/react-brand';
 import { useTranslations } from 'next-intl';
 
-import { Link } from '@/shared/i18n/navigation';
+import type { RepoMetadata } from '@/features/repo-metadata/api';
 
-import type { RepoGroup } from '../../_lib';
+import { RepoCard } from './RepoCard';
 
 import styles from './RepoSection.module.scss';
 
 interface RepoSectionProps {
-  repoGroups: RepoGroup[];
+  repoMetadataList: RepoMetadata[];
 }
 
-export const RepoSection = ({ repoGroups }: RepoSectionProps) => {
+export const RepoSection = ({ repoMetadataList }: RepoSectionProps) => {
   const t = useTranslations('HomePage.RepoSection');
 
   return (
     <Section
       as="section"
-      className={styles.section}
+      className={styles.container}
       paddingBlockEnd="spacious"
       paddingBlockStart="spacious"
     >
-      <Box
-        paddingInlineEnd={40}
-        paddingInlineStart={40}
-      >
-        <Heading
-          as="h2"
-          size="5"
-          weight="bold"
-        >
-          {t('title')}
-        </Heading>
+      <Box paddingInlineEnd={40} paddingInlineStart={40}>
+        <div className={styles.header}>
+          <Heading as="h2" size="5" weight="bold">
+            {t('title')}
+          </Heading>
+          {repoMetadataList.length > 0 ? (
+            <Text as="span" size="200" variant="muted">
+              {t.rich('total', {
+                count: repoMetadataList.length,
+                strong: (chunks) => {
+                  return <strong className={styles.totalCount}>{chunks}</strong>;
+                },
+              })}
+            </Text>
+          ) : null}
+        </div>
 
-        {repoGroups.length > 0 ? (
-          <Grid style={{ marginTop: 40 }}>
-            {repoGroups.map((group) => {
-              return (
-                <Grid.Column
-                  key={group.name}
-                  span={{ xsmall: 12, small: 6, medium: 4, large: 3 }}
-                >
-                  <ActionList>
-                    <ActionList.Group>
-                      <ActionList.GroupHeading as="h3">{group.name}</ActionList.GroupHeading>
-                      {group.repos.map((repo) => {
-                        return (
-                          <ActionList.LinkItem
-                            as={Link}
-                            href={`/${repo}`}
-                            key={repo}
-                          >
-                            <Text size="200">{repo}</Text>
-                          </ActionList.LinkItem>
-                        );
-                      })}
-                    </ActionList.Group>
-                  </ActionList>
-                </Grid.Column>
-              );
+        {repoMetadataList.length > 0 ? (
+          <div className={styles.content}>
+            {repoMetadataList.map((repoMetadata) => {
+              return <RepoCard key={`${repoMetadata.owner}/${repoMetadata.repo}`} repoMetadata={repoMetadata} />;
             })}
-          </Grid>
+          </div>
         ) : (
-          <Blankslate
-            narrow
-            spacious
-          >
+          <Blankslate narrow spacious>
             <Blankslate.Visual>
-              <RepoIcon size="medium" />
+              <RepoIcon size={48} />
             </Blankslate.Visual>
-            <Blankslate.Heading as="h2">{t('Empty.title')}</Blankslate.Heading>
+            <Blankslate.Heading as="h3">{t('Empty.title')}</Blankslate.Heading>
             <Blankslate.Description>
               {t.rich('Empty.description', {
                 code: (chunks) => {

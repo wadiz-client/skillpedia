@@ -16,6 +16,8 @@
     },
     "RepoSection": {
       "title": "Browse Repositories",
+      "skillCount": "{count} SKILL.md",
+      "total": "<strong>{count}</strong> total",
       "Empty": {
         "title": "Set up your repository list.",
         "description": "Add a <code>repositories.json</code> or <code>repositories.yaml</code> file to the project root, or set the <code>REPOSITORIES</code> GitHub secret with your list in JSON or YAML."

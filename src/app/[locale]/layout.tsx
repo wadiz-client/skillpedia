@@ -64,7 +64,7 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
   return (
     <html data-dark-theme="dark" data-light-theme="light" lang={locale}>
       <body>
-        <NextIntlClientProvider>
+        <NextIntlClientProvider now={new Date()}>
           <ColorModeProvider>
             <PrimerThemeProvider>{children}</PrimerThemeProvider>
           </ColorModeProvider>

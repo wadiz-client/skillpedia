@@ -1,3 +1,22 @@
-.section {
+.container {
   border-bottom: 1px solid var(--brand-color-border-default);
+
+  .header {
+    display: flex;
+    gap: var(--base-size-16);
+    align-items: baseline;
+    justify-content: space-between;
+
+    margin-bottom: var(--base-size-40);
+
+    .totalCount {
+      color: var(--brand-color-text-default);
+    }
+  }
+
+  .content {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: var(--base-size-24);
+  }
 }

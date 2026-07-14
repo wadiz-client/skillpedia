@@ -6,7 +6,7 @@ import { NavList } from '@primer/react';
 import { Heading, Text } from '@primer/react-brand';
 import { useTranslations } from 'next-intl';
 
-import type { RepoTreeNode } from '@/features/repo-tree';
+import type { RepoTreeNode } from '@/features/repo-tree/api';
 import { Link, usePathname } from '@/shared/i18n/navigation';
 
 import { normalizeTitle } from '../../_lib';

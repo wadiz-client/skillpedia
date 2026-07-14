@@ -1,5 +1,5 @@
-import { getRepoReadmeMarkdown, getRepoSkillMarkdown } from '@/features/repo-markdown';
-import { getRepoTreeNodes } from '@/features/repo-tree';
+import { getRepoReadmeMarkdown, getRepoSkillMarkdown } from '@/features/repo-markdown/api';
+import { getRepoTreeNodes } from '@/features/repo-tree/api';
 
 import { getBreadcrumbs, normalizeTitle, parseMarkdown } from './_lib';
 import { Article } from './_ui/Article';

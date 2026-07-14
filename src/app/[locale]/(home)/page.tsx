@@ -4,17 +4,20 @@ import { userAgent } from 'next/server';
 import { setRequestLocale } from 'next-intl/server';
 
 import { HomePage } from '@/views/(home)/HomePage';
-import { getRepoGroups } from '@/views/(home)/_lib';
+import { getRankedRepoMetadataList } from '@/views/(home)/_lib';
 
 interface PageProps {
   params: Promise<{ locale: string }>;
 }
 
+// 저장소 메타데이터를 1시간마다 재검증해 GitHub API 호출을 줄입니다.
+export const revalidate = 3600;
+
 export default async function Page({ params }: PageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const repoGroups = getRepoGroups();
+  const repoMetadataList = await getRankedRepoMetadataList();
 
   const headersList = await headers();
   const isPublicDomain = headersList.get('host') === 'skillpedia.vercel.app';
@@ -25,7 +28,7 @@ export default async function Page({ params }: PageProps) {
     <HomePage
       isMobile={isMobile}
       isPublicDomain={isPublicDomain}
-      repoGroups={repoGroups}
+      repoMetadataList={repoMetadataList}
     />
   );
 }

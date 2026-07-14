@@ -1,10 +1,10 @@
-export { getRepoReadmeMarkdown } from './api/getRepoReadmeMarkdown';
-export { getRepoSkillMarkdown } from './api/getRepoSkillMarkdown';
+export { getRepoReadmeMarkdown } from './getRepoReadmeMarkdown';
+export { getRepoSkillMarkdown } from './getRepoSkillMarkdown';
 export type {
   GetRepoReadmeMarkdownRequest as GetRepoReadmeMarkdownParams,
   GetRepoReadmeMarkdownResponse,
-} from './api/getRepoReadmeMarkdown';
+} from './getRepoReadmeMarkdown';
 export type {
   GetRepoSkillMarkdownRequest as GetRepoSkillMarkdownParams,
   GetRepoSkillMarkdownResponse,
-} from './api/getRepoSkillMarkdown';
+} from './getRepoSkillMarkdown';

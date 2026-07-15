@@ -22,7 +22,7 @@ const checkIsSkillFile = (path: string) => {
 
 /**
  * 저장소 메타데이터 조회
- * @description GitHub 저장소의 스타 수·설명·갱신 시각과 SKILL.md 개수를 조회합니다.
+ * @description GitHub 저장소의 스타 수·설명·업데이트 시각과 SKILL.md 개수를 조회합니다.
  */
 export const getRepositoryMetadata = async ({
   owner,

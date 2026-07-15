@@ -34,18 +34,18 @@ export const getRankedRepositoryMetadataList = async (): Promise<RepositoryMetad
   const skillCounts = repositoryMetadataList.map((repositoryMetadata) => {
     return repositoryMetadata.skillCount;
   });
-  const updatedAtTimes = repositoryMetadataList.map((repositoryMetadata) => {
+  const updatedAtList = repositoryMetadataList.map((repositoryMetadata) => {
     return new Date(repositoryMetadata.updatedAt).getTime() || 0;
   });
   const minSkillCount = Math.min(...skillCounts);
   const maxSkillCount = Math.max(...skillCounts);
-  const minUpdatedAtTime = Math.min(...updatedAtTimes);
-  const maxUpdatedAtTime = Math.max(...updatedAtTimes);
+  const minUpdatedAt = Math.min(...updatedAtList);
+  const maxUpdatedAt = Math.max(...updatedAtList);
 
   return repositoryMetadataList
     .map((repositoryMetadata) => {
       const skillCountScore = normalize(repositoryMetadata.skillCount, minSkillCount, maxSkillCount);
-      const updatedAtScore = normalize(new Date(repositoryMetadata.updatedAt).getTime() || 0, minUpdatedAtTime, maxUpdatedAtTime);
+      const updatedAtScore = normalize(new Date(repositoryMetadata.updatedAt).getTime() || 0, minUpdatedAt, maxUpdatedAt);
       const score = skillCountScore * SKILL_COUNT_WEIGHT + updatedAtScore * UPDATED_AT_WEIGHT;
 
       return { repositoryMetadata, score };

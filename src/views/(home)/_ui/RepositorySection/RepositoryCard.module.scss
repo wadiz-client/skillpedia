@@ -1,3 +1,15 @@
+@keyframes fade-in-up {
+  from {
+    transform: translateY(var(--base-size-8));
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 %owner {
   font-weight: 500;
   color: var(--brand-color-text-muted);
@@ -15,11 +27,19 @@
   color: var(--brand-color-text-default);
   text-decoration: none;
 
+  opacity: 0;
   background: var(--brand-color-canvas-default);
 
   transition:
-    border-color 0.25s ease-out,
-    box-shadow 0.25s ease-out;
+    border-color 250ms ease-out,
+    box-shadow 250ms ease-out;
+  animation: fade-in-up 600ms ease-out both paused;
+  animation-delay: calc(mod(sibling-index() - 1, 4) * 100ms);
+
+  // 뷰포트에 진입하면 애니메이션을 재생합니다.
+  &[data-visible="true"] {
+    animation-play-state: running;
+  }
 
   &:hover {
     border-color: var(--brand-color-border-muted);
@@ -193,5 +213,10 @@
         background: var(--brand-color-text-default);
       }
     }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    opacity: 1;
+    animation: none;
   }
 }

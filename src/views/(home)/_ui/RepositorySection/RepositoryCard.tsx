@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect, useRef, useState } from 'react';
+
 import { ArrowRightIcon, ClockIcon, FileIcon, StarFillIcon } from '@primer/octicons-react';
 import { Label } from '@primer/react';
 import { useFormatter, useNow, useTranslations } from 'next-intl';
@@ -18,11 +20,40 @@ export const RepositoryCard = ({ repositoryMetadata }: RepositoryCardProps) => {
   const t = useTranslations('HomePage.RepositorySection');
   const format = useFormatter();
   const now = useNow();
+  const containerRef = useRef<HTMLAnchorElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  // 카드가 뷰포트에 들어오는 시점에 진입 애니메이션을 재생합니다.
+  useEffect(() => {
+    const container = containerRef.current;
+
+    if (container) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setIsVisible(true);
+              observer.disconnect();
+            }
+          });
+        },
+        { threshold: 0.15 },
+      );
+
+      observer.observe(container);
+
+      return () => {
+        observer.disconnect();
+      };
+    }
+  }, []);
 
   return (
     <Link
       className={styles.container}
+      data-visible={isVisible}
       href={`/${owner}/${repo}`}
+      ref={containerRef}
     >
       {rank ? (
         <span

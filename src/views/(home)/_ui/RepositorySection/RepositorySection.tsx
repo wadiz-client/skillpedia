@@ -45,7 +45,12 @@ export const RepositorySection = ({ repositoryMetadataList }: RepositorySectionP
         {repositoryMetadataList.length > 0 ? (
           <div className={styles.content}>
             {repositoryMetadataList.map((repositoryMetadata) => {
-              return <RepositoryCard key={`${repositoryMetadata.owner}/${repositoryMetadata.repo}`} repositoryMetadata={repositoryMetadata} />;
+              return (
+                <RepositoryCard
+                  key={`${repositoryMetadata.owner}/${repositoryMetadata.repo}`}
+                  repositoryMetadata={repositoryMetadata}
+                />
+              );
             })}
           </div>
         ) : (

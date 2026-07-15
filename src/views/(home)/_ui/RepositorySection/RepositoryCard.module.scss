@@ -139,28 +139,9 @@
         flex-wrap: wrap;
         gap: var(--base-size-8);
 
-        .chip,
-        .skillChip {
-          display: inline-flex;
-          gap: 5px;
-          align-items: center;
-
-          height: 26px;
-          padding: 0 10px;
-          border-radius: 999px;
-
-          font-size: 12px;
-          font-weight: 600;
-        }
-
-        .chip {
-          border: 1px solid var(--brand-color-border-default);
-          color: var(--brand-color-text-muted);
-        }
-
-        .skillChip {
-          color: var(--fgColor-success);
-          background: var(--bgColor-success-muted);
+        // Primer Label의 아이콘과 텍스트 간격을 더합니다.
+        .label {
+          gap: var(--base-size-4);
         }
 
         .starIcon {

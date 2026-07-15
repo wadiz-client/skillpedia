@@ -1,6 +1,7 @@
 'use client';
 
 import { ArrowRightIcon, ClockIcon, FileIcon, StarFillIcon } from '@primer/octicons-react';
+import { Label } from '@primer/react';
 import { useFormatter, useNow, useTranslations } from 'next-intl';
 
 import type { RepositoryMetadata } from '@/features/repository-metadata/api';
@@ -19,9 +20,15 @@ export const RepositoryCard = ({ repositoryMetadata }: RepositoryCardProps) => {
   const now = useNow();
 
   return (
-    <Link className={styles.container} href={`/${owner}/${repo}`}>
+    <Link
+      className={styles.container}
+      href={`/${owner}/${repo}`}
+    >
       {rank ? (
-        <span className={styles.badge} data-rank={rank}>
+        <span
+          className={styles.badge}
+          data-rank={rank}
+        >
           <StarFillIcon size={15} />
           {rank}
         </span>
@@ -46,23 +53,41 @@ export const RepositoryCard = ({ repositoryMetadata }: RepositoryCardProps) => {
             {description ? <p className={styles.description}>{description}</p> : null}
           </div>
           <div className={styles.bottom}>
-            <span className={styles.skillChip}>
+            <Label
+              className={styles.label}
+              size="large"
+              variant="success"
+            >
               <FileIcon size={12} />
               {t('skillCount', { count: skillCount })}
-            </span>
-            <span className={styles.chip}>
-              <StarFillIcon className={styles.starIcon} size={12} />
+            </Label>
+            <Label
+              className={styles.label}
+              size="large"
+              variant="secondary"
+            >
+              <StarFillIcon
+                className={styles.starIcon}
+                size={12}
+              />
               {format.number(starCount, { notation: 'compact' })}
-            </span>
+            </Label>
             {updatedAt ? (
-              <span className={styles.chip}>
+              <Label
+                className={styles.label}
+                size="large"
+                variant="secondary"
+              >
                 <ClockIcon size={12} />
                 {format.relativeTime(new Date(updatedAt), now)}
-              </span>
+              </Label>
             ) : null}
           </div>
         </div>
-        <div aria-hidden className={styles.overlay}>
+        <div
+          aria-hidden
+          className={styles.overlay}
+        >
           <span className={styles.title}>
             <span className={styles.owner}>{owner}/</span>
             {repo}

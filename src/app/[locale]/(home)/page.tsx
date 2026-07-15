@@ -4,7 +4,7 @@ import { userAgent } from 'next/server';
 import { setRequestLocale } from 'next-intl/server';
 
 import { HomePage } from '@/views/(home)/HomePage';
-import { getRankedRepoMetadataList } from '@/views/(home)/_lib';
+import { getRankedRepositoryMetadataList } from '@/views/(home)/_lib';
 
 interface PageProps {
   params: Promise<{ locale: string }>;
@@ -17,7 +17,7 @@ export default async function Page({ params }: PageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const repoMetadataList = await getRankedRepoMetadataList();
+  const repositoryMetadataList = await getRankedRepositoryMetadataList();
 
   const headersList = await headers();
   const isPublicDomain = headersList.get('host') === 'skillpedia.vercel.app';
@@ -28,7 +28,7 @@ export default async function Page({ params }: PageProps) {
     <HomePage
       isMobile={isMobile}
       isPublicDomain={isPublicDomain}
-      repoMetadataList={repoMetadataList}
+      repositoryMetadataList={repositoryMetadataList}
     />
   );
 }

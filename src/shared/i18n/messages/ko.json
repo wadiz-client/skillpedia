@@ -9,12 +9,12 @@
         "submit": "문서 보기"
       }
     },
-    "PrivateRepoSection": {
+    "PrivateRepositorySection": {
       "title": "사내 저장소 스킬을<br></br>팀 안에서 안전하게",
       "description": "사내 인프라에 직접 설치해서 운영해 보세요. 외부에 공개하지 않고 사내 저장소의 스킬 문서를 안전하게 구조화할 수 있습니다.",
       "link": "가이드 보러 가기"
     },
-    "RepoSection": {
+    "RepositorySection": {
       "title": "저장소 둘러보기",
       "skillCount": "{count} SKILL.md",
       "total": "전체 <strong>{count}</strong>개",

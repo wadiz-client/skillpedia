@@ -1,3 +1,3 @@
 export { HeroSection } from './HeroSection';
-export { PrivateRepoSection } from './PrivateRepoSection';
-export { RepoSection } from './RepoSection';
+export { PrivateRepositorySection } from './PrivateRepositorySection';
+export { RepositorySection } from './RepositorySection';

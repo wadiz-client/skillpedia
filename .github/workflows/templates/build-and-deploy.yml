@@ -31,7 +31,7 @@ jobs:
             echo "APP_ID=${{ vars.APP_ID }}"
             echo "APP_PRIVATE_KEY=${{ secrets.APP_PRIVATE_KEY }}"
             echo "GITHUB_TOKEN=${{ secrets.PAT }}"
-            echo "REPOSITORIES=\"${{ secrets.REPOSITORIES }}\""
+            echo "REPOSITORIES=\"${{ vars.REPOSITORIES }}\""
           } > .env
 
       - name: Build and deploy

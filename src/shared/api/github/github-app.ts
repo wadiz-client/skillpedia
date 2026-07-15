@@ -11,7 +11,7 @@ if (proxyUrl) {
 let app: App | undefined;
 let octokit: Octokit | undefined;
 
-export const getRepoOctokit = async (owner: string, repo: string) => {
+export const getRepositoryOctokit = async (owner: string, repo: string) => {
   // 빌드 시점 모듈 평가 오류를 방지할 수 있도록 런타임 시점에 인스턴스를 생성합니다.
   app ??= new App({
     appId: process.env.APP_ID!,

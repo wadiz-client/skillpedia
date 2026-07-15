@@ -9,12 +9,12 @@
         "submit": "View Docs"
       }
     },
-    "PrivateRepoSection": {
+    "PrivateRepositorySection": {
       "title": "Private Repo Skills,<br></br>Safely Within Your Team",
       "description": "Install it directly on your own infrastructure. Structure your internal repository's skill docs safely without exposing them externally.",
       "link": "Read the Guide"
     },
-    "RepoSection": {
+    "RepositorySection": {
       "title": "Browse Repositories",
       "skillCount": "{count} SKILL.md",
       "total": "<strong>{count}</strong> total",

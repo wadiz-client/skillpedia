@@ -1,22 +1,22 @@
-import { getRepoOctokit } from '@/shared/api/github';
+import { getRepositoryOctokit } from '@/shared/api/github';
 
-export interface GetRepoSkillMarkdownRequest {
+export interface GetRepositorySkillMarkdownRequest {
   owner: string;
   path: string;
   repo: string;
 }
 
-export interface GetRepoSkillMarkdownResponse {
+export interface GetRepositorySkillMarkdownResponse {
   content: string;
   path: string;
 }
 
-export const getRepoSkillMarkdown = async ({
+export const getRepositorySkillMarkdown = async ({
   owner,
   path,
   repo,
-}: GetRepoSkillMarkdownRequest): Promise<GetRepoSkillMarkdownResponse | null> => {
-  const octokit = await getRepoOctokit(owner, repo);
+}: GetRepositorySkillMarkdownRequest): Promise<GetRepositorySkillMarkdownResponse | null> => {
+  const octokit = await getRepositoryOctokit(owner, repo);
   const filePath = path ? `${path}/SKILL.md` : 'SKILL.md';
 
   try {

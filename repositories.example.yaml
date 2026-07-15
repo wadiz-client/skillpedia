@@ -1,5 +1,5 @@
 # Local development sample. Copy this file to repositories.yaml.
-# Production injects the list via the GitHub Actions secret REPOSITORIES.
+# Production injects the list via the GitHub Actions REPOSITORIES variable.
 
 - anthropics/skills
 - aquasecurity/trivy

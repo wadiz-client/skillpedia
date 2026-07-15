@@ -1,1 +1,1 @@
-export { getRankedRepoMetadataList } from './getRankedRepoMetadataList';
+export { getRankedRepositoryMetadataList } from './getRankedRepositoryMetadataList';

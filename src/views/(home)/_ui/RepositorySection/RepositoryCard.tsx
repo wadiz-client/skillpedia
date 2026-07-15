@@ -3,18 +3,18 @@
 import { ArrowRightIcon, ClockIcon, FileIcon, StarFillIcon } from '@primer/octicons-react';
 import { useFormatter, useNow, useTranslations } from 'next-intl';
 
-import type { RepoMetadata } from '@/features/repo-metadata/api';
+import type { RepositoryMetadata } from '@/features/repository-metadata/api';
 import { Link } from '@/shared/i18n/navigation';
 
-import styles from './RepoCard.module.scss';
+import styles from './RepositoryCard.module.scss';
 
-interface RepoCardProps {
-  repoMetadata: RepoMetadata;
+interface RepositoryCardProps {
+  repositoryMetadata: RepositoryMetadata;
 }
 
-export const RepoCard = ({ repoMetadata }: RepoCardProps) => {
-  const { description, owner, rank, repo, skillCount, starCount, updatedAt } = repoMetadata;
-  const t = useTranslations('HomePage.RepoSection');
+export const RepositoryCard = ({ repositoryMetadata }: RepositoryCardProps) => {
+  const { description, owner, rank, repo, skillCount, starCount, updatedAt } = repositoryMetadata;
+  const t = useTranslations('HomePage.RepositorySection');
   const format = useFormatter();
   const now = useNow();
 

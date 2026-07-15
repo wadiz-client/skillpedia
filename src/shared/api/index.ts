@@ -1,1 +1,1 @@
-export { getRepoOctokit } from './github';
+export { getRepositoryOctokit } from './github';

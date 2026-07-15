@@ -3,7 +3,7 @@ import { join } from 'node:path';
 
 import { load } from 'js-yaml';
 
-const getReposContent = (): string => {
+const getRepositoriesContent = (): string => {
   if (process.env.REPOSITORIES) {
     return process.env.REPOSITORIES;
   }
@@ -21,8 +21,8 @@ const getReposContent = (): string => {
   return '';
 };
 
-export const getRepos = (): string[] => {
-  const content = getReposContent();
+export const getRepositories = (): string[] => {
+  const content = getRepositoriesContent();
 
   if (!content) {
     return [];

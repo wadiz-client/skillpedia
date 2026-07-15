@@ -44,7 +44,7 @@ src/
 ├── views/      # 페이지 단위 컴포지션과 페이지 전용 UI·로직
 │               #   (HomePage, OwnerRepoSlugPage + _ui: Article·Prose·CodeBlock·Sidebar·Toc, _lib: parseMarkdown 등)
 ├── widgets/    # 전역 레이아웃 블록 (Layout, Header, Content)
-├── features/   # 사용자 상호작용 기능 (repo-markdown, repo-tree)
+├── features/   # 사용자 상호작용 기능 (repository-markdown, repository-metadata, repository-tree)
 └── shared/     # 공통 API 클라이언트·스타일 (github, breakpoint)
 ```
 

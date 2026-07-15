@@ -1,23 +1,23 @@
-import { getRepoOctokit } from '@/shared/api/github';
+import { getRepositoryOctokit } from '@/shared/api/github';
 
-export interface RepoTreeNode {
-  children?: RepoTreeNode[];
+export interface RepositoryTreeNode {
+  children?: RepositoryTreeNode[];
   href: string;
   name: string;
 }
 
-interface GetRepoTreeNodesRequest {
+interface GetRepositoryTreeNodesRequest {
   owner: string;
   repo: string;
 }
 
-type GetRepoTreeNodesResponse = Promise<RepoTreeNode[]>;
+type GetRepositoryTreeNodesResponse = Promise<RepositoryTreeNode[]>;
 
 /**
  * GitHub 저장소에서 SKILL.md 파일이 위치한 폴더 경로를 추출해 중첩 트리 구조로 반환합니다.
  *
  * @example
- * const treeNodes = await getRepoTreeNodes({ owner: 'wadiz-client', repo: 'wadiz-claude-plugins' });
+ * const treeNodes = await getRepositoryTreeNodes({ owner: 'wadiz-client', repo: 'wadiz-claude-plugins' });
  * // [
  * //   {
  * //     href: '/wadiz-client/wadiz-claude-plugins/plugins',
@@ -43,12 +43,12 @@ type GetRepoTreeNodesResponse = Promise<RepoTreeNode[]>;
  * //   },
  * // ]
  */
-export const getRepoTreeNodes = async ({
+export const getRepositoryTreeNodes = async ({
   owner,
   repo,
-}: GetRepoTreeNodesRequest): GetRepoTreeNodesResponse => {
+}: GetRepositoryTreeNodesRequest): GetRepositoryTreeNodesResponse => {
   try {
-    const octokit = await getRepoOctokit(owner, repo);
+    const octokit = await getRepositoryOctokit(owner, repo);
 
     const { data } = await octokit.rest.git.getTree({
       owner,
@@ -71,8 +71,8 @@ export const getRepoTreeNodes = async ({
         return a.split('/').length - b.split('/').length || a.localeCompare(b);
       });
 
-    const treeNodes: RepoTreeNode[] = [];
-    const treeNodeMap = new Map<string, RepoTreeNode>();
+    const treeNodes: RepositoryTreeNode[] = [];
+    const treeNodeMap = new Map<string, RepositoryTreeNode>();
 
     for (const path of paths) {
       // SKILL.md 파일이 루트 경로에 있는 경우
@@ -103,7 +103,7 @@ export const getRepoTreeNodes = async ({
           continue;
         }
 
-        const treeNode: RepoTreeNode = {
+        const treeNode: RepositoryTreeNode = {
           href: isLeaf ? href : `/${owner}/${repo}/${currentPath}`,
           name: segment,
         };

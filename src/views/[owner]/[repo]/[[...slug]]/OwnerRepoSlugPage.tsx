@@ -1,5 +1,5 @@
-import { getRepoReadmeMarkdown, getRepoSkillMarkdown } from '@/features/repo-markdown/api';
-import { getRepoTreeNodes } from '@/features/repo-tree/api';
+import { getRepositoryReadmeMarkdown, getRepositorySkillMarkdown } from '@/features/repository-markdown/api';
+import { getRepositoryTreeNodes } from '@/features/repository-tree/api';
 
 import { getBreadcrumbs, normalizeTitle, parseMarkdown } from './_lib';
 import { Article } from './_ui/Article';
@@ -21,12 +21,12 @@ export const OwnerRepoSlugPage = async ({ owner, repo, slug }: OwnerRepoSlugPage
     return null;
   }
 
-  const navItems = await getRepoTreeNodes({ owner, repo });
+  const navItems = await getRepositoryTreeNodes({ owner, repo });
   const path = slug.join('/');
 
   const [readmeMarkdownResult, skillMarkdownResult] = await Promise.allSettled([
-    getRepoReadmeMarkdown({ owner, path, repo }),
-    getRepoSkillMarkdown({ owner, path, repo }),
+    getRepositoryReadmeMarkdown({ owner, path, repo }),
+    getRepositorySkillMarkdown({ owner, path, repo }),
   ]);
 
   const readmeMarkdown =

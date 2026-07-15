@@ -1,6 +1,6 @@
-import { getRepoOctokit } from '@/shared/api/github';
+import { getRepositoryOctokit } from '@/shared/api/github';
 
-export interface RepoMetadata {
+export interface RepositoryMetadata {
   description: string;
   owner: string;
   rank: number | null;
@@ -10,7 +10,7 @@ export interface RepoMetadata {
   updatedAt: string;
 }
 
-interface GetRepoMetadataRequest {
+interface GetRepositoryMetadataRequest {
   owner: string;
   repo: string;
 }
@@ -24,13 +24,13 @@ const checkIsSkillFile = (path: string) => {
  * 저장소 메타데이터 조회
  * @description GitHub 저장소의 스타 수·설명·갱신 시각과 SKILL.md 개수를 조회합니다.
  */
-export const getRepoMetadata = async ({
+export const getRepositoryMetadata = async ({
   owner,
   repo,
-}: GetRepoMetadataRequest): Promise<RepoMetadata> => {
-  const octokit = await getRepoOctokit(owner, repo);
+}: GetRepositoryMetadataRequest): Promise<RepositoryMetadata> => {
+  const octokit = await getRepositoryOctokit(owner, repo);
 
-  const [repoResponse, tree] = await Promise.all([
+  const [repositoryResponse, tree] = await Promise.all([
     octokit.rest.repos.get({ owner, repo }),
     octokit.rest.git.getTree({ owner, recursive: '1', repo, tree_sha: 'HEAD' }),
   ]);
@@ -40,12 +40,12 @@ export const getRepoMetadata = async ({
   }).length;
 
   return {
-    description: repoResponse.data.description ?? '',
+    description: repositoryResponse.data.description ?? '',
     owner,
     rank: null,
     repo,
     skillCount,
-    starCount: repoResponse.data.stargazers_count,
-    updatedAt: repoResponse.data.pushed_at ?? repoResponse.data.updated_at ?? '',
+    starCount: repositoryResponse.data.stargazers_count,
+    updatedAt: repositoryResponse.data.pushed_at ?? repositoryResponse.data.updated_at ?? '',
   };
 };

@@ -6,7 +6,7 @@ import { NavList } from '@primer/react';
 import { Heading, Text } from '@primer/react-brand';
 import { useTranslations } from 'next-intl';
 
-import type { RepoTreeNode } from '@/features/repo-tree/api';
+import type { RepositoryTreeNode } from '@/features/repository-tree/api';
 import { Link, usePathname } from '@/shared/i18n/navigation';
 
 import { normalizeTitle } from '../../_lib';
@@ -16,15 +16,15 @@ import styles from './Sidebar.module.scss';
 interface SidebarProps {
   owner: string;
   repo: string;
-  treeNodes: RepoTreeNode[];
+  treeNodes: RepositoryTreeNode[];
 }
 
 const NAV_LANDMARK_LABEL_ID = 'sidebar-nav-label';
 
 // 자식이 하나뿐인 폴더를 따라 내려가며 합칩니다. 합쳐진 경로 라벨과 끝 폴더를 반환합니다.
 const collapseSingleChildFolders = (
-  node: RepoTreeNode,
-): { folder: RepoTreeNode; label: string } => {
+  node: RepositoryTreeNode,
+): { folder: RepositoryTreeNode; label: string } => {
   const names = [node.name];
   let folder = node;
 
@@ -45,7 +45,7 @@ const collapseSingleChildFolders = (
 // - 루트 폴더: NavList.Group + GroupHeading
 // - 중간 폴더: NavList.Item + SubNav
 // - 리프 노드: NavList.Item
-const renderNavNode = (node: RepoTreeNode, pathname: string, isRoot: boolean): ReactNode => {
+const renderNavNode = (node: RepositoryTreeNode, pathname: string, isRoot: boolean): ReactNode => {
   const hasChildren = (node.children?.length ?? 0) > 0;
 
   if (hasChildren) {

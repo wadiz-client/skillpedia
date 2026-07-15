@@ -1,12 +1,12 @@
-import { getRepoOctokit } from '@/shared/api/github';
+import { getRepositoryOctokit } from '@/shared/api/github';
 
-export interface GetRepoReadmeMarkdownRequest {
+export interface GetRepositoryReadmeMarkdownRequest {
   owner: string;
   path: string;
   repo: string;
 }
 
-export interface GetRepoReadmeMarkdownResponse {
+export interface GetRepositoryReadmeMarkdownResponse {
   content: string;
   filePath: string;
 }
@@ -32,12 +32,12 @@ const getCandidates = (path: string): string[] => {
   ];
 };
 
-export const getRepoReadmeMarkdown = async ({
+export const getRepositoryReadmeMarkdown = async ({
   owner,
   path,
   repo,
-}: GetRepoReadmeMarkdownRequest): Promise<GetRepoReadmeMarkdownResponse> => {
-  const octokit = await getRepoOctokit(owner, repo);
+}: GetRepositoryReadmeMarkdownRequest): Promise<GetRepositoryReadmeMarkdownResponse> => {
+  const octokit = await getRepositoryOctokit(owner, repo);
   const candidates = getCandidates(path);
 
   for (const candidate of candidates) {

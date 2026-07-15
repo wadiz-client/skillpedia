@@ -13,7 +13,7 @@ import { useHeroContent } from './useHeroContent';
 
 import styles from './HeroSection.module.scss';
 
-const DEFAULT_REPO_URL = 'https://github.com/anthropics/skills';
+const DEFAULT_REPOSITORY_URL = 'https://github.com/anthropics/skills';
 
 interface HeroSectionProps {
   isMobile: boolean;
@@ -23,14 +23,14 @@ export const HeroSection = ({ isMobile }: HeroSectionProps) => {
   const t = useTranslations('HomePage.HeroSection');
   const router = useRouter();
   const { rootRef, variant } = useHeroContent<HTMLDivElement>();
-  const [repo, setRepo] = useState('');
+  const [repository, setRepository] = useState('');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // 입력한 저장소를 정규화한 뒤 문서 경로로 이동합니다. 입력이 없으면 기본 저장소로 이동합니다.
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
 
-    const value = (repo.trim() || DEFAULT_REPO_URL).replace(/^https?:\/\/github\.com\//i, '').replace(/\/$/, '');
+    const value = (repository.trim() || DEFAULT_REPOSITORY_URL).replace(/^https?:\/\/github\.com\//i, '').replace(/\/$/, '');
 
     const isValidFormat = /^[\w.-]+\/[\w.-]+$/.test(value);
 
@@ -113,12 +113,12 @@ export const HeroSection = ({ isMobile }: HeroSectionProps) => {
                 <TextInput
                   fullWidth
                   leadingVisual={<SearchIcon />}
-                  placeholder={DEFAULT_REPO_URL}
+                  placeholder={DEFAULT_REPOSITORY_URL}
                   size={isMobile ? 'medium' : 'large'}
                   type="search"
-                  value={repo}
+                  value={repository}
                   onChange={(event) => {
-                    setRepo(event.target.value);
+                    setRepository(event.target.value);
                     setErrorMessage(null);
                   }}
                 />

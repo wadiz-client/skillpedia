@@ -3,8 +3,8 @@
 import { Box, Section, SectionIntro } from '@primer/react-brand';
 import { useTranslations } from 'next-intl';
 
-export const PrivateRepoSection = () => {
-  const t = useTranslations('HomePage.PrivateRepoSection');
+export const PrivateRepositorySection = () => {
+  const t = useTranslations('HomePage.PrivateRepositorySection');
 
   return (
     <Section as="section" backgroundColor="subtle" data-color-mode="dark">

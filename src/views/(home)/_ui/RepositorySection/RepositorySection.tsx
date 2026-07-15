@@ -5,18 +5,18 @@ import { Blankslate } from '@primer/react/experimental';
 import { Box, Heading, Section, Text } from '@primer/react-brand';
 import { useTranslations } from 'next-intl';
 
-import type { RepoMetadata } from '@/features/repo-metadata/api';
+import type { RepositoryMetadata } from '@/features/repository-metadata/api';
 
-import { RepoCard } from './RepoCard';
+import { RepositoryCard } from './RepositoryCard';
 
-import styles from './RepoSection.module.scss';
+import styles from './RepositorySection.module.scss';
 
-interface RepoSectionProps {
-  repoMetadataList: RepoMetadata[];
+interface RepositorySectionProps {
+  repositoryMetadataList: RepositoryMetadata[];
 }
 
-export const RepoSection = ({ repoMetadataList }: RepoSectionProps) => {
-  const t = useTranslations('HomePage.RepoSection');
+export const RepositorySection = ({ repositoryMetadataList }: RepositorySectionProps) => {
+  const t = useTranslations('HomePage.RepositorySection');
 
   return (
     <Section
@@ -30,10 +30,10 @@ export const RepoSection = ({ repoMetadataList }: RepoSectionProps) => {
           <Heading as="h2" size="5" weight="bold">
             {t('title')}
           </Heading>
-          {repoMetadataList.length > 0 ? (
+          {repositoryMetadataList.length > 0 ? (
             <Text as="span" size="200" variant="muted">
               {t.rich('total', {
-                count: repoMetadataList.length,
+                count: repositoryMetadataList.length,
                 strong: (chunks) => {
                   return <strong className={styles.totalCount}>{chunks}</strong>;
                 },
@@ -42,10 +42,10 @@ export const RepoSection = ({ repoMetadataList }: RepoSectionProps) => {
           ) : null}
         </div>
 
-        {repoMetadataList.length > 0 ? (
+        {repositoryMetadataList.length > 0 ? (
           <div className={styles.content}>
-            {repoMetadataList.map((repoMetadata) => {
-              return <RepoCard key={`${repoMetadata.owner}/${repoMetadata.repo}`} repoMetadata={repoMetadata} />;
+            {repositoryMetadataList.map((repositoryMetadata) => {
+              return <RepositoryCard key={`${repositoryMetadata.owner}/${repositoryMetadata.repo}`} repositoryMetadata={repositoryMetadata} />;
             })}
           </div>
         ) : (

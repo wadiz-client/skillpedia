@@ -26,7 +26,7 @@
     text-decoration: none;
     box-shadow: 0 8px 24px rgb(31 35 40 / 12%);
 
-    .clip .overlay {
+    .content .overlay {
       opacity: 1;
     }
   }
@@ -68,36 +68,27 @@
     }
   }
 
-  .clip {
+  .content {
     position: relative;
     overflow: hidden;
     flex: 1 1 auto;
     border-radius: 16px;
 
-    .body {
+    .inner {
+      display: flex;
+      flex-direction: column;
+      gap: var(--base-size-16);
+
       height: 100%;
       padding: var(--base-size-32);
 
-      .avatar {
-        position: absolute;
-        z-index: 2;
-        top: 28px;
-        right: 28px;
+      .top {
+        display: flex;
+        gap: var(--base-size-16);
+        align-items: flex-start;
 
-        width: 40px;
-        height: 40px;
-        border: 1px solid var(--brand-color-border-muted);
-        border-radius: 8px;
-
-        opacity: 0.8;
-        object-fit: cover;
-        background: var(--brand-color-canvas-subtle);
-      }
-
-      .text {
         .title {
-          min-height: 2.6em;
-          margin: 0 56px 12px 0;
+          flex: 1;
 
           font-size: 20px;
           font-weight: 600;
@@ -109,58 +100,78 @@
           }
         }
 
+        .avatar {
+          position: relative;
+          z-index: 2;
+
+          flex-shrink: 0;
+
+          width: 40px;
+          height: 40px;
+          border: 1px solid var(--brand-color-border-muted);
+          border-radius: 8px;
+
+          opacity: 0.8;
+          object-fit: cover;
+          background: var(--brand-color-canvas-subtle);
+        }
+      }
+
+      .middle {
+        flex: 1;
+
         .description {
           overflow: hidden;
           display: -webkit-box;
           -webkit-box-orient: vertical;
           -webkit-line-clamp: 2;
 
-          min-height: 3em;
-          margin: 0 0 20px;
+          margin: 0;
 
           font-size: 14px;
           line-height: 1.5;
           color: var(--brand-color-text-muted);
         }
+      }
 
-        .meta {
-          display: flex;
-          flex-wrap: wrap;
-          gap: var(--base-size-8);
+      .bottom {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--base-size-8);
 
-          .chip,
-          .skillChip {
-            display: inline-flex;
-            gap: 5px;
-            align-items: center;
+        .chip,
+        .skillChip {
+          display: inline-flex;
+          gap: 5px;
+          align-items: center;
 
-            height: 26px;
-            padding: 0 10px;
-            border-radius: 999px;
+          height: 26px;
+          padding: 0 10px;
+          border-radius: 999px;
 
-            font-size: 12px;
-            font-weight: 600;
-          }
+          font-size: 12px;
+          font-weight: 600;
+        }
 
-          .chip {
-            border: 1px solid var(--brand-color-border-default);
-            color: var(--brand-color-text-muted);
-          }
+        .chip {
+          border: 1px solid var(--brand-color-border-default);
+          color: var(--brand-color-text-muted);
+        }
 
-          .skillChip {
-            color: var(--fgColor-success);
-            background: var(--bgColor-success-muted);
-          }
+        .skillChip {
+          color: var(--fgColor-success);
+          background: var(--bgColor-success-muted);
+        }
 
-          .starIcon {
-            color: var(--fgColor-attention);
-          }
+        .starIcon {
+          color: var(--fgColor-attention);
         }
       }
     }
 
     .overlay {
       position: absolute;
+      z-index: 1;
       inset: 0;
 
       display: flex;

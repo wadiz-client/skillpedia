@@ -26,38 +26,40 @@ export const RepositoryCard = ({ repositoryMetadata }: RepositoryCardProps) => {
           {rank}
         </span>
       ) : null}
-      <div className={styles.clip}>
-        <div className={styles.body}>
-          <img
-            alt=""
-            className={styles.avatar}
-            height={40}
-            loading="lazy"
-            src={`https://github.com/${owner}.png?size=80`}
-            width={40}
-          />
-          <div className={styles.text}>
+      <div className={styles.content}>
+        <div className={styles.inner}>
+          <div className={styles.top}>
             <h3 className={styles.title}>
               <span className={styles.owner}>{owner}/</span>
               {repo}
             </h3>
+            <img
+              alt=""
+              className={styles.avatar}
+              height={40}
+              loading="lazy"
+              src={`https://github.com/${owner}.png?size=80`}
+              width={40}
+            />
+          </div>
+          <div className={styles.middle}>
             {description ? <p className={styles.description}>{description}</p> : null}
-            <div className={styles.meta}>
-              <span className={styles.skillChip}>
-                <FileIcon size={12} />
-                {t('skillCount', { count: skillCount })}
-              </span>
+          </div>
+          <div className={styles.bottom}>
+            <span className={styles.skillChip}>
+              <FileIcon size={12} />
+              {t('skillCount', { count: skillCount })}
+            </span>
+            <span className={styles.chip}>
+              <StarFillIcon className={styles.starIcon} size={12} />
+              {format.number(starCount, { notation: 'compact' })}
+            </span>
+            {updatedAt ? (
               <span className={styles.chip}>
-                <StarFillIcon className={styles.starIcon} size={12} />
-                {format.number(starCount, { notation: 'compact' })}
+                <ClockIcon size={12} />
+                {format.relativeTime(new Date(updatedAt), now)}
               </span>
-              {updatedAt ? (
-                <span className={styles.chip}>
-                  <ClockIcon size={12} />
-                  {format.relativeTime(new Date(updatedAt), now)}
-                </span>
-              ) : null}
-            </div>
+            ) : null}
           </div>
         </div>
         <div aria-hidden className={styles.overlay}>

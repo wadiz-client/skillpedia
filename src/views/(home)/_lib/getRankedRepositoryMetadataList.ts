@@ -4,8 +4,8 @@ import type { RepositoryMetadata } from '@/features/repository-metadata/api';
 import { getRepositories } from './getRepositories';
 
 const RANK_COUNT = 3;
-const SKILL_WEIGHT = 0.6;
-const RECENCY_WEIGHT = 0.4;
+const SKILL_COUNT_WEIGHT = 0.6;
+const UPDATED_AT_WEIGHT = 0.4;
 
 // 목록 안에서 값을 0~1로 정규화합니다. 최솟값과 최댓값이 같으면 0을 반환합니다.
 const normalize = (value: number, min: number, max: number): number => {
@@ -34,19 +34,19 @@ export const getRankedRepositoryMetadataList = async (): Promise<RepositoryMetad
   const skillCounts = repositoryMetadataList.map((repositoryMetadata) => {
     return repositoryMetadata.skillCount;
   });
-  const updatedTimes = repositoryMetadataList.map((repositoryMetadata) => {
+  const updatedAtTimes = repositoryMetadataList.map((repositoryMetadata) => {
     return new Date(repositoryMetadata.updatedAt).getTime() || 0;
   });
   const minSkillCount = Math.min(...skillCounts);
   const maxSkillCount = Math.max(...skillCounts);
-  const minUpdatedTime = Math.min(...updatedTimes);
-  const maxUpdatedTime = Math.max(...updatedTimes);
+  const minUpdatedAtTime = Math.min(...updatedAtTimes);
+  const maxUpdatedAtTime = Math.max(...updatedAtTimes);
 
   return repositoryMetadataList
     .map((repositoryMetadata) => {
-      const skillScore = normalize(repositoryMetadata.skillCount, minSkillCount, maxSkillCount);
-      const recencyScore = normalize(new Date(repositoryMetadata.updatedAt).getTime() || 0, minUpdatedTime, maxUpdatedTime);
-      const score = skillScore * SKILL_WEIGHT + recencyScore * RECENCY_WEIGHT;
+      const skillCountScore = normalize(repositoryMetadata.skillCount, minSkillCount, maxSkillCount);
+      const updatedAtScore = normalize(new Date(repositoryMetadata.updatedAt).getTime() || 0, minUpdatedAtTime, maxUpdatedAtTime);
+      const score = skillCountScore * SKILL_COUNT_WEIGHT + updatedAtScore * UPDATED_AT_WEIGHT;
 
       return { repositoryMetadata, score };
     })

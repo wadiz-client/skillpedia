@@ -1,7 +1,7 @@
 import { getRepoMetadata } from '@/features/repo-metadata/api';
 import type { RepoMetadata } from '@/features/repo-metadata/api';
 
-import { getRepoGroups } from './getRepoGroups';
+import { getRepos } from './getRepos';
 
 const RANK_COUNT = 3;
 const SKILL_WEIGHT = 0.6;
@@ -17,14 +17,11 @@ const normalize = (value: number, min: number, max: number): number => {
 };
 
 /**
- * 저장소 그룹을 평탄화해 저장소마다 메타데이터를 조회하고,
+ * 저장소 목록의 각 저장소 메타데이터를 조회하고,
  * SKILL.md 개수와 최근성을 가중 합산한 점수로 정렬해 상위 3개에 순위를 부여합니다.
  */
 export const getRankedRepoMetadataList = async (): Promise<RepoMetadata[]> => {
-  const repoGroups = getRepoGroups();
-  const repoPaths = repoGroups.flatMap((group) => {
-    return group.repos;
-  });
+  const repoPaths = getRepos();
 
   const repoMetadataList = await Promise.all(
     repoPaths.map((repoPath) => {

@@ -30,7 +30,7 @@ export const getRepoMetadata = async ({
 }: GetRepoMetadataRequest): Promise<RepoMetadata> => {
   const octokit = await getRepoOctokit(owner, repo);
 
-  const [repository, tree] = await Promise.all([
+  const [repoResponse, tree] = await Promise.all([
     octokit.rest.repos.get({ owner, repo }),
     octokit.rest.git.getTree({ owner, recursive: '1', repo, tree_sha: 'HEAD' }),
   ]);
@@ -40,12 +40,12 @@ export const getRepoMetadata = async ({
   }).length;
 
   return {
-    description: repository.data.description ?? '',
+    description: repoResponse.data.description ?? '',
     owner,
     rank: null,
     repo,
     skillCount,
-    starCount: repository.data.stargazers_count,
-    updatedAt: repository.data.pushed_at ?? repository.data.updated_at ?? '',
+    starCount: repoResponse.data.stargazers_count,
+    updatedAt: repoResponse.data.pushed_at ?? repoResponse.data.updated_at ?? '',
   };
 };

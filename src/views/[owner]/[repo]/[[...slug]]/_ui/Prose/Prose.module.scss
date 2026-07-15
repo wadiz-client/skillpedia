@@ -148,6 +148,12 @@
     max-width: 100%;
     border-radius: var(--brand-borderRadius-medium);
   }
+
+  // 배지 등 문단 안 이미지는 인라인으로 흐르게 합니다.
+  p img {
+    display: inline-block;
+    vertical-align: middle;
+  }
 }
 
 @media (width < $breakpoint-xlarge) {

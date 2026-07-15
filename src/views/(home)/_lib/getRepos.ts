@@ -3,12 +3,7 @@ import { join } from 'node:path';
 
 import { load } from 'js-yaml';
 
-export interface RepoGroup {
-  name: string;
-  repos: string[];
-}
-
-const getRepositoriesContent = (): string => {
+const getReposContent = (): string => {
   if (process.env.REPOSITORIES) {
     return process.env.REPOSITORIES;
   }
@@ -26,12 +21,12 @@ const getRepositoriesContent = (): string => {
   return '';
 };
 
-export const getRepoGroups = (): RepoGroup[] => {
-  const content = getRepositoriesContent();
+export const getRepos = (): string[] => {
+  const content = getReposContent();
 
   if (!content) {
     return [];
   }
 
-  return (load(content) || []) as RepoGroup[];
+  return (load(content) || []) as string[];
 };

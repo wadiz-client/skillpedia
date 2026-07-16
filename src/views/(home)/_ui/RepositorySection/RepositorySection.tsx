@@ -8,6 +8,7 @@ import { useTranslations } from 'next-intl';
 import type { RepositoryMetadata } from '@/features/repository-metadata/api';
 
 import { RepositoryCard } from './RepositoryCard';
+import { SpotlightCanvas } from './SpotlightCanvas';
 
 import styles from './RepositorySection.module.scss';
 
@@ -43,15 +44,18 @@ export const RepositorySection = ({ repositoryMetadataList }: RepositorySectionP
         </div>
 
         {repositoryMetadataList.length > 0 ? (
-          <div className={styles.content}>
-            {repositoryMetadataList.map((repositoryMetadata) => {
-              return (
-                <RepositoryCard
-                  key={`${repositoryMetadata.owner}/${repositoryMetadata.repo}`}
-                  repositoryMetadata={repositoryMetadata}
-                />
-              );
-            })}
+          <div className={styles.inner}>
+            <SpotlightCanvas />
+            <div className={styles.content}>
+              {repositoryMetadataList.map((repositoryMetadata) => {
+                return (
+                  <RepositoryCard
+                    key={`${repositoryMetadata.owner}/${repositoryMetadata.repo}`}
+                    repositoryMetadata={repositoryMetadata}
+                  />
+                );
+              })}
+            </div>
           </div>
         ) : (
           <Blankslate narrow spacious>

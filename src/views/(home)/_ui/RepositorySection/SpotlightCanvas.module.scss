@@ -1,0 +1,11 @@
+.container {
+  pointer-events: none;
+
+  position: absolute;
+  inset: calc(var(--base-size-16) * -1);
+
+  display: block;
+
+  width: calc(100% + var(--base-size-32));
+  height: calc(100% + var(--base-size-32));
+}

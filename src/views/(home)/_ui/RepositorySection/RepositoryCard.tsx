@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { ArrowRightIcon, ClockIcon, FileIcon, StarFillIcon } from '@primer/octicons-react';
 import { Label } from '@primer/react';
+import { Avatar } from '@primer/react-brand';
 import { useFormatter, useNow, useTranslations } from 'next-intl';
 
 import type { RepositoryMetadata } from '@/features/repository-metadata/api';
@@ -71,13 +72,13 @@ export const RepositoryCard = ({ repositoryMetadata }: RepositoryCardProps) => {
               <span className={styles.owner}>{owner}/</span>
               {repo}
             </h3>
-            <img
+            <Avatar
               alt=""
               className={styles.avatar}
-              height={40}
               loading="lazy"
+              shape="square"
+              size={40}
               src={`https://github.com/${owner}.png?size=80`}
-              width={40}
             />
           </div>
           <div className={styles.middle}>

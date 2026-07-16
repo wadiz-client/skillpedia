@@ -124,13 +124,9 @@
 
           flex-shrink: 0;
 
-          width: var(--base-size-40);
-          height: var(--base-size-40);
           border: 1px solid var(--brand-color-border-muted);
-          border-radius: var(--base-size-8);
 
           opacity: 0.8;
-          object-fit: cover;
           background: var(--brand-color-canvas-subtle);
         }
       }

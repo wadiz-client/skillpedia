@@ -1,92 +1,103 @@
+<!-- This file is translated from README.ko.md (source of truth). Update README.ko.md first, then sync here. -->
+
+<div align="center">
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./public/images/hero_dark.jpg" />
+  <img alt="Skillpedia hero" src="./public/images/hero_light.jpg" width="100%" />
+</picture>
+
 # Skillpedia
 
-1. [소개](#소개)
-2. [기술 스택](#기술-스택)
-3. [프로젝트 구조](#프로젝트-구조)
-4. [설치 및 실행](#설치-및-실행)
-   1. [사전 설치](#사전-설치)
-   2. [패키지 설치](#패키지-설치)
-   3. [환경 변수 설정](#환경-변수-설정)
-   4. [프로젝트 실행](#프로젝트-실행)
-5. [빌드 및 배포](#빌드-및-배포)
-   1. [빌드](#빌드)
-   2. [배포](#배포)
+[![Next.js](https://img.shields.io/badge/Next.js-App_Router-000000?style=flat-square&logo=nextdotjs)](https://nextjs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev)
+[![Deployed on Vercel](https://img.shields.io/badge/Deploy-Vercel-000000?style=flat-square&logo=vercel)](https://vercel.com)
 
-## 소개
+</div>
 
-Skillpedia(스킬피디아)는 GitHub 저장소에 흩어진 SKILL.md 파일을 수집하여 구조화된 문서를 제공하는 것이 목적입니다. 개발자가 작성한 스킬 문서를 읽고 정확한 사용법을 파악할 수 있도록 합니다.
+## Overview
 
-> "AI 에이전트가 도구를 정확하게 사용하려면 엔지니어가 작성한 검증된 지침서가 필요합니다. Skillpedia는 그 지침서를 가장 효율적으로 전달하는 통로가 됩니다."
+Skillpedia reads skill documents authored by engineers so that both people and AI agents can find the exact, verified usage instructions for a tool. It fetches `SKILL.md` files from a curated list of GitHub repositories through the GitHub App API and renders them as structured pages.
 
-## 기술 스택
+> "For an AI agent to use a tool correctly, it needs a verified guide written by an engineer. Skillpedia is the most efficient channel for delivering that guide."
 
-| 구분            | 기술                                                 |
-| --------------- | ---------------------------------------------------- |
-| 언어            | TypeScript                                           |
-| 프레임워크      | Next.js (App Router)                                 |
-| UI 라이브러리   | @primer/react-brand, @primer/react                   |
-| 스타일          | CSS Modules (SCSS)                                   |
-| API 클라이언트  | Octokit (GitHub App)                                 |
-| 마크다운 렌더링 | react-markdown (remark-gfm, rehype-raw, rehype-slug) |
-| 프런트매터·목차 | gray-matter, marked, github-slugger                  |
-| 코드 하이라이트 | react-syntax-highlighter                             |
-| 패키지 관리     | NPM                                                  |
+## Tech Stack
 
-## 프로젝트 구조
+| Category            | Technology                                             |
+| ------------------- | ------------------------------------------------------ |
+| Language            | TypeScript                                             |
+| Framework           | Next.js (App Router)                                   |
+| UI library          | @primer/react-brand, @primer/react                     |
+| Styling             | CSS Modules (SCSS)                                      |
+| Internationalization| next-intl                                              |
+| API client          | Octokit (GitHub App)                                   |
+| Markdown rendering   | react-markdown (remark-gfm, rehype-raw, rehype-slug)  |
+| Frontmatter · TOC   | gray-matter, marked, github-slugger                    |
+| Syntax highlighting | react-syntax-highlighter                               |
+| Package manager     | npm                                                    |
 
-Skillpedia는 확장성과 유지보수성을 위해 FSD(Feature-Sliced Design) 아키텍처를 따르며, Next.js App Router와의 충돌을 방지하기 위해 views 레이어를 사용합니다.
+## Project Structure
 
-각 페이지에서만 쓰는 UI·로직은 해당 view 슬라이스 내부의 `_ui`, `_lib` 폴더에 둡니다.
+Skillpedia follows the Feature-Sliced Design (FSD) architecture for scalability and maintainability, using a `views` layer to avoid conflicts with the Next.js App Router.
+
+UI and logic used by a single page live inside that view slice under `_ui` and `_lib` folders.
 
 ```text
 src/
-├── app/        # 앱 설정, 프로바이더, 전역 스타일, 레이아웃, 라우트
-├── views/      # 페이지 단위 컴포지션과 페이지 전용 UI·로직
-│               #   (HomePage, OwnerRepoSlugPage + _ui: Article·Prose·CodeBlock·Sidebar·Toc, _lib: parseMarkdown 등)
-├── widgets/    # 전역 레이아웃 블록 (Layout, Header, Content)
-├── features/   # 사용자 상호작용 기능 (repository-markdown, repository-metadata, repository-tree)
-└── shared/     # 공통 API 클라이언트·스타일 (github, breakpoint)
+├── app/        # App config, providers, global styles, layout, routes
+├── views/      # Page-level composition and page-only UI/logic
+│               #   (HomePage, OwnerRepoSlugPage + _ui: Article·Prose·CodeBlock·Sidebar·Toc, _lib: parseMarkdown, etc.)
+├── widgets/    # Global layout blocks (Layout, Header, Content)
+├── features/   # User interaction features (repository-markdown, repository-metadata, repository-tree)
+└── shared/     # Shared API clients, styles, i18n (github, breakpoint)
 ```
 
-## 설치 및 실행
+The list of source repositories is defined in `repositories.yaml`. In production the list is injected through the `REPOSITORIES` GitHub Actions variable.
 
-### 사전 설치
+## Getting Started
+
+### Prerequisites
+
+Install the Node.js version pinned in `.nvmrc`.
 
 ```shell
 nvm install
 ```
 
-### 패키지 설치
+### Install
 
 ```shell
 npm install
 ```
 
-### 환경 변수 설정
+### Environment Variables
 
-`.env.local.example` 파일을 복사하여 `.env.local` 파일을 생성하고 GitHub App 정보를 입력합니다.
+Copy `.env.local.example` to `.env.local` and fill in the GitHub App credentials.
 
 ```properties
 APP_ID=
 APP_PRIVATE_KEY=
 ```
 
-### 프로젝트 실행
+### Run
 
 ```shell
 npm run dev
 ```
 
-## 빌드 및 배포
+The app runs at `http://localhost:3000`.
 
-### 빌드
+## Build & Deploy
+
+### Build
 
 ```shell
 npm run build
 ```
 
-### 배포
+### Deploy
 
-GitHub 저장소의 `main` 브랜치에 변경 사항을 병합하면 Vercel을 통해 자동으로 배포를 진행합니다.
+Merging changes into the `main` branch triggers an automatic deployment through Vercel.
 
 - [Vercel Dashboard](https://vercel.com/dashboard)

@@ -18,8 +18,8 @@
       "title": "Browse Repositories",
       "description": "Share your own skills for Claude Code and get your repository noticed. Add your repository to <code>repositories.yaml</code> and open a Pull Request, and we'll review it and add it to the list.",
       "skillCount": "{count} SKILL.md",
-      "totalCount": "<strong>{count}</strong> total",
-      "totalSkillCount": "<strong>{count}</strong> skills",
+      "totalCount": "Repositories",
+      "totalSkillCount": "Skills",
       "Empty": {
         "title": "Set up your repository list.",
         "description": "No repositories have been registered yet. Add your repository to <code>repositories.yaml</code> and open a Pull Request, and we'll review it and add it to the list."

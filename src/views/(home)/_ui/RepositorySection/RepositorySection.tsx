@@ -2,7 +2,7 @@
 
 import { RepoIcon } from '@primer/octicons-react';
 import { Blankslate } from '@primer/react/experimental';
-import { Box, Heading, Section, Text } from '@primer/react-brand';
+import { Box, Heading, Section, Statistic, Text } from '@primer/react-brand';
 import { useTranslations } from 'next-intl';
 
 import type { RepositoryMetadata } from '@/features/repository-metadata/api';
@@ -57,30 +57,28 @@ export const RepositorySection = ({ repositoryMetadataList }: RepositorySectionP
           </div>
           {repositoryMetadataList.length > 0 ? (
             <div className={styles.meta}>
-              <Text
-                as="span"
-                size="200"
-                variant="muted"
-              >
-                {t.rich('totalCount', {
-                  count: repositoryMetadataList.length,
-                  strong: (chunks) => {
-                    return <strong className={styles.count}>{chunks}</strong>;
-                  },
-                })}
-              </Text>
-              <Text
-                as="span"
-                size="200"
-                variant="muted"
-              >
-                {t.rich('totalSkillCount', {
-                  count: totalSkillCount,
-                  strong: (chunks) => {
-                    return <strong className={styles.count}>{chunks}</strong>;
-                  },
-                })}
-              </Text>
+              <Statistic size="medium">
+                <Statistic.Heading
+                  align="start"
+                  weight="semibold"
+                >
+                  {repositoryMetadataList.length}
+                </Statistic.Heading>
+                <Statistic.Description size="100">{t('totalCount')}</Statistic.Description>
+              </Statistic>
+              <span
+                aria-hidden
+                className={styles.divider}
+              />
+              <Statistic size="medium">
+                <Statistic.Heading
+                  align="start"
+                  weight="semibold"
+                >
+                  {totalSkillCount}
+                </Statistic.Heading>
+                <Statistic.Description size="100">{t('totalSkillCount')}</Statistic.Description>
+              </Statistic>
             </div>
           ) : null}
         </div>

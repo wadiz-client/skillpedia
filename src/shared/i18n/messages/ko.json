@@ -18,8 +18,8 @@
       "title": "저장소 둘러보기",
       "description": "Claude Code에서 사용하는 당신의 스킬을 공유하고 저장소를 홍보해 주세요. <code>repositories.yaml</code>에 저장소를 추가하고 Pull Request를 열면 검토 후 목록에 등록해 드립니다.",
       "skillCount": "{count} SKILL.md",
-      "totalCount": "전체 <strong>{count}</strong>개",
-      "totalSkillCount": "스킬 <strong>{count}</strong>개",
+      "totalCount": "전체 저장소",
+      "totalSkillCount": "전체 스킬",
       "Empty": {
         "title": "저장소 목록 구성하기",
         "description": "아직 등록된 저장소가 없습니다. <code>repositories.yaml</code>에 저장소를 추가하고 Pull Request를 열면 검토 후 목록에 등록해 드립니다."

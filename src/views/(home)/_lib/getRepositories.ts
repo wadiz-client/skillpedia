@@ -8,14 +8,10 @@ const getRepositoriesContent = (): string => {
     return process.env.REPOSITORIES;
   }
 
-  const fileNames = ['repositories.json', 'repositories.yaml'];
+  const filePath = join(process.cwd(), 'repositories.yaml');
 
-  for (const fileName of fileNames) {
-    const filePath = join(process.cwd(), fileName);
-
-    if (existsSync(filePath)) {
-      return readFileSync(filePath, 'utf8');
-    }
+  if (existsSync(filePath)) {
+    return readFileSync(filePath, 'utf8');
   }
 
   return '';

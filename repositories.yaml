@@ -1,0 +1,29 @@
+# Local development sample. Copy this file to repositories.yaml.
+# Production injects the list via the GitHub Actions REPOSITORIES variable.
+
+- anthropics/skills
+- aquasecurity/trivy
+- docker/compose
+- expressjs/express
+- facebook/docusaurus
+- facebook/react
+- fastapi/fastapi
+- github/docs
+- gitleaks/gitleaks
+- hashicorp/terraform
+- kubernetes/kubernetes
+- langchain-ai/langchain
+- microsoft/autogen
+- mkdocs/mkdocs
+- nestjs/nest
+- openai/openai-cookbook
+- ossf/scorecard
+- primer/react
+- prisma/prisma
+- redis/redis
+- shuding/nextra
+- storybookjs/storybook
+- supabase/supabase
+- sveltejs/svelte
+- vercel/next.js
+- vuejs/core

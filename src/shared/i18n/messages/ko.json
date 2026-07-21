@@ -16,11 +16,13 @@
     },
     "RepositorySection": {
       "title": "저장소 둘러보기",
+      "description": "Claude Code에서 사용하는 당신의 스킬을 공유하고 저장소를 홍보해 주세요. <code>repositories.yaml</code>에 저장소를 추가하고 Pull Request를 열면 검토 후 목록에 등록해 드립니다.",
       "skillCount": "{count} SKILL.md",
-      "total": "전체 <strong>{count}</strong>개",
+      "totalCount": "전체 저장소",
+      "totalSkillCount": "전체 스킬",
       "Empty": {
         "title": "저장소 목록 구성하기",
-        "description": "<code>repositories.json</code> 또는 <code>repositories.yaml</code> 파일을 프로젝트 루트에 추가하거나, GitHub Secrets의 <code>REPOSITORIES</code>에 JSON 또는 YAML로 목록을 작성하면 저장소 목록을 표시합니다."
+        "description": "아직 등록된 저장소가 없습니다. <code>repositories.yaml</code>에 저장소를 추가하고 Pull Request를 열면 검토 후 목록에 등록해 드립니다."
       }
     }
   },

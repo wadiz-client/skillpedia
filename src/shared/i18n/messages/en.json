@@ -16,11 +16,13 @@
     },
     "RepositorySection": {
       "title": "Browse Repositories",
+      "description": "Share your own skills for Claude Code and get your repository noticed. Add your repository to <code>repositories.yaml</code> and open a Pull Request, and we'll review it and add it to the list.",
       "skillCount": "{count} SKILL.md",
-      "total": "<strong>{count}</strong> total",
+      "totalCount": "Repositories",
+      "totalSkillCount": "Skills",
       "Empty": {
         "title": "Set up your repository list.",
-        "description": "Add a <code>repositories.json</code> or <code>repositories.yaml</code> file to the project root, or set the <code>REPOSITORIES</code> GitHub secret with your list in JSON or YAML."
+        "description": "No repositories have been registered yet. Add your repository to <code>repositories.yaml</code> and open a Pull Request, and we'll review it and add it to the list."
       }
     }
   },

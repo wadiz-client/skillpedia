@@ -1,22 +1,53 @@
+@use 'breakpoint' as *;
+
 .container {
   border-bottom: 1px solid var(--brand-color-border-default);
 
   .header {
     display: flex;
     gap: var(--base-size-16);
-    align-items: baseline;
+    align-items: flex-end;
     justify-content: space-between;
 
     margin-bottom: var(--base-size-40);
 
-    .totalCount {
-      color: var(--brand-color-text-default);
+    .description {
+      max-width: 800px;
+      margin-top: var(--base-size-16);
+      letter-spacing: normal;
+    }
+
+    .meta {
+      display: flex;
+      flex-shrink: 0;
+      gap: var(--base-size-28);
+      align-items: flex-end;
+
+      .divider {
+        width: 1px;
+        height: var(--base-size-44);
+        margin-bottom: var(--base-size-4);
+        background: var(--brand-color-border-default);
+      }
     }
   }
 
-  .content {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: var(--base-size-24);
+  .inner {
+    position: relative;
+
+    .content {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: var(--base-size-24);
+    }
+  }
+}
+
+@media (width < $breakpoint-small) {
+  .container {
+    .header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
 }

@@ -11,7 +11,7 @@ if (proxyUrl) {
 let app: App | undefined;
 let octokit: Octokit | undefined;
 
-export const getRepositoryOctokit = async (owner: string, repo: string) => {
+const resolveRepositoryOctokit = async (owner: string, repo: string) => {
   // 빌드 시점 모듈 평가 오류를 방지할 수 있도록 런타임 시점에 인스턴스를 생성합니다.
   app ??= new App({
     appId: process.env.APP_ID!,
@@ -37,4 +37,30 @@ export const getRepositoryOctokit = async (owner: string, repo: string) => {
 
     throw error;
   }
+};
+
+type RepositoryOctokit = Awaited<ReturnType<typeof resolveRepositoryOctokit>>;
+
+// 저장소별 인스턴스를 재사용해 데이터 조회마다 반복되던 설치 조회·토큰 발급 왕복을 없앱니다.
+// 설치 토큰은 octokit의 앱 인증 전략이 만료 시점에 자동으로 갱신합니다.
+const repositoryOctokitMap = new Map<string, Promise<RepositoryOctokit>>();
+
+export const getRepositoryOctokit = (owner: string, repo: string): Promise<RepositoryOctokit> => {
+  const cacheKey = `${owner}/${repo}`;
+  const cachedOctokit = repositoryOctokitMap.get(cacheKey);
+
+  if (cachedOctokit) {
+    return cachedOctokit;
+  }
+
+  const octokitPromise = resolveRepositoryOctokit(owner, repo).catch((error: unknown) => {
+    // 실패한 결과가 남아 다음 요청의 재시도를 막지 않도록 캐시에서 제거합니다.
+    repositoryOctokitMap.delete(cacheKey);
+
+    throw error;
+  });
+
+  repositoryOctokitMap.set(cacheKey, octokitPromise);
+
+  return octokitPromise;
 };

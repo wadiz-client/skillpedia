@@ -1,4 +1,10 @@
-import { getRepositoryOctokit } from '@/shared/api/github';
+import { unstable_cache } from 'next/cache';
+
+import {
+  GITHUB_REVALIDATE_SECONDS,
+  getRepositoryCacheTag,
+  getRepositorySkillPaths,
+} from '@/shared/api/github';
 
 export interface RepositoryTreeNode {
   children?: RepositoryTreeNode[];
@@ -43,29 +49,17 @@ type GetRepositoryTreeNodesResponse = Promise<RepositoryTreeNode[]>;
  * //   },
  * // ]
  */
-export const getRepositoryTreeNodes = async ({
+const fetchRepositoryTreeNodes = async ({
   owner,
   repo,
 }: GetRepositoryTreeNodesRequest): GetRepositoryTreeNodesResponse => {
   try {
-    const octokit = await getRepositoryOctokit(owner, repo);
-
-    const { data } = await octokit.rest.git.getTree({
-      owner,
-      recursive: '1',
-      repo,
-      tree_sha: 'HEAD',
-    });
+    const skillPaths = await getRepositorySkillPaths(owner, repo);
 
     // SKILL.md 파일이 있는 폴더 경로만 추출합니다.
-    const paths = data.tree
-      // node.type (blob: 파일, commit: 서브모듈 참조, tree: 폴더)
-      .filter((node) => {
-        // SKILL.md 앞이 문자열 시작 또는 /인 경우
-        return node.type === 'blob' && /(^|\/)SKILL\.md$/.test(node.path ?? '');
-      })
-      .map((node) => {
-        return node.path!.replace(/\/?SKILL\.md$/, '');
+    const paths = skillPaths
+      .map((skillPath) => {
+        return skillPath.replace(/\/?SKILL\.md$/, '');
       })
       .sort((a, b) => {
         return a.split('/').length - b.split('/').length || a.localeCompare(b);
@@ -124,4 +118,18 @@ export const getRepositoryTreeNodes = async ({
   } catch {
     return [];
   }
+};
+
+// 사이드바 트리는 저장소 단위로만 달라지므로 캐시해 진입마다 트리 조회가 반복되지 않도록 합니다.
+export const getRepositoryTreeNodes = ({
+  owner,
+  repo,
+}: GetRepositoryTreeNodesRequest): GetRepositoryTreeNodesResponse => {
+  return unstable_cache(
+    () => {
+      return fetchRepositoryTreeNodes({ owner, repo });
+    },
+    ['repository-tree-nodes', owner, repo],
+    { revalidate: GITHUB_REVALIDATE_SECONDS, tags: [getRepositoryCacheTag(owner, repo)] },
+  )();
 };

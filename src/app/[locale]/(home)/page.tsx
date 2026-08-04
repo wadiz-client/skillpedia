@@ -10,8 +10,9 @@ interface PageProps {
   params: Promise<{ locale: string }>;
 }
 
-// 저장소 메타데이터를 1시간마다 재검증해 GitHub API 호출을 줄입니다.
-export const revalidate = 3600;
+// headers()로 기기·도메인을 판별하기 때문에 매 요청 시 렌더링합니다.
+// 저장소 메타데이터 재사용은 getRepositoryMetadata의 캐시가 담당합니다.
+export const dynamic = 'force-dynamic';
 
 export default async function Page({ params }: PageProps) {
   const { locale } = await params;

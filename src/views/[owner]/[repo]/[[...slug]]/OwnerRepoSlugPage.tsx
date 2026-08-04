@@ -21,16 +21,18 @@ export const OwnerRepoSlugPage = async ({ owner, repo, slug }: OwnerRepoSlugPage
     return null;
   }
 
-  const navItems = await getRepositoryTreeNodes({ owner, repo });
   const path = slug.join('/');
 
-  const [readmeMarkdownResult, skillMarkdownResult] = await Promise.allSettled([
+  // 트리를 먼저 기다리면 왕복이 순차로 누적되므로 마크다운 조회와 함께 시작합니다.
+  const [treeNodesResult, readmeMarkdownResult, skillMarkdownResult] = await Promise.allSettled([
+    getRepositoryTreeNodes({ owner, repo }),
     getRepositoryReadmeMarkdown({ owner, path, repo }),
     getRepositorySkillMarkdown({ owner, path, repo }),
   ]);
 
+  const navItems = treeNodesResult.status === 'fulfilled' ? treeNodesResult.value : [];
   const readmeMarkdown =
-    readmeMarkdownResult.status === 'fulfilled'
+    readmeMarkdownResult.status === 'fulfilled' && readmeMarkdownResult.value
       ? parseMarkdown(readmeMarkdownResult.value.content)
       : null;
   const skillMarkdown =

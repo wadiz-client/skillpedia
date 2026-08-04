@@ -1,4 +1,10 @@
-import { getRepositoryOctokit } from '@/shared/api/github';
+import { unstable_cache } from 'next/cache';
+
+import {
+  GITHUB_REVALIDATE_SECONDS,
+  getRepositoryCacheTag,
+  getRepositoryOctokit,
+} from '@/shared/api/github';
 
 export interface GetRepositorySkillMarkdownRequest {
   owner: string;
@@ -11,7 +17,7 @@ export interface GetRepositorySkillMarkdownResponse {
   path: string;
 }
 
-export const getRepositorySkillMarkdown = async ({
+const fetchRepositorySkillMarkdown = async ({
   owner,
   path,
   repo,
@@ -34,4 +40,19 @@ export const getRepositorySkillMarkdown = async ({
   } catch {
     return null;
   }
+};
+
+// SKILL.md는 경로 단위로만 달라지므로 캐시해 진입마다 조회가 반복되지 않도록 합니다.
+export const getRepositorySkillMarkdown = ({
+  owner,
+  path,
+  repo,
+}: GetRepositorySkillMarkdownRequest): Promise<GetRepositorySkillMarkdownResponse | null> => {
+  return unstable_cache(
+    () => {
+      return fetchRepositorySkillMarkdown({ owner, path, repo });
+    },
+    ['repository-skill-markdown', owner, repo, path],
+    { revalidate: GITHUB_REVALIDATE_SECONDS, tags: [getRepositoryCacheTag(owner, repo)] },
+  )();
 };

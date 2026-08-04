@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { ActionList } from '@primer/react';
 import { Text } from '@primer/react-brand';
@@ -13,8 +13,46 @@ interface TocProps {
   headings: TocHeading[];
 }
 
+// 활성 항목이 목차 영역 경계에 닿기 전에 확보할 여백입니다.
+const SCROLL_EDGE_MARGIN = 48;
+
 export const Toc = ({ headings }: TocProps) => {
-  const [activeId, setActiveId] = useState<string>('');
+  const [activeLinkId, setActiveLinkId] = useState<string>('');
+  const containerRef = useRef<HTMLElement>(null);
+
+  // 활성 항목이 목차 스크롤 영역을 벗어난 경우에만 목차 컨테이너를 스크롤합니다.
+  const scrollActiveLinkIntoView = (linkId: string) => {
+    const container = containerRef.current;
+
+    if (!container) {
+      return;
+    }
+
+    const activeLink = container.querySelector<HTMLElement>(`a[href="#${CSS.escape(linkId)}"]`);
+
+    if (activeLink === null) {
+      return;
+    }
+
+    const containerRect = container.getBoundingClientRect();
+    const activeLinkRect = activeLink.getBoundingClientRect();
+
+    if (activeLinkRect.top < containerRect.top + SCROLL_EDGE_MARGIN) {
+      container.scrollTo({
+        behavior: 'smooth',
+        top: container.scrollTop + activeLinkRect.top - containerRect.top - SCROLL_EDGE_MARGIN,
+      });
+
+      return;
+    }
+
+    if (activeLinkRect.bottom > containerRect.bottom - SCROLL_EDGE_MARGIN) {
+      container.scrollTo({
+        behavior: 'smooth',
+        top: container.scrollTop + activeLinkRect.bottom - containerRect.bottom + SCROLL_EDGE_MARGIN,
+      });
+    }
+  };
 
   useEffect(() => {
     if (headings.length === 0) {
@@ -23,12 +61,17 @@ export const Toc = ({ headings }: TocProps) => {
 
     const observer = new IntersectionObserver(
       (entries) => {
-        const visible = entries.filter((entry) => {
+        const visibleEntries = entries.filter((entry) => {
           return entry.isIntersecting;
         });
 
-        if (visible.length > 0) {
-          setActiveId(visible[0].target.id);
+        if (visibleEntries.length > 0) {
+          // 콜백 인자 순서는 문서 순서를 보장하지 않으므로 화면 최상단 heading을 선택합니다.
+          const [firstVisibleEntry] = visibleEntries.sort((a, b) => {
+            return a.boundingClientRect.top - b.boundingClientRect.top;
+          });
+
+          setActiveLinkId(firstVisibleEntry.target.id);
         }
       },
       { rootMargin: '-10% 0% -75% 0%' },
@@ -48,14 +91,33 @@ export const Toc = ({ headings }: TocProps) => {
     };
   }, [headings]);
 
+  useEffect(() => {
+    if (!activeLinkId) {
+      return;
+    }
+
+    scrollActiveLinkIntoView(activeLinkId);
+  }, [activeLinkId]);
+
   if (headings.length === 0) {
     return null;
   }
 
   return (
-    <aside className={styles.container}>
-      <nav aria-label="On This Page" className={styles.nav}>
-        <Text as="p" className={styles.title} variant="default" weight="semibold">
+    <aside
+      className={styles.container}
+      ref={containerRef}
+    >
+      <nav
+        aria-label="On This Page"
+        className={styles.nav}
+      >
+        <Text
+          as="p"
+          className={styles.title}
+          variant="default"
+          weight="semibold"
+        >
           On This Page
         </Text>
 
@@ -63,7 +125,7 @@ export const Toc = ({ headings }: TocProps) => {
           {headings.map((heading) => {
             return (
               <ActionList.LinkItem
-                active={activeId === heading.id}
+                active={activeLinkId === heading.id}
                 className={heading.depth < 3 ? undefined : styles.indent}
                 href={`#${heading.id}`}
                 key={heading.id}

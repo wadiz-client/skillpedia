@@ -1,5 +1,6 @@
 import { getRepositoryReadmeMarkdown, getRepositorySkillMarkdown } from '@/features/repository-markdown/api';
 import { getRepositoryTreeNodes } from '@/features/repository-tree/api';
+import { Layout } from '@/widgets/layout/ui';
 
 import { getBreadcrumbs, normalizeTitle, parseMarkdown } from './_lib';
 import { Article } from './_ui/Article';
@@ -64,13 +65,17 @@ export const OwnerRepoSlugPage = async ({ owner, repo, slug }: OwnerRepoSlugPage
 
   return (
     <div className={styles.container}>
-      <Sidebar owner={owner} repo={repo} treeNodes={navItems} />
+      <div className={styles.content}>
+        <Sidebar owner={owner} repo={repo} treeNodes={navItems} />
 
-      {tabs.length > 0 ? (
-        <Article breadcrumbs={breadcrumbs} description={description} tabs={tabs} title={title} />
-      ) : (
-        <Empty owner={owner} repo={repo} />
-      )}
+        {tabs.length > 0 ? (
+          <Article breadcrumbs={breadcrumbs} description={description} tabs={tabs} title={title} />
+        ) : (
+          <Empty owner={owner} repo={repo} />
+        )}
+      </div>
+
+      <Layout.Footer />
     </div>
   );
 };

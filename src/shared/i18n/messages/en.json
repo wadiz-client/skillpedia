@@ -10,8 +10,8 @@
       }
     },
     "PrivateRepositorySection": {
-      "title": "Private Repo Skills,<br></br>Safely Within Your Team",
-      "description": "Install it directly on your own infrastructure. Structure your internal repository's skill docs safely without exposing them externally.",
+      "title": "Share Private Repo Skills Safely",
+      "description": "You can install Skillpedia directly on your own infrastructure. Share your private repository's skill docs safely with both developers and non-developers.",
       "link": "Read the Install Guide",
       "terminalAppComment": "# https://github.com/settings/apps/new > Create a new GitHub App",
       "envKeyComment": "# Private Keys > Download private-key.pem"

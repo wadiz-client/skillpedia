@@ -7,11 +7,10 @@ import styles from './HomePage.module.scss';
 
 interface HomePageProps {
   isMobile: boolean;
-  isPublicDomain: boolean;
   repositoryMetadataList: RepositoryMetadata[];
 }
 
-export const HomePage = ({ isMobile, isPublicDomain, repositoryMetadataList }: HomePageProps) => {
+export const HomePage = ({ isMobile, repositoryMetadataList }: HomePageProps) => {
   const topRepositoryMetadata = repositoryMetadataList.find((repositoryMetadata) => {
     return repositoryMetadata.rank === 1;
   });
@@ -30,7 +29,7 @@ export const HomePage = ({ isMobile, isPublicDomain, repositoryMetadataList }: H
         repositoryMetadataList={repositoryMetadataList}
       />
       <FaqSection />
-      {(isPublicDomain || process.env.NODE_ENV === 'development') && <PrivateRepositorySection />}
+      <PrivateRepositorySection />
       <Layout.Footer />
     </div>
   );

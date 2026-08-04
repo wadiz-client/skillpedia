@@ -10,7 +10,7 @@ interface PageProps {
   params: Promise<{ locale: string }>;
 }
 
-// headers()로 기기·도메인을 판별하기 때문에 매 요청 시 렌더링합니다.
+// headers()로 기기를 판별하기 때문에 매 요청 시 렌더링합니다.
 // 저장소 메타데이터 재사용은 getRepositoryMetadata의 캐시가 담당합니다.
 export const dynamic = 'force-dynamic';
 
@@ -21,14 +21,12 @@ export default async function Page({ params }: PageProps) {
   const repositoryMetadataList = await getRankedRepositoryMetadataList();
 
   const headersList = await headers();
-  const isPublicDomain = headersList.get('host') === 'skillpedia.vercel.app';
   const { device } = userAgent({ headers: headersList });
   const isMobile = device.type === 'mobile';
 
   return (
     <HomePage
       isMobile={isMobile}
-      isPublicDomain={isPublicDomain}
       repositoryMetadataList={repositoryMetadataList}
     />
   );

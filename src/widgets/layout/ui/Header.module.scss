@@ -29,8 +29,14 @@
         color: var(--brand-color-text-default);
         text-decoration: none;
 
+        transition: transform 200ms ease;
+
         &:hover {
           opacity: 0.8;
+        }
+
+        &:active {
+          transform: scale(0.96);
         }
 
         svg {
@@ -40,6 +46,14 @@
         .title {
           font-size: 18px;
           font-weight: 600;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          transition: none;
+
+          &:active {
+            transform: none;
+          }
         }
       }
     }

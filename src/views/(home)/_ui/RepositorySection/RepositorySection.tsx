@@ -1,26 +1,41 @@
 'use client';
 
+import { useState } from 'react';
+
 import { RepoIcon } from '@primer/octicons-react';
 import { Blankslate } from '@primer/react/experimental';
-import { Box, Heading, Section, Statistic, Text } from '@primer/react-brand';
+import { AnimationProvider, Box, Button, Heading, Section, Statistic, Text } from '@primer/react-brand';
 import { useTranslations } from 'next-intl';
 
 import type { RepositoryMetadata } from '@/features/repository-metadata/api';
+import { ClaudeCodeToken } from '@/shared/ui';
 
 import { RepositoryCard } from './RepositoryCard';
 import { SpotlightCanvas } from './SpotlightCanvas';
 
 import styles from './RepositorySection.module.scss';
 
+const MOBILE_REPOSITORY_COUNT = 10;
+
 interface RepositorySectionProps {
+  isMobile: boolean;
   repositoryMetadataList: RepositoryMetadata[];
 }
 
-export const RepositorySection = ({ repositoryMetadataList }: RepositorySectionProps) => {
+export const RepositorySection = ({ isMobile, repositoryMetadataList }: RepositorySectionProps) => {
   const t = useTranslations('HomePage.RepositorySection');
+  const [isExpanded, setIsExpanded] = useState(false);
   const totalSkillCount = repositoryMetadataList.reduce((sum, repositoryMetadata) => {
     return sum + repositoryMetadata.skillCount;
   }, 0);
+  const isCollapsed = isMobile && !isExpanded;
+  const visibleRepositoryMetadataList = isCollapsed
+    ? repositoryMetadataList.slice(0, MOBILE_REPOSITORY_COUNT)
+    : repositoryMetadataList;
+
+  const handleMoreButtonClick = () => {
+    setIsExpanded(true);
+  };
 
   return (
     <Section
@@ -49,6 +64,14 @@ export const RepositorySection = ({ repositoryMetadataList }: RepositorySectionP
               variant="muted"
             >
               {t.rich('description', {
+                claudeCode: (chunks) => {
+                  return (
+                    <ClaudeCodeToken
+                      size="medium"
+                      text={chunks}
+                    />
+                  );
+                },
                 code: (chunks) => {
                   return <code>{chunks}</code>;
                 },
@@ -85,17 +108,36 @@ export const RepositorySection = ({ repositoryMetadataList }: RepositorySectionP
 
         {repositoryMetadataList.length > 0 ? (
           <div className={styles.inner}>
-            <SpotlightCanvas />
-            <div className={styles.content}>
-              {repositoryMetadataList.map((repositoryMetadata) => {
-                return (
-                  <RepositoryCard
-                    key={`${repositoryMetadata.owner}/${repositoryMetadata.repo}`}
-                    repositoryMetadata={repositoryMetadata}
-                  />
-                );
-              })}
-            </div>
+            {isMobile ? null : <SpotlightCanvas />}
+            <AnimationProvider
+              animationTrigger="on-visible"
+              autoStaggerChildren={false}
+              runOnce
+              visibilityOptions={15}
+            >
+              <div className={styles.content}>
+                {visibleRepositoryMetadataList.map((repositoryMetadata, index) => {
+                  return (
+                    <RepositoryCard
+                      index={index}
+                      key={`${repositoryMetadata.owner}/${repositoryMetadata.repo}`}
+                      repositoryMetadata={repositoryMetadata}
+                    />
+                  );
+                })}
+              </div>
+            </AnimationProvider>
+            {isCollapsed && repositoryMetadataList.length > MOBILE_REPOSITORY_COUNT ? (
+              <div className={styles.footer}>
+                <Button
+                  block
+                  variant="secondary"
+                  onClick={handleMoreButtonClick}
+                >
+                  {t('more')}
+                </Button>
+              </div>
+            ) : null}
           </div>
         ) : (
           <Blankslate

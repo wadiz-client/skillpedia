@@ -2,7 +2,7 @@
   "HomePage": {
     "HeroSection": {
       "title": "<line>흩어진 스킬 문서를</line><line>한곳에서, 정확하게</line>",
-      "description": "GitHub 저장소에 흩어져 있는 <code>SKILL.md</code> 문서들을 찾아서 구조화된 형태로 제공합니다.",
+      "description": "GitHub 저장소 곳곳에 흩어진 <claudeCode>Claude Code</claudeCode> 스킬(<code>SKILL.md</code>)을 찾아서 구조화된 형태로 제공합니다.",
       "form": {
         "error": "owner/repo 형식으로 작성해 주세요. 예: anthropics/skills",
         "label": "GitHub 저장소 주소",
@@ -11,19 +11,39 @@
     },
     "PrivateRepositorySection": {
       "title": "사내 저장소 스킬을<br></br>팀 안에서 안전하게",
-      "description": "사내 인프라에 직접 설치해서 운영해 보세요. 외부에 공개하지 않고 사내 저장소의 스킬 문서를 안전하게 구조화할 수 있습니다.",
-      "link": "가이드 보러 가기"
+      "description": "사내 인프라에 직접 설치해서 운영해 보세요. 저장소를 외부에 공개하지 않고도 스킬 문서를 안전하게 구조화할 수 있습니다.",
+      "link": "설치 가이드 보러 가기",
+      "terminalAppComment": "# https://github.com/settings/apps/new > 새 GitHub 앱 만들기",
+      "envKeyComment": "# Private Keys > private-key.pem 다운로드"
     },
     "RepositorySection": {
       "title": "저장소 둘러보기",
-      "description": "Claude Code에서 사용하는 당신의 스킬을 공유하고 저장소를 홍보해 주세요. <code>repositories.yaml</code>에 저장소를 추가하고 Pull Request를 열면 검토 후 목록에 등록해 드립니다.",
+      "description": "<claudeCode>Claude Code</claudeCode>에서 사용하는 당신의 스킬을 공유하고 저장소를 홍보해 주세요. <code>repositories.yaml</code>에 저장소를 추가하고 Pull Request를 열면 검토 후 목록에 등록해 드립니다.",
       "skillCount": "{count} SKILL.md",
       "totalCount": "전체 저장소",
       "totalSkillCount": "전체 스킬",
+      "more": "더 보기",
       "Empty": {
         "title": "저장소 목록 구성하기",
         "description": "아직 등록된 저장소가 없습니다. <code>repositories.yaml</code>에 저장소를 추가하고 Pull Request를 열면 검토 후 목록에 등록해 드립니다."
       }
+    },
+    "FaqSection": {
+      "title": "자주 묻는 질문",
+      "items": [
+        {
+          "question": "Skillpedia는 무엇인가요?",
+          "answer": "Skillpedia(스킬피디아)는 GitHub 저장소에 흩어진 스킬 문서를 한곳에 모아 구조화된 형태로 제공하는 오픈소스 프로젝트입니다."
+        },
+        {
+          "question": "스킬이 무엇인가요?",
+          "answer": "AI 에이전트가 도구를 정확하게 사용하도록 엔지니어가 작성한 지침입니다. <claudeCode>Claude Code</claudeCode>에서 사용하고, 저장소의 <code>SKILL.md</code> 파일에 정의합니다."
+        },
+        {
+          "question": "스킬 문서는 어떻게 가져오나요?",
+          "answer": "문서를 열 때마다 GitHub 저장소의 기본 브랜치에서 스킬 파일을 가져옵니다. 홈 페이지의 저장소 목록은 1시간 주기로 갱신합니다."
+        }
+      ]
     }
   },
   "Layout": {

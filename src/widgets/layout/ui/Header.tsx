@@ -9,6 +9,8 @@ import { routing } from '@/shared/i18n/routing';
 import type { Locale } from '@/shared/i18n/routing';
 import { useColorMode } from '@/shared/theme';
 
+import { SymbolMark } from './SymbolMark';
+
 import styles from './Header.module.scss';
 
 // 로케일별 표시 이름입니다.
@@ -59,38 +61,7 @@ export const Header = () => {
             href="/"
             onMouseEnter={handleLogoMouseEnter}
           >
-            <svg
-              aria-hidden
-              fill="currentColor"
-              height="24"
-              viewBox="0 0 512 512"
-              width="24"
-            >
-              <g transform="translate(256, 256)">
-                <rect
-                  height="88"
-                  width="176"
-                  x="-220"
-                  y="-176"
-                />
-                <circle
-                  cx="132"
-                  cy="-132"
-                  r="88"
-                />
-                <circle
-                  cx="-132"
-                  cy="132"
-                  r="88"
-                />
-                <rect
-                  height="88"
-                  width="176"
-                  x="44"
-                  y="88"
-                />
-              </g>
-            </svg>
+            <SymbolMark />
             <span className={styles.title}>Skillpedia</span>
           </Link>
         </div>

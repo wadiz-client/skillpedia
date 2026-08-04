@@ -2,7 +2,7 @@
   "HomePage": {
     "HeroSection": {
       "title": "<line>Scattered Skill Docs,</line><line>in One Place, Precisely</line>",
-      "description": "Finds <code>SKILL.md</code> documents scattered across GitHub repositories and presents them in a structured form.",
+      "description": "Finds <claudeCode>Claude Code</claudeCode> skills (<code>SKILL.md</code>) scattered across GitHub repositories and presents them in a structured form.",
       "form": {
         "error": "Please use the owner/repo format. Example: anthropics/skills",
         "label": "GitHub repository URL",
@@ -12,18 +12,38 @@
     "PrivateRepositorySection": {
       "title": "Private Repo Skills,<br></br>Safely Within Your Team",
       "description": "Install it directly on your own infrastructure. Structure your internal repository's skill docs safely without exposing them externally.",
-      "link": "Read the Guide"
+      "link": "Read the Install Guide",
+      "terminalAppComment": "# https://github.com/settings/apps/new > Create a new GitHub App",
+      "envKeyComment": "# Private Keys > Download private-key.pem"
     },
     "RepositorySection": {
       "title": "Browse Repositories",
-      "description": "Share your own skills for Claude Code and get your repository noticed. Add your repository to <code>repositories.yaml</code> and open a Pull Request, and we'll review it and add it to the list.",
+      "description": "Share your own skills for <claudeCode>Claude Code</claudeCode> and get your repository noticed. Add your repository to <code>repositories.yaml</code> and open a Pull Request, and we'll review it and add it to the list.",
       "skillCount": "{count} SKILL.md",
       "totalCount": "Repositories",
       "totalSkillCount": "Skills",
+      "more": "Show more",
       "Empty": {
         "title": "Set up your repository list.",
         "description": "No repositories have been registered yet. Add your repository to <code>repositories.yaml</code> and open a Pull Request, and we'll review it and add it to the list."
       }
+    },
+    "FaqSection": {
+      "title": "Frequently asked questions",
+      "items": [
+        {
+          "question": "What is Skillpedia?",
+          "answer": "Skillpedia is an open-source project that gathers skill docs scattered across GitHub repositories and provides them in a structured form."
+        },
+        {
+          "question": "What is a skill?",
+          "answer": "A guide written by engineers so that AI agents can use a tool correctly. <claudeCode>Claude Code</claudeCode> reads it, and each skill lives in a <code>SKILL.md</code> file in a repository."
+        },
+        {
+          "question": "How does Skillpedia fetch skill docs?",
+          "answer": "Each time you open a document, Skillpedia fetches the skill file from the default branch of its GitHub repository. The repository list on the home page refreshes every hour."
+        }
+      ]
     }
   },
   "Layout": {

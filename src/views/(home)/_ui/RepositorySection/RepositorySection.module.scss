@@ -40,6 +40,10 @@
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: var(--base-size-24);
     }
+
+    .footer {
+      margin-top: var(--base-size-24);
+    }
   }
 }
 

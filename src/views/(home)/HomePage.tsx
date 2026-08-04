@@ -1,7 +1,7 @@
 import type { RepositoryMetadata } from '@/features/repository-metadata/api';
 import { Layout } from '@/widgets/layout/ui';
 
-import { HeroSection, PrivateRepositorySection, RepositorySection } from './_ui';
+import { FaqSection, HeroSection, PrivateRepositorySection, RepositorySection } from './_ui';
 
 import styles from './HomePage.module.scss';
 
@@ -15,7 +15,11 @@ export const HomePage = ({ isMobile, isPublicDomain, repositoryMetadataList }: H
   return (
     <div className={styles.container}>
       <HeroSection isMobile={isMobile} />
-      <RepositorySection repositoryMetadataList={repositoryMetadataList} />
+      <RepositorySection
+        isMobile={isMobile}
+        repositoryMetadataList={repositoryMetadataList}
+      />
+      <FaqSection />
       {(isPublicDomain || process.env.NODE_ENV === 'development') && <PrivateRepositorySection />}
       <Layout.Footer />
     </div>

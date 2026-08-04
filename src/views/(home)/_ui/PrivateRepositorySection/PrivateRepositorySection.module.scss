@@ -1,0 +1,129 @@
+@use 'breakpoint' as *;
+
+.container {
+  .inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(32px, 4vw, 64px);
+    align-items: center;
+  }
+
+  .header {
+    display: flex;
+    flex: 1 1 420px;
+    flex-direction: column;
+    gap: var(--base-size-16);
+    align-items: flex-start;
+
+    min-width: min(100%, 340px);
+    padding-block: var(--base-size-24);
+
+    .label {
+      display: inline-flex;
+      align-items: center;
+      margin-bottom: 2px;
+
+      .labelText {
+        font-family: var(--brand-fontStack-monospace);
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #a4aea6;
+        text-transform: uppercase;
+        letter-spacing: 0.21px;
+      }
+
+      // 초록 커서 사각형
+      .cursor {
+        width: 8px;
+        height: 10px;
+        margin-left: 6px;
+        background: #5fed83;
+      }
+    }
+
+    .heading {
+      max-width: 14ch;
+      color: #fff;
+      text-wrap: balance;
+    }
+
+    .description {
+      max-width: 50ch;
+      padding-top: 2px;
+
+      color: #a4aea6;
+      text-wrap: pretty;
+      letter-spacing: 0.24px;
+    }
+
+    // 화살표 밑줄·이동 애니메이션 링크
+    .link {
+      cursor: pointer;
+
+      position: relative;
+      top: 0.05em;
+
+      display: inline-flex;
+      column-gap: var(--base-size-4);
+      align-items: center;
+      justify-content: center;
+
+      margin-top: var(--base-size-16);
+
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.5;
+      color: #8dd6ff;
+      letter-spacing: 0.24px;
+
+      &::after {
+        pointer-events: none;
+        content: '';
+
+        position: absolute;
+        bottom: -0.15em;
+        left: 0;
+        transform-origin: 0 0;
+        transform: scaleX(0);
+
+        width: calc(100% - 4px - 16px);
+        border: 1px solid currentcolor;
+
+        transition: transform 0.2s ease;
+      }
+
+      &:hover::after,
+      &:active::after {
+        transform: scaleX(1);
+      }
+
+      svg {
+        transition: transform 0.2s ease;
+      }
+
+      &:hover svg {
+        transform: translateX(4px);
+      }
+
+      .stem {
+        stroke-dasharray: 10;
+        stroke-dashoffset: 10;
+        transition: stroke-dashoffset 0.2s ease;
+      }
+
+      &:hover .stem {
+        stroke-dashoffset: 20;
+      }
+    }
+  }
+
+  .content {
+    display: flex;
+    flex: 1 1 560px;
+    flex-direction: column;
+    gap: var(--base-size-20);
+
+    min-width: 0;
+  }
+}

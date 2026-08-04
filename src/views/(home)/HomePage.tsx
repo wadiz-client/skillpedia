@@ -12,9 +12,19 @@ interface HomePageProps {
 }
 
 export const HomePage = ({ isMobile, isPublicDomain, repositoryMetadataList }: HomePageProps) => {
+  const topRepositoryMetadata = repositoryMetadataList.find((repositoryMetadata) => {
+    return repositoryMetadata.rank === 1;
+  });
+  const topRepositoryUrl = topRepositoryMetadata
+    ? `https://github.com/${topRepositoryMetadata.owner}/${topRepositoryMetadata.repo}`
+    : undefined;
+
   return (
     <div className={styles.container}>
-      <HeroSection isMobile={isMobile} />
+      <HeroSection
+        isMobile={isMobile}
+        topRepositoryUrl={topRepositoryUrl}
+      />
       <RepositorySection
         isMobile={isMobile}
         repositoryMetadataList={repositoryMetadataList}

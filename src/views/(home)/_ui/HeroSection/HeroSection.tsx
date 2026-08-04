@@ -14,24 +14,27 @@ import { useHeroContent } from './useHeroContent';
 
 import styles from './HeroSection.module.scss';
 
-const DEFAULT_REPOSITORY_URL = 'https://github.com/anthropics/skills';
+const FALLBACK_REPOSITORY_URL = 'https://github.com/anthropics/skills';
 
 interface HeroSectionProps {
   isMobile: boolean;
+  topRepositoryUrl?: string;
 }
 
-export const HeroSection = ({ isMobile }: HeroSectionProps) => {
+export const HeroSection = ({ isMobile, topRepositoryUrl }: HeroSectionProps) => {
   const t = useTranslations('HomePage.HeroSection');
   const router = useRouter();
   const { rootRef, variant } = useHeroContent<HTMLDivElement>();
   const [repository, setRepository] = useState('');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  // 활동 1위 저장소를 안내 문구로 사용하고, 순위를 계산하지 못한 경우 기본 저장소를 사용합니다.
+  const exampleRepositoryUrl = topRepositoryUrl ?? FALLBACK_REPOSITORY_URL;
 
-  // 입력한 저장소를 정규화한 뒤 문서 경로로 이동합니다. 입력이 없으면 기본 저장소로 이동합니다.
+  // 입력한 저장소를 정규화한 뒤 문서 경로로 이동합니다. 입력이 없으면 안내 문구의 저장소로 이동합니다.
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
 
-    const value = (repository.trim() || DEFAULT_REPOSITORY_URL).replace(/^https?:\/\/github\.com\//i, '').replace(/\/$/, '');
+    const value = (repository.trim() || exampleRepositoryUrl).replace(/^https?:\/\/github\.com\//i, '').replace(/\/$/, '');
 
     const isValidFormat = /^[\w.-]+\/[\w.-]+$/.test(value);
 
@@ -117,7 +120,7 @@ export const HeroSection = ({ isMobile }: HeroSectionProps) => {
                 <TextInput
                   fullWidth
                   leadingVisual={<SearchIcon />}
-                  placeholder={DEFAULT_REPOSITORY_URL}
+                  placeholder={exampleRepositoryUrl}
                   size={isMobile ? 'medium' : 'large'}
                   type="search"
                   value={repository}

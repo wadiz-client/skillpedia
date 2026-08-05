@@ -1,3 +1,5 @@
+@use 'breakpoint' as *;
+
 .container {
   position: sticky;
   z-index: 100;
@@ -18,7 +20,7 @@
     .left {
       display: flex;
       flex-shrink: 0;
-      gap: var(--base-size-24);
+      gap: var(--base-size-12);
       align-items: center;
 
       .logo {
@@ -54,6 +56,30 @@
           &:active {
             transform: none;
           }
+        }
+      }
+
+      .claudeCode {
+        display: flex;
+        gap: var(--base-size-6);
+        align-items: center;
+
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--brand-color-text-muted);
+
+        &::before {
+          content: '';
+
+          width: 1px;
+          height: var(--base-size-20);
+          margin-inline-end: var(--base-size-6);
+
+          background-color: var(--brand-color-border-default);
+        }
+
+        @media (width < $breakpoint-medium) {
+          display: none;
         }
       }
     }

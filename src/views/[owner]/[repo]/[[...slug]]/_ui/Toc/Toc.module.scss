@@ -26,6 +26,10 @@
       padding-inline-start: var(--base-size-16);
     }
 
+    .value {
+      font-variant-numeric: tabular-nums;
+    }
+
     // Primer ActionList 활성 항목의 좌측 강조 바를 제거하고 배경·글자 강조만 남깁니다.
     :global([data-active])::after {
       display: none;

@@ -8,6 +8,7 @@ import { Link, usePathname, useRouter } from '@/shared/i18n/navigation';
 import { routing } from '@/shared/i18n/routing';
 import type { Locale } from '@/shared/i18n/routing';
 import { useColorMode } from '@/shared/theme';
+import { ClaudeCodeSymbolMark } from '@/shared/ui';
 
 import { SymbolMark } from './SymbolMark';
 
@@ -64,6 +65,12 @@ export const Header = () => {
             <SymbolMark />
             <span className={styles.title}>Skillpedia</span>
           </Link>
+
+          <span className={styles.claudeCode}>
+            for
+            <ClaudeCodeSymbolMark />
+            Claude Code
+          </span>
         </div>
 
         <div className={styles.actions}>

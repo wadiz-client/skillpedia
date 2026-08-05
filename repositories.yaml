@@ -1,29 +1,24 @@
-# Local development sample. Copy this file to repositories.yaml.
-# Production injects the list via the GitHub Actions REPOSITORIES variable.
-
 - anthropics/skills
-- aquasecurity/trivy
-- docker/compose
-- expressjs/express
-- facebook/docusaurus
+- cookyman74/my_harness
+- djfksjd/sole-search
+- epoko77-ai/im-not-ai
 - facebook/react
 - fastapi/fastapi
 - github/docs
-- gitleaks/gitleaks
-- hashicorp/terraform
-- kubernetes/kubernetes
+- gongnyang/gn-voice
 - langchain-ai/langchain
 - microsoft/autogen
 - mkdocs/mkdocs
+- modu-ai/cowork-plugins
 - nestjs/nest
+- NomaDamas/k-skill
 - openai/openai-cookbook
 - ossf/scorecard
-- primer/react
-- prisma/prisma
 - redis/redis
 - shuding/nextra
 - storybookjs/storybook
 - supabase/supabase
 - sveltejs/svelte
+- Turtle-Hwan/im-ai-copyeditor
 - vercel/next.js
 - vuejs/core

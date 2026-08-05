@@ -130,7 +130,12 @@ export const Toc = ({ headings }: TocProps) => {
                 href={`#${heading.id}`}
                 key={heading.id}
               >
-                <Text size="100">{heading.value}</Text>
+                <Text
+                  className={styles.value}
+                  size="100"
+                >
+                  {heading.value}
+                </Text>
               </ActionList.LinkItem>
             );
           })}

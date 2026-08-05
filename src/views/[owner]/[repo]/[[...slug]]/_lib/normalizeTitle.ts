@@ -11,6 +11,7 @@ const ACRONYMS = new Set([
   'fe',
   'geo',
   'gif',
+  'gwt',
   'html',
   'http',
   'https',

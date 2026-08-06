@@ -61,8 +61,9 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
 
   setRequestLocale(locale as Locale);
 
+  // @primer/react가 불러오는 focus-visible 폴리필이 클라이언트에서 html에 클래스와 속성을 추가합니다.
   return (
-    <html data-dark-theme="dark" data-light-theme="light" lang={locale}>
+    <html data-dark-theme="dark" data-light-theme="light" lang={locale} suppressHydrationWarning>
       <body>
         <NextIntlClientProvider now={new Date()}>
           <ColorModeProvider>

@@ -33,14 +33,10 @@ export const OwnerRepoSlugPage = async ({ owner, repo, slug }: OwnerRepoSlugPage
   ]);
 
   const navItems = treeNodesResult.status === 'fulfilled' ? treeNodesResult.value : [];
-  const readmeMarkdown =
-    readmeMarkdownResult.status === 'fulfilled' && readmeMarkdownResult.value
-      ? parseMarkdown(readmeMarkdownResult.value.content)
-      : null;
-  const skillMarkdown =
-    skillMarkdownResult.status === 'fulfilled' && skillMarkdownResult.value
-      ? parseMarkdown(skillMarkdownResult.value.content)
-      : null;
+  const readme = readmeMarkdownResult.status === 'fulfilled' ? readmeMarkdownResult.value : null;
+  const skill = skillMarkdownResult.status === 'fulfilled' ? skillMarkdownResult.value : null;
+  const readmeMarkdown = readme ? parseMarkdown(readme.content) : null;
+  const skillMarkdown = skill ? parseMarkdown(skill.content) : null;
 
   const folderName = path ? path.split('/').at(-1)! : repo;
   const breadcrumbs = getBreadcrumbs({ owner, repo, slug });
@@ -48,12 +44,12 @@ export const OwnerRepoSlugPage = async ({ owner, repo, slug }: OwnerRepoSlugPage
   // README와 SKILL이 모두 있으면 탭으로 전환할 수 있도록 탭 목록을 만듭니다.
   const tabs: ArticleTab[] = [];
 
-  if (readmeMarkdown) {
-    tabs.push({ content: readmeMarkdown.content, label: 'README' });
+  if (readme && readmeMarkdown) {
+    tabs.push({ content: readmeMarkdown.content, filePath: readme.filePath, label: 'README' });
   }
 
-  if (skillMarkdown) {
-    tabs.push({ content: skillMarkdown.content, label: 'SKILL' });
+  if (skill && skillMarkdown) {
+    tabs.push({ content: skillMarkdown.content, filePath: skill.path, label: 'SKILL' });
   }
 
   // README의 표시 제목은 그대로 쓰고, 슬러그형 SKILL name·폴더명은 정규화합니다.
@@ -70,7 +66,14 @@ export const OwnerRepoSlugPage = async ({ owner, repo, slug }: OwnerRepoSlugPage
         <Sidebar owner={owner} repo={repo} treeNodes={navItems} />
 
         {tabs.length > 0 ? (
-          <Article breadcrumbs={breadcrumbs} description={description} tabs={tabs} title={title} />
+          <Article
+            breadcrumbs={breadcrumbs}
+            description={description}
+            owner={owner}
+            repo={repo}
+            tabs={tabs}
+            title={title}
+          />
         ) : (
           <Empty owner={owner} repo={repo} />
         )}

@@ -10,6 +10,7 @@ import rehypeRaw from 'rehype-raw';
 import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
 
+import { resolveMarkdownUrl } from '../../_lib';
 import { CodeBlock } from '../CodeBlock';
 
 import styles from './Prose.module.scss';
@@ -89,16 +90,22 @@ const markdownComponents: Components = {
 };
 
 interface ProseProps {
+  filePath: string;
   markdown: string;
+  owner: string;
+  repo: string;
 }
 
-export const Prose = ({ markdown }: ProseProps) => {
+export const Prose = ({ filePath, markdown, owner, repo }: ProseProps) => {
   return (
     <div className={styles.prose}>
       <Markdown
         components={markdownComponents}
         rehypePlugins={[rehypeRaw, rehypeSlug]}
         remarkPlugins={[remarkGfm]}
+        urlTransform={(url, key) => {
+          return resolveMarkdownUrl({ filePath, key, owner, repo, url });
+        }}
       >
         {markdown}
       </Markdown>

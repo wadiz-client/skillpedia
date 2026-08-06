@@ -14,17 +14,20 @@ import styles from './Article.module.scss';
 
 export interface ArticleTab {
   content: ArticleContent;
+  filePath: string;
   label: 'README' | 'SKILL';
 }
 
 interface ArticleProps {
   breadcrumbs: Breadcrumb[];
+  owner: string;
+  repo: string;
   tabs: ArticleTab[];
   title: string;
   description?: string;
 }
 
-export const Article = ({ breadcrumbs, tabs, title, description }: ArticleProps) => {
+export const Article = ({ breadcrumbs, owner, repo, tabs, title, description }: ArticleProps) => {
   const t = useTranslations('OwnerRepoSlugPage.Article');
   const [activeIndex, setActiveIndex] = useState(0);
   const activeTab = tabs[activeIndex] ?? tabs[0];
@@ -108,7 +111,12 @@ export const Article = ({ breadcrumbs, tabs, title, description }: ArticleProps)
             justifyContent="space-around"
             padding="none"
           >
-            <Prose markdown={activeTab?.content.markdown ?? ''} />
+            <Prose
+              filePath={activeTab?.filePath ?? ''}
+              markdown={activeTab?.content.markdown ?? ''}
+              owner={owner}
+              repo={repo}
+            />
             <Toc headings={tocHeadings} />
           </Stack>
         </article>

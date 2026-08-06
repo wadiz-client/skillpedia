@@ -1,8 +1,9 @@
-@use 'breakpoint' as *;
+@use 'variables' as *;
 
+// Primer 오버레이는 z-index 1로 body 끝에 렌더링되므로, 헤더도 같은 층을 쓰면 오버레이가 헤더를 덮습니다.
 .container {
   position: sticky;
-  z-index: 100;
+  z-index: 1;
   top: 0;
 
   border-bottom: 1px solid var(--brand-color-border-default);
@@ -89,34 +90,6 @@
       flex-shrink: 0;
       gap: var(--base-size-8);
       align-items: center;
-    }
-
-    .themeToggle {
-      cursor: pointer;
-
-      display: flex;
-      flex-shrink: 0;
-      align-items: center;
-      justify-content: center;
-
-      width: var(--base-size-32);
-      height: var(--base-size-32);
-      padding: 0;
-      border: none;
-      border-radius: var(--base-size-6);
-
-      color: var(--brand-color-text-muted);
-
-      background-color: transparent;
-
-      &:hover {
-        color: var(--brand-color-text-default);
-        background-color: var(--brand-color-canvas-subtle);
-      }
-
-      svg {
-        fill: currentcolor;
-      }
     }
   }
 }

@@ -1,4 +1,4 @@
-import { normalizeTitle } from './normalizeTitle';
+import { normalizeTitle } from '@/shared/lib';
 
 export interface Breadcrumb {
   href: string;

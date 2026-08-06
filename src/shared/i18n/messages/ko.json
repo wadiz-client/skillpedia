@@ -56,10 +56,21 @@
     "Header": {
       "language": {
         "ariaLabel": "언어"
-      },
-      "theme": {
-        "ariaLabel": "{colorMode, select, light {다크 모드로 전환} other {라이트 모드로 전환}}"
       }
+    },
+    "SidePanel": {
+      "close": {
+        "ariaLabel": "문서 목록 닫기"
+      },
+      "nav": {
+        "ariaLabel": "{owner}/{repo} 문서 목록"
+      },
+      "trigger": {
+        "ariaLabel": "{state, select, open {{owner}/{repo} 문서 목록 닫기} other {{owner}/{repo} 문서 목록 열기}}"
+      }
+    },
+    "ThemeToggle": {
+      "ariaLabel": "{colorMode, select, light {다크 모드로 전환} other {라이트 모드로 전환}}"
     }
   },
   "Metadata": {

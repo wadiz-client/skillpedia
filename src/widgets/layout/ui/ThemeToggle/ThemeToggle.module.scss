@@ -1,0 +1,27 @@
+.container {
+  cursor: pointer;
+
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+
+  width: var(--base-size-32);
+  height: var(--base-size-32);
+  padding: 0;
+  border: none;
+  border-radius: var(--base-size-6);
+
+  color: var(--brand-color-text-muted);
+
+  background-color: transparent;
+
+  &:hover {
+    color: var(--brand-color-text-default);
+    background-color: var(--brand-color-canvas-subtle);
+  }
+
+  svg {
+    fill: currentcolor;
+  }
+}

@@ -1,11 +1,25 @@
+import { existsSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
+
+import { load } from 'js-yaml';
+
 import { getRepositoryMetadata } from '@/features/repository-metadata/api';
 import type { RepositoryMetadata } from '@/features/repository-metadata/api';
-
-import { getRepositories } from './getRepositories';
 
 const RANK_COUNT = 3;
 const SKILL_COUNT_WEIGHT = 0.6;
 const UPDATED_AT_WEIGHT = 0.4;
+
+const getRepositories = (): string[] => {
+  const filePath = join(process.cwd(), 'repositories.yaml');
+  const content = process.env.REPOSITORIES ?? (existsSync(filePath) ? readFileSync(filePath, 'utf8') : '');
+
+  if (!content) {
+    return [];
+  }
+
+  return (load(content) || []) as string[];
+};
 
 // 목록 안에서 값을 0~1로 정규화합니다. 최솟값과 최댓값이 같으면 0을 반환합니다.
 const normalize = (value: number, min: number, max: number): number => {

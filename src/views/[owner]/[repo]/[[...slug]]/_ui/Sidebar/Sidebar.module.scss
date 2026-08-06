@@ -1,4 +1,5 @@
-@use 'breakpoint' as *;
+@use 'variables' as *;
+@use 'mixins' as *;
 
 .container {
   flex-shrink: 0;
@@ -7,20 +8,15 @@
   border-right: 1px solid var(--brand-color-border-default);
 
   .inner {
+    @include hide-scrollbar('y');
+
     position: sticky;
     top: 65px;
-    overflow-y: auto;
     max-height: calc(100vh - 65px);
 
     .title {
       margin: 0 0 var(--base-size-12);
       padding: var(--base-size-24) var(--base-size-16) 0;
-    }
-
-    [data-component="ActionList.Group"] {
-      > ul > [data-component="ActionList.Item"] {
-        margin-top: var(--base-size-24);
-      }
     }
   }
 }

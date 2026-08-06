@@ -13,10 +13,11 @@ import styles from './RepositoryCard.module.scss';
 
 interface RepositoryCardProps {
   index: number;
+  isAnimationEnabled?: boolean;
   repositoryMetadata: RepositoryMetadata;
 }
 
-export const RepositoryCard = ({ index, repositoryMetadata }: RepositoryCardProps) => {
+export const RepositoryCard = ({ index, isAnimationEnabled = true, repositoryMetadata }: RepositoryCardProps) => {
   const { description, owner, rank, repo, skillCount, starCount, updatedAt } = repositoryMetadata;
   const t = useTranslations('HomePage.RepositorySection');
   const format = useFormatter();
@@ -29,9 +30,9 @@ export const RepositoryCard = ({ index, repositoryMetadata }: RepositoryCardProp
 
   return (
     <Link
-      className={classNames(styles.container, animationClasses)}
+      className={classNames(styles.container, isAnimationEnabled ? animationClasses : undefined)}
       href={`/${owner}/${repo}`}
-      style={animationStyles}
+      style={isAnimationEnabled ? animationStyles : undefined}
     >
       {rank ? (
         <span

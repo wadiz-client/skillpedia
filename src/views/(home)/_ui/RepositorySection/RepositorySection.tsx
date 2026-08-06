@@ -120,6 +120,7 @@ export const RepositorySection = ({ isMobile, repositoryMetadataList }: Reposito
                   return (
                     <RepositoryCard
                       index={index}
+                      isAnimationEnabled={!isMobile || index < MOBILE_REPOSITORY_COUNT}
                       key={`${repositoryMetadata.owner}/${repositoryMetadata.repo}`}
                       repositoryMetadata={repositoryMetadata}
                     />

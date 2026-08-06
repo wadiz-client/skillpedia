@@ -30,9 +30,8 @@ article :is(h1, h2, h3, h4, h5, h6) {
   scroll-margin-top: var(--base-size-112);
 }
 
-[data-component="ActionList.Item.Label"] {
+[data-component='ActionList.Item.Label'] {
   * {
     word-break: keep-all;
   }
 }
-

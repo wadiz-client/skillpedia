@@ -1,18 +1,27 @@
 'use client';
 
-import { MoonIcon, SunIcon } from '@primer/octicons-react';
+import { Suspense } from 'react';
+
 import { Select } from '@primer/react';
 import { useLocale, useTranslations } from 'next-intl';
 
+import type { RepositoryTreeNode } from '@/features/repository-tree/api';
 import { Link, usePathname, useRouter } from '@/shared/i18n/navigation';
 import { routing } from '@/shared/i18n/routing';
 import type { Locale } from '@/shared/i18n/routing';
-import { useColorMode } from '@/shared/theme';
 import { ClaudeCodeSymbolMark } from '@/shared/ui';
 
+import { SidePanel } from './SidePanel';
 import { SymbolMark } from './SymbolMark';
+import { ThemeToggle } from './ThemeToggle';
 
 import styles from './Header.module.scss';
+
+interface HeaderProps {
+  owner?: string;
+  repo?: string;
+  treeNodesPromise?: Promise<RepositoryTreeNode[]>;
+}
 
 // 로케일별 표시 이름입니다.
 const LOCALE_LABELS: Record<Locale, string> = {
@@ -20,12 +29,11 @@ const LOCALE_LABELS: Record<Locale, string> = {
   ko: '한국어',
 };
 
-export const Header = () => {
+export const Header = ({ owner, repo, treeNodesPromise }: HeaderProps) => {
   const t = useTranslations('Layout.Header');
   const locale = useLocale();
   const pathname = usePathname();
   const router = useRouter();
-  const { colorMode, toggleColorMode } = useColorMode();
 
   const handleChangeLocale: React.ChangeEventHandler<HTMLSelectElement> = (event) => {
     router.replace(pathname, { locale: event.target.value as Locale });
@@ -91,14 +99,18 @@ export const Header = () => {
             })}
           </Select>
 
-          <button
-            aria-label={t('theme.ariaLabel', { colorMode })}
-            className={styles.themeToggle}
-            type="button"
-            onClick={toggleColorMode}
-          >
-            {colorMode === 'light' ? <SunIcon size={20} /> : <MoonIcon size={20} />}
-          </button>
+          <ThemeToggle />
+
+          {/* 트리 조회가 헤더 렌더링을 막지 않도록 SidePanel만 지연해서 노출합니다. */}
+          {owner && repo && treeNodesPromise && (
+            <Suspense>
+              <SidePanel
+                owner={owner}
+                repo={repo}
+                treeNodesPromise={treeNodesPromise}
+              />
+            </Suspense>
+          )}
         </div>
       </div>
     </header>

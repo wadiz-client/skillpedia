@@ -1,8 +1,9 @@
 import { getRepositoryReadmeMarkdown, getRepositorySkillMarkdown } from '@/features/repository-markdown/api';
 import { getRepositoryTreeNodes } from '@/features/repository-tree/api';
+import { normalizeTitle } from '@/shared/lib';
 import { Layout } from '@/widgets/layout/ui';
 
-import { getBreadcrumbs, normalizeTitle, parseMarkdown } from './_lib';
+import { getBreadcrumbs, parseMarkdown } from './_lib';
 import { Article } from './_ui/Article';
 import type { ArticleTab } from './_ui/Article';
 import { Empty } from './_ui/Empty';

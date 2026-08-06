@@ -1,6 +1,7 @@
-@use 'breakpoint' as *;
+@use 'variables' as *;
 
 .container {
+  isolation: isolate;
   position: relative;
   overflow: hidden;
   border-bottom: 1px solid var(--brand-color-border-default);

@@ -53,13 +53,28 @@ export const Article = ({ breadcrumbs, tabs, title, description }: ArticleProps)
           </Breadcrumbs>
         )}
 
-        <Stack gap="spacious" padding="none">
-          <Stack gap="normal" padding="none">
-            <Heading as="h1" size="2" weight="bold">
+        <Stack
+          gap="spacious"
+          padding="none"
+        >
+          <Stack
+            gap="normal"
+            padding="none"
+          >
+            <Heading
+              as="h1"
+              size="2"
+              weight="bold"
+            >
               {title}
             </Heading>
             {description && (
-              <Text as="p" size="300" variant="muted">
+              <Text
+                as="p"
+                className={styles.description}
+                size="300"
+                variant="muted"
+              >
                 {description}
               </Text>
             )}

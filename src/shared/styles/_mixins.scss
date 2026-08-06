@@ -1,0 +1,15 @@
+@mixin hide-scrollbar($axis: 'x') {
+  @if $axis == 'x' {
+    overflow-x: auto;
+  } @else {
+    overflow-y: auto;
+  }
+
+  scrollbar-width: none;
+
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

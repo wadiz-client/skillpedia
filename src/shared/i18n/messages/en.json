@@ -56,10 +56,21 @@
     "Header": {
       "language": {
         "ariaLabel": "Language"
-      },
-      "theme": {
-        "ariaLabel": "{colorMode, select, light {Switch to dark mode} other {Switch to light mode}}"
       }
+    },
+    "SidePanel": {
+      "close": {
+        "ariaLabel": "Close the document list"
+      },
+      "nav": {
+        "ariaLabel": "{owner}/{repo} document list"
+      },
+      "trigger": {
+        "ariaLabel": "{state, select, open {Close the {owner}/{repo} document list} other {Open the {owner}/{repo} document list}}"
+      }
+    },
+    "ThemeToggle": {
+      "ariaLabel": "{colorMode, select, light {Switch to dark mode} other {Switch to light mode}}"
     }
   },
   "Metadata": {

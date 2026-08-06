@@ -4,6 +4,7 @@
 }
 
 .container {
+  isolation: isolate;
   position: relative;
 
   display: flex;
@@ -54,17 +55,17 @@
 
     box-shadow: 0 var(--base-size-4) var(--base-size-8) rgb(31 35 40 / 26%);
 
-    &[data-rank="1"] {
+    &[data-rank='1'] {
       color: #1f2328;
       background: #f2cc60;
     }
 
-    &[data-rank="2"] {
+    &[data-rank='2'] {
       color: #1f2328;
       background: #c8ccd1;
     }
 
-    &[data-rank="3"] {
+    &[data-rank='3'] {
       color: #fff;
       background: #d1873f;
     }
@@ -192,5 +193,4 @@
       }
     }
   }
-
 }

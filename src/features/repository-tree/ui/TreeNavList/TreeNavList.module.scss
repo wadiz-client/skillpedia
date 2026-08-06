@@ -1,0 +1,7 @@
+.container {
+  [data-component='ActionList.Group'] {
+    > ul > [data-component='ActionList.Item'] {
+      margin-top: var(--base-size-24);
+    }
+  }
+}

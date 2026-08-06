@@ -1,0 +1,64 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.container {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+}
+
+.dialog {
+  .actions {
+    display: flex;
+    gap: var(--base-size-8);
+    align-items: center;
+  }
+
+  .close {
+    cursor: pointer;
+
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+
+    width: var(--base-size-32);
+    height: var(--base-size-32);
+    padding: 0;
+    border: none;
+    border-radius: var(--base-size-6);
+
+    color: var(--brand-color-text-muted);
+
+    background-color: transparent;
+
+    &:hover {
+      color: var(--brand-color-text-default);
+      background-color: var(--brand-color-canvas-subtle);
+    }
+
+    svg {
+      fill: currentcolor;
+    }
+  }
+
+  :global([class*='Dialog-Header-']) {
+    display: flex;
+    gap: var(--base-size-8);
+    align-items: center;
+    justify-content: space-between;
+
+    height: var(--base-size-64);
+    padding-inline: var(--base-size-16);
+  }
+
+  :global([class*='DialogOverflowWrapper']) {
+    @include hide-scrollbar('y');
+  }
+}
+
+@media (width >= $breakpoint-large) {
+  .container {
+    display: none;
+  }
+}

@@ -31,6 +31,7 @@ const ACRONYMS = new Set([
   'ui',
   'url',
   'ux',
+  'wds',
 ]);
 
 /**

@@ -1,17 +1,22 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { ArrowUpIcon } from '@primer/octicons-react';
+import classNames from 'classnames';
 import { useTranslations } from 'next-intl';
 
 import styles from './ScrollToTopButton.module.scss';
 
 const VISIBLE_SCROLL_Y = 400;
 
+// 방향을 판정하는 최소 이동량
+const MIN_SCROLL_DELTA = 4;
+
 export const ScrollToTopButton = () => {
   const t = useTranslations('Layout.Fab.ScrollToTopButton');
   const [isVisible, setIsVisible] = useState(false);
+  const previousScrollYRef = useRef(0);
 
   const handleClick = () => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -20,11 +25,20 @@ export const ScrollToTopButton = () => {
   };
 
   useEffect(() => {
+    previousScrollYRef.current = window.scrollY;
+
     const handleScroll = () => {
-      setIsVisible(window.scrollY > VISIBLE_SCROLL_Y);
+      const scrollY = window.scrollY;
+      const delta = scrollY - previousScrollYRef.current;
+
+      if (Math.abs(delta) < MIN_SCROLL_DELTA) {
+        return;
+      }
+
+      previousScrollYRef.current = scrollY;
+      setIsVisible(delta > 0 && scrollY > VISIBLE_SCROLL_Y);
     };
 
-    handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
@@ -32,14 +46,10 @@ export const ScrollToTopButton = () => {
     };
   }, []);
 
-  if (!isVisible) {
-    return null;
-  }
-
   return (
     <button
       aria-label={t('ariaLabel')}
-      className={styles.container}
+      className={classNames(styles.container, isVisible ? styles.isVisible : undefined)}
       type="button"
       onClick={handleClick}
     >

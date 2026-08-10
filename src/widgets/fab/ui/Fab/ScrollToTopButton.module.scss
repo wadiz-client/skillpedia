@@ -13,8 +13,20 @@
 
   color: var(--brand-color-text-muted);
 
+  visibility: hidden;
+  opacity: 0;
   background: color-mix(in srgb, var(--brand-color-canvas-default) 72%, transparent);
   backdrop-filter: blur(var(--base-size-4));
+
+  // 사라진 뒤에는 클릭과 탭 이동에서 빠집니다.
+  transition:
+    opacity var(--brand-animation-duration-fast) var(--brand-animation-easing-default),
+    visibility var(--brand-animation-duration-fast);
+
+  &.isVisible {
+    visibility: visible;
+    opacity: 1;
+  }
 
   &:hover {
     color: var(--brand-color-text-default);
@@ -23,5 +35,9 @@
 
   svg {
     fill: currentcolor;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
   }
 }

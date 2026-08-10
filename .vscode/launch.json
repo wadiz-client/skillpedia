@@ -2,7 +2,7 @@
   "version": "0.2.0",
   "compounds": [
     {
-      "configurations": ["server", "chrome"],
+      "configurations": ["server"],
       "name": "dev",
       "stopAll": true
     }
@@ -15,15 +15,7 @@
       "runtimeArgs": ["run", "dev"],
       "runtimeExecutable": "npm",
       "skipFiles": ["<node_internals>/**"],
-      "type": "node",
-    },
-    {
-      "name": "chrome",
-      "request": "launch",
-      "type": "chrome",
-      "url": "http://localhost:3000",
-      "userDataDir": "${userHome}/.vscode/chrome-profile",
-      "webRoot": "${workspaceFolder}/.vscode/chrome",
+      "type": "node"
     }
   ]
 }

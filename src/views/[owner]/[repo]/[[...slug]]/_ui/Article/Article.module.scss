@@ -1,18 +1,10 @@
-@use 'variables' as *;
-
 .container {
-  width: 60%;
+  flex: 1;
+  min-width: 0;
   max-width: 1080px;
-  margin: 0 auto;
   padding: var(--base-size-40) var(--base-size-16);
 
   .description {
     white-space: pre-line;
-  }
-}
-
-@media (width < $breakpoint-small) {
-  .container {
-    width: 100%;
   }
 }

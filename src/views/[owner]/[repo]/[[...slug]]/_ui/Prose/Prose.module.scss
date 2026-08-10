@@ -1,8 +1,7 @@
-@use 'variables' as *;
-
 // react-markdown 본문 스타일
 .prose {
-  width: 70%;
+  flex: 1;
+  min-width: 0;
 
   // 최상위 블록 요소 간 기본 세로 간격
   > * + * {
@@ -165,11 +164,5 @@
   p img {
     display: inline-block;
     vertical-align: middle;
-  }
-}
-
-@media (width < $breakpoint-xlarge) {
-  .prose {
-    width: 100%;
   }
 }

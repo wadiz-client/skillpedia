@@ -3,7 +3,7 @@
 
 .container {
   flex-shrink: 0;
-  width: 300px;
+  width: $sidebar-width;
   padding-inline-start: var(--base-size-8);
   border-right: 1px solid var(--brand-color-border-default);
 

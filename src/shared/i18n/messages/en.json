@@ -47,6 +47,11 @@
     }
   },
   "Layout": {
+    "Fab": {
+      "ScrollToTopButton": {
+        "ariaLabel": "Scroll to top"
+      }
+    },
     "Footer": {
       "about": "About",
       "copyright": "© {year} Skillpedia · Open-source skill doc encyclopedia",

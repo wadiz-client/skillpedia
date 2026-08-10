@@ -1,0 +1,31 @@
+@use 'variables' as *;
+
+.container {
+  pointer-events: none;
+
+  position: fixed;
+  z-index: 1;
+  right: 0;
+  bottom: var(--base-size-24);
+  left: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-size-8);
+  align-items: flex-end;
+
+  width: 100%;
+  max-width: var(--brand-Section-container-maxWidth);
+  margin-inline: auto;
+  padding-inline: var(--base-size-24);
+
+  // 컨테이너는 화면 전체를 덮지 않고 자식만 클릭을 받습니다.
+  > * {
+    pointer-events: auto;
+  }
+
+  @media (width < $breakpoint-medium) {
+    bottom: var(--base-size-16);
+    padding-inline: var(--base-size-16);
+  }
+}

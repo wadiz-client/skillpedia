@@ -103,6 +103,7 @@ export const PrivateRepositorySection = () => {
               </Terminal>
               <IDE
                 animate={{ delay: 240, variant: 'slide-in-up' }}
+                className={styles.ide}
                 height={280}
               >
                 <IDE.Editor

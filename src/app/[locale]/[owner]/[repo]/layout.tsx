@@ -1,14 +1,15 @@
 import { setRequestLocale } from 'next-intl/server';
 
 import { getRepositoryTreeNodes } from '@/features/repository-tree/api';
+import { Fab } from '@/widgets/fab/ui';
 import { Layout } from '@/widgets/layout/ui';
 
-interface RepoLayoutProps {
+interface OwnerRepoLayoutProps {
   children: React.ReactNode;
   params: Promise<{ locale: string; owner: string; repo: string }>;
 }
 
-export default async function RepoLayout({ children, params }: RepoLayoutProps) {
+export default async function OwnerRepoLayout({ children, params }: OwnerRepoLayoutProps) {
   const { locale, owner, repo } = await params;
   setRequestLocale(locale);
 
@@ -27,6 +28,9 @@ export default async function RepoLayout({ children, params }: RepoLayoutProps) 
         treeNodesPromise={treeNodesPromise}
       />
       <Layout.Content>{children}</Layout.Content>
+      <Fab.Container>
+        <Fab.ScrollToTopButton />
+      </Fab.Container>
     </Layout>
   );
 }

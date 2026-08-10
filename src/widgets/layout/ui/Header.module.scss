@@ -16,6 +16,9 @@
     align-items: center;
     justify-content: space-between;
 
+    width: 100%;
+    max-width: var(--brand-Section-container-maxWidth);
+    margin-inline: auto;
     padding: var(--base-size-16) var(--base-size-24);
 
     .left {

@@ -1,5 +1,6 @@
 'use client';
 
+import { Children } from 'react';
 import type { ReactElement, ReactNode } from 'react';
 
 import { LinkIcon } from '@primer/octicons-react';
@@ -16,16 +17,20 @@ import { CodeBlock } from '../CodeBlock';
 import styles from './Prose.module.scss';
 
 // heading은 Heading 컴포넌트로 렌더하고, id가 있으면 섹션 앵커 링크를 덧붙입니다.
-const renderHeading = (
-  as: 'h2' | 'h3' | 'h4' | 'h5' | 'h6',
-  children: ReactNode,
-  id?: string,
-): ReactElement => {
+const renderHeading = (as: 'h2' | 'h3' | 'h4' | 'h5' | 'h6', children: ReactNode, id?: string): ReactElement => {
   return (
-    <Heading as={as} className={styles.heading} id={id}>
+    <Heading
+      as={as}
+      className={styles.heading}
+      id={id}
+    >
       {children}
       {id ? (
-        <a aria-label="Link to this section" className={styles.anchor} href={`#${id}`}>
+        <a
+          aria-label="Link to this section"
+          className={styles.anchor}
+          href={`#${id}`}
+        >
           <LinkIcon size={20} />
         </a>
       ) : null}
@@ -64,11 +69,14 @@ const markdownComponents: Components = {
     const className = codeElement?.props?.className ?? '';
     const match = /language-(\w+)/.exec(className);
     const rawChildren = codeElement?.props?.children;
-    const value = (
-      Array.isArray(rawChildren) ? rawChildren.join('') : String(rawChildren ?? '')
-    ).replace(/\n$/, '');
+    const value = (Array.isArray(rawChildren) ? rawChildren.join('') : String(rawChildren ?? '')).replace(/\n$/, '');
 
-    return <CodeBlock language={match?.[1]} value={value} />;
+    return (
+      <CodeBlock
+        language={match?.[1]}
+        value={value}
+      />
+    );
   },
   code({ children }) {
     return <code className={styles.inlineCode}>{children}</code>;
@@ -80,9 +88,15 @@ const markdownComponents: Components = {
     return <OrderedList>{children}</OrderedList>;
   },
   li({ children, className }) {
-    // GFM 할 일 목록은 Primer 대시 불릿과 체크박스가 중복되므로 체크박스만 남깁니다.
     if (className?.includes('task-list-item')) {
-      return <li className={styles.taskItem}>{children}</li>;
+      const [checkbox, ...content] = Children.toArray(children);
+
+      return (
+        <li className={styles.taskItem}>
+          {checkbox}
+          <span>{content}</span>
+        </li>
+      );
     }
 
     return <UnorderedList.Item>{children}</UnorderedList.Item>;

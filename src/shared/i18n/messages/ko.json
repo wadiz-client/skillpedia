@@ -47,6 +47,11 @@
     }
   },
   "Layout": {
+    "Fab": {
+      "ScrollToTopButton": {
+        "ariaLabel": "맨 위로 이동"
+      }
+    },
     "Footer": {
       "about": "소개",
       "copyright": "© {year} Skillpedia · 오픈소스 스킬 문서 사전",

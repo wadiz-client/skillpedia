@@ -125,5 +125,9 @@
     gap: var(--base-size-20);
 
     min-width: 0;
+
+    .ide {
+      isolation: isolate;
+    }
   }
 }

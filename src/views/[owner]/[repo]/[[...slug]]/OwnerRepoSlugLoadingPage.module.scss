@@ -1,5 +1,9 @@
 .container {
   display: flex;
   flex: 1;
+
+  width: 100%;
   min-width: 0;
+  max-width: var(--brand-Section-container-maxWidth);
+  margin-inline: auto;
 }

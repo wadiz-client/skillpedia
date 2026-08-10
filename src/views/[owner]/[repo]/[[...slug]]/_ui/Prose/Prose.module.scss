@@ -78,6 +78,11 @@
     margin-block-start: var(--base-size-4);
   }
 
+  // Primer 목록 항목은 flex 컨테이너입니다. 목록 항목의 내용 래퍼가 표의 max-content 너비를 떠안지 않도록 최소 너비를 풉니다.
+  li > span {
+    min-width: 0;
+  }
+
   // 표: 전체 격자 테두리 + 헤더 배경
   table {
     overflow-x: auto;
@@ -112,12 +117,10 @@
     }
   }
 
-  // GFM 할 일 목록 항목: 대시 불릿 없이 체크박스만 표시합니다.
   .taskItem {
     display: flex;
     gap: var(--base-size-8);
     align-items: baseline;
-    list-style: none;
   }
 
   // 인라인 코드

@@ -43,7 +43,7 @@ export const ScrollToTopButton = () => {
       type="button"
       onClick={handleClick}
     >
-      <ArrowUpIcon size={20} />
+      <ArrowUpIcon size={24} />
     </button>
   );
 };

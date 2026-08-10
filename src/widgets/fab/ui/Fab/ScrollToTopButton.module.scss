@@ -5,15 +5,16 @@
   align-items: center;
   justify-content: center;
 
-  width: var(--base-size-40);
-  height: var(--base-size-40);
+  width: var(--brand-control-large-size);
+  height: var(--brand-control-large-size);
   padding: 0;
   border: 1px solid var(--brand-color-border-default);
   border-radius: 50%;
 
   color: var(--brand-color-text-muted);
 
-  background-color: var(--brand-color-canvas-default);
+  background: color-mix(in srgb, var(--brand-color-canvas-default) 72%, transparent);
+  backdrop-filter: blur(var(--base-size-4));
 
   &:hover {
     color: var(--brand-color-text-default);

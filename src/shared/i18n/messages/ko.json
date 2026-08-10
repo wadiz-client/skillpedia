@@ -61,6 +61,9 @@
     "Header": {
       "language": {
         "ariaLabel": "언어"
+      },
+      "repository": {
+        "ariaLabel": "{repository} GitHub 저장소 열기"
       }
     },
     "SidePanel": {

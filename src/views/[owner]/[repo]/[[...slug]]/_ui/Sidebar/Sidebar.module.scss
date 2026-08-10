@@ -4,7 +4,7 @@
 .container {
   flex-shrink: 0;
   width: $sidebar-width;
-  padding-inline-start: var(--base-size-8);
+  padding-inline: var(--base-size-8) var(--base-size-24);
   border-right: 1px solid var(--brand-color-border-default);
 
   .inner {

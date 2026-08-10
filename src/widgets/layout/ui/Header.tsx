@@ -2,6 +2,7 @@
 
 import { Suspense } from 'react';
 
+import { MarkGithubIcon } from '@primer/octicons-react';
 import { Select } from '@primer/react';
 import { useLocale, useTranslations } from 'next-intl';
 
@@ -29,11 +30,14 @@ const LOCALE_LABELS: Record<Locale, string> = {
   ko: '한국어',
 };
 
+const FALLBACK_REPOSITORY_PATH = 'aroundus/skillpedia';
+
 export const Header = ({ owner, repo, treeNodesPromise }: HeaderProps) => {
   const t = useTranslations('Layout.Header');
   const locale = useLocale();
   const pathname = usePathname();
   const router = useRouter();
+  const repositoryPath = owner && repo ? `${owner}/${repo}` : FALLBACK_REPOSITORY_PATH;
 
   const handleChangeLocale: React.ChangeEventHandler<HTMLSelectElement> = (event) => {
     router.replace(pathname, { locale: event.target.value as Locale });
@@ -74,7 +78,7 @@ export const Header = ({ owner, repo, treeNodesPromise }: HeaderProps) => {
             <span className={styles.title}>Skillpedia</span>
           </Link>
 
-          <span className={styles.claudeCode}>
+          <span className={styles.tagline}>
             for
             <ClaudeCodeSymbolMark />
             Claude Code
@@ -100,6 +104,16 @@ export const Header = ({ owner, repo, treeNodesPromise }: HeaderProps) => {
           </Select>
 
           <ThemeToggle />
+
+          <a
+            aria-label={t('repository.ariaLabel', { repository: repositoryPath })}
+            className={styles.link}
+            href={`https://github.com/${repositoryPath}`}
+            rel="noreferrer"
+            target="_blank"
+          >
+            <MarkGithubIcon size={20} />
+          </a>
 
           {/* 트리 조회가 헤더 렌더링을 막지 않도록 SidePanel만 지연해서 노출합니다. */}
           {owner && repo && treeNodesPromise && (

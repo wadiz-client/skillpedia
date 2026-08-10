@@ -63,7 +63,7 @@
         }
       }
 
-      .claudeCode {
+      .tagline {
         display: flex;
         gap: var(--base-size-6);
         align-items: center;
@@ -93,6 +93,28 @@
       flex-shrink: 0;
       gap: var(--base-size-8);
       align-items: center;
+
+      .link {
+        display: flex;
+        flex-shrink: 0;
+        align-items: center;
+        justify-content: center;
+
+        width: var(--base-size-32);
+        height: var(--base-size-32);
+        border-radius: var(--base-size-6);
+
+        color: var(--brand-color-text-muted);
+
+        &:hover {
+          color: var(--brand-color-text-default);
+          background-color: var(--brand-color-canvas-subtle);
+        }
+
+        svg {
+          fill: currentcolor;
+        }
+      }
     }
   }
 }

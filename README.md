@@ -1,4 +1,4 @@
-<!-- This file is translated from README.ko.md (source of truth). Update README.ko.md first, then sync here. -->
+<!-- This file is a translation of README.ko.md (source of truth). -->
 
 <div align="center">
 
@@ -22,24 +22,24 @@ Skillpedia reads skill documents authored by engineers so that both people and A
 
 > "For an AI agent to use a tool correctly, it needs a verified guide written by an engineer. Skillpedia is the most efficient channel for delivering that guide."
 
-## Tech Stack
+## Tech stack
 
-| Category            | Technology                                             |
-| ------------------- | ------------------------------------------------------ |
-| Language            | TypeScript                                             |
-| Framework           | Next.js (App Router)                                   |
-| UI library          | @primer/react-brand, @primer/react                     |
-| Styling             | CSS Modules (SCSS)                                      |
-| Internationalization| next-intl                                              |
-| API client          | Octokit (GitHub App)                                   |
-| Markdown rendering   | react-markdown (remark-gfm, rehype-raw, rehype-slug)  |
-| Frontmatter · TOC   | gray-matter, marked, github-slugger                    |
-| Syntax highlighting | react-syntax-highlighter                               |
-| Package manager     | npm                                                    |
+| Category             | Technology                                           |
+| -------------------- | ---------------------------------------------------- |
+| Language             | TypeScript                                           |
+| Framework            | Next.js (App Router)                                 |
+| UI library           | @primer/react-brand, @primer/react                   |
+| Styling              | CSS Modules (SCSS)                                   |
+| Internationalization | next-intl                                            |
+| API client           | Octokit (GitHub App)                                 |
+| Markdown rendering   | react-markdown (remark-gfm, rehype-raw, rehype-slug) |
+| Frontmatter · TOC    | gray-matter, marked, github-slugger                  |
+| Syntax highlighting  | react-syntax-highlighter                             |
+| Package manager      | npm                                                  |
 
-## Project Structure
+## Project structure
 
-Skillpedia follows the Feature-Sliced Design (FSD) architecture for scalability and maintainability, using a `views` layer to avoid conflicts with the Next.js App Router.
+Skillpedia follows the Feature-Sliced Design (FSD) architecture for scalability and maintainability. It uses a `views` layer to avoid conflicts with the Next.js App Router.
 
 UI and logic used by a single page live inside that view slice under `_ui` and `_lib` folders.
 
@@ -53,9 +53,11 @@ src/
 └── shared/     # Shared API clients, styles, i18n (github, breakpoint)
 ```
 
-The list of source repositories is defined in `repositories.yaml`. In production the list is injected through the `REPOSITORIES` GitHub Actions variable.
+Define the list of source repositories in `repositories.yaml`. In production, inject the list through the `REPOSITORIES` GitHub Actions variable.
 
-## Getting Started
+## Getting started
+
+For more information, see [Installing on your own infrastructure](./INSTALLATION.md).
 
 ### Prerequisites
 
@@ -65,13 +67,13 @@ Install the Node.js version pinned in `.nvmrc`.
 nvm install
 ```
 
-### Install
+### Install dependencies
 
 ```shell
 npm install
 ```
 
-### Environment Variables
+### Environment variables
 
 Copy `.env.local.example` to `.env.local` and fill in the GitHub App credentials.
 
@@ -88,7 +90,7 @@ npm run dev
 
 The app runs at `http://localhost:3000`.
 
-## Build & Deploy
+## Build and deploy
 
 ### Build
 

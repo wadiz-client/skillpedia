@@ -12,7 +12,7 @@
     "PrivateRepositorySection": {
       "title": "Share Private Repo Skills Safely",
       "description": "You can install Skillpedia directly on your own infrastructure. Share your private repository's skill docs safely with both developers and non-developers.",
-      "link": "Read the Install Guide",
+      "link": "Go to the installation guide",
       "terminalAppComment": "# https://github.com/settings/apps/new > Create a new GitHub App",
       "envKeyComment": "# Private Keys > Download private-key.pem"
     },

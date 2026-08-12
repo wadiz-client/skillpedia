@@ -1,7 +1,9 @@
 @mixin hide-scrollbar($axis: 'x') {
   @if $axis == 'x' {
     overflow-x: auto;
-  } @else {
+  }
+
+ @else {
     overflow-y: auto;
   }
 

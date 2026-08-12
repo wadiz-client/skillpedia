@@ -1,4 +1,4 @@
-<!-- 이 문서가 원본입니다. 변경하면 README.md(영어 번역본)를 동기화하세요. -->
+<!-- 이 문서는 원본입니다. -->
 
 <div align="center">
 
@@ -39,7 +39,7 @@ Skillpedia(스킬피디아)는 개발자가 작성한 스킬 문서를 읽어, �
 
 ## 프로젝트 구조
 
-Skillpedia는 확장성과 유지보수성을 위해 FSD(Feature-Sliced Design) 아키텍처를 따르며, Next.js App Router와의 충돌을 방지하기 위해 views 레이어를 사용합니다.
+Skillpedia는 확장성과 유지보수성을 위해 FSD(Feature-Sliced Design) 아키텍처를 따릅니다. Next.js App Router와 충돌하지 않도록 views 레이어를 사용합니다.
 
 각 페이지에서만 쓰는 UI·로직은 해당 view 슬라이스 내부의 `_ui`, `_lib` 폴더에 둡니다.
 
@@ -53,13 +53,15 @@ src/
 └── shared/     # 공통 API 클라이언트·스타일·국제화 (github, breakpoint)
 ```
 
-수집 대상 저장소 목록은 `repositories.yaml`에 정의합니다. 운영 환경에서는 `REPOSITORIES` GitHub Actions 변수로 목록을 주입합니다.
+수집 대상 저장소 목록은 `repositories.yaml`에 정의합니다. 운영 환경인 경우 `REPOSITORIES` GitHub Actions 변수로 목록을 주입합니다.
 
 ## 설치 및 실행
 
+자세한 내용은 [사내 인프라에 설치하기](./INSTALLATION.ko.md)를 참조하세요.
+
 ### 사전 설치
 
-`.nvmrc`에 고정된 Node.js 버전을 설치합니다.
+`.nvmrc`에 고정한 Node.js 버전을 설치합니다.
 
 ```shell
 nvm install
@@ -73,7 +75,7 @@ npm install
 
 ### 환경 변수 설정
 
-`.env.local.example` 파일을 복사하여 `.env.local` 파일을 생성하고 GitHub App 정보를 입력합니다.
+`.env.local.example` 파일을 복사하여 `.env.local` 파일을 만들고 GitHub App 정보를 입력합니다.
 
 ```properties
 APP_ID=
@@ -86,7 +88,7 @@ APP_PRIVATE_KEY=
 npm run dev
 ```
 
-앱은 `http://localhost:3000`에서 실행합니다.
+브라우저에서 `http://localhost:3000`으로 접속합니다.
 
 ## 빌드 및 배포
 

@@ -2,7 +2,7 @@
 
 import { AnimationProvider, Box, Heading, IDE, Section, Text, useAnimation } from '@primer/react-brand';
 import classNames from 'classnames';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 import { Terminal } from './Terminal';
 
@@ -10,6 +10,7 @@ import styles from './PrivateRepositorySection.module.scss';
 
 export const PrivateRepositorySection = () => {
   const t = useTranslations('HomePage.PrivateRepositorySection');
+  const locale = useLocale();
   const headerAnimation = useAnimation({ variant: 'slide-in-up' });
   const terminalAnimation = useAnimation({ delay: 120, variant: 'slide-in-up' });
 
@@ -65,7 +66,9 @@ export const PrivateRepositorySection = () => {
               </Text>
               <a
                 className={styles.link}
-                href="#"
+                href={`https://github.com/aroundus/skillpedia/blob/HEAD/${locale === 'en' ? 'INSTALLATION.md' : `INSTALLATION.${locale}.md`}`}
+                rel="noreferrer"
+                target="_blank"
               >
                 {t('link')}
                 <svg

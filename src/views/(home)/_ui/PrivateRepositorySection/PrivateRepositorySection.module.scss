@@ -93,6 +93,11 @@
         transition: transform 0.2s ease;
       }
 
+      // 전역 a:hover 밑줄이 ::after 밑줄과 겹치지 않도록 해제합니다.
+      &:hover {
+        text-decoration: none;
+      }
+
       &:hover::after,
       &:active::after {
         transform: scaleX(1);

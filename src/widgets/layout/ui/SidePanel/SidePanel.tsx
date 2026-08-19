@@ -1,6 +1,6 @@
 'use client';
 
-import { use, useRef, useState } from 'react';
+import { use, useEffect, useRef, useState } from 'react';
 
 import { ThreeBarsIcon, XIcon } from '@primer/octicons-react';
 import { Dialog, IconButton } from '@primer/react';
@@ -10,6 +10,7 @@ import { useTranslations } from 'next-intl';
 
 import type { RepositoryTreeNode } from '@/features/repository-tree/api';
 import { TreeNavList } from '@/features/repository-tree/ui';
+import { scrollToActiveLink } from '@/shared/lib';
 
 import { ThemeToggle } from '../ThemeToggle';
 
@@ -26,6 +27,7 @@ export const SidePanel = ({ owner, repo, treeNodesPromise }: SidePanelProps) => 
   const treeNodes = use(treeNodesPromise);
   const [isOpen, setIsOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const navRef = useRef<HTMLDivElement>(null);
 
   const handleTriggerClick = () => {
     setIsOpen((prevIsOpen) => {
@@ -64,6 +66,23 @@ export const SidePanel = ({ owner, repo, treeNodesPromise }: SidePanelProps) => 
     );
   };
 
+  useEffect(() => {
+    const navElement = navRef.current;
+
+    if (navElement === null) {
+      return;
+    }
+
+    // Dialog가 스크롤 영역 높이를 확정한 다음 프레임에 위치를 옮깁니다.
+    const animationFrameId = requestAnimationFrame(() => {
+      scrollToActiveLink(navElement);
+    });
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [isOpen]);
+
   if (treeNodes.length === 0) {
     return null;
   }
@@ -88,11 +107,13 @@ export const SidePanel = ({ owner, repo, treeNodesPromise }: SidePanelProps) => 
           width="medium"
           onClose={handleClose}
         >
-          <TreeNavList
-            ariaLabel={t('nav.ariaLabel', { owner, repo })}
-            treeNodes={treeNodes}
-            onNavigate={handleClose}
-          />
+          <div ref={navRef}>
+            <TreeNavList
+              ariaLabel={t('nav.ariaLabel', { owner, repo })}
+              treeNodes={treeNodes}
+              onNavigate={handleClose}
+            />
+          </div>
         </Dialog>
       )}
     </div>

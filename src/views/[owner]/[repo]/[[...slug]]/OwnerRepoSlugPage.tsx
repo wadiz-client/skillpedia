@@ -1,4 +1,5 @@
 import { getRepositoryReadmeMarkdown, getRepositorySkillMarkdown } from '@/features/repository-markdown/api';
+import { getRepositoryFileMetadata } from '@/features/repository-metadata/api';
 import { getRepositoryTreeNodes } from '@/features/repository-tree/api';
 import { normalizeTitle } from '@/shared/lib';
 import { Layout } from '@/widgets/layout/ui';
@@ -38,6 +39,12 @@ export const OwnerRepoSlugPage = async ({ owner, repo, slug }: OwnerRepoSlugPage
   const readmeMarkdown = readme ? parseMarkdown(readme.content) : null;
   const skillMarkdown = skill ? parseMarkdown(skill.content) : null;
 
+  // 파일 경로는 마크다운 조회 결과로 확정되므로, 두 조회를 함께 시작해 왕복이 순차로 누적되지 않도록 합니다.
+  const [readmeMetadata, skillMetadata] = await Promise.all([
+    readme ? getRepositoryFileMetadata({ filePath: readme.filePath, owner, repo }) : null,
+    skill ? getRepositoryFileMetadata({ filePath: skill.path, owner, repo }) : null,
+  ]);
+
   const folderName = path ? path.split('/').at(-1)! : repo;
   const breadcrumbs = getBreadcrumbs({ owner, repo, slug });
 
@@ -45,11 +52,21 @@ export const OwnerRepoSlugPage = async ({ owner, repo, slug }: OwnerRepoSlugPage
   const tabs: ArticleTab[] = [];
 
   if (readme && readmeMarkdown) {
-    tabs.push({ content: readmeMarkdown.content, filePath: readme.filePath, label: 'README' });
+    tabs.push({
+      content: readmeMarkdown.content,
+      filePath: readme.filePath,
+      label: 'README',
+      metadata: readmeMetadata,
+    });
   }
 
   if (skill && skillMarkdown) {
-    tabs.push({ content: skillMarkdown.content, filePath: skill.path, label: 'SKILL' });
+    tabs.push({
+      content: skillMarkdown.content,
+      filePath: skill.path,
+      label: 'SKILL',
+      metadata: skillMetadata,
+    });
   }
 
   // README의 표시 제목은 그대로 쓰고, 슬러그형 SKILL name·폴더명은 정규화합니다.

@@ -1,3 +1,4 @@
+@use 'mixins' as *;
 @use 'variables' as *;
 
 .container {
@@ -59,9 +60,10 @@
 
     // 화살표 밑줄·이동 애니메이션 링크
     .link {
+      @include draw-link-underline(calc(var(--base-size-4) + 16px));
+
       cursor: pointer;
 
-      position: relative;
       top: 0.05em;
 
       display: inline-flex;
@@ -76,32 +78,6 @@
       line-height: 1.5;
       color: #8dd6ff;
       letter-spacing: 0.24px;
-
-      &::after {
-        pointer-events: none;
-        content: '';
-
-        position: absolute;
-        bottom: -0.15em;
-        left: 0;
-        transform-origin: 0 0;
-        transform: scaleX(0);
-
-        width: calc(100% - 4px - 16px);
-        border: 1px solid currentcolor;
-
-        transition: transform 0.2s ease;
-      }
-
-      // 전역 a:hover 밑줄이 ::after 밑줄과 겹치지 않도록 해제합니다.
-      &:hover {
-        text-decoration: none;
-      }
-
-      &:hover::after,
-      &:active::after {
-        transform: scaleX(1);
-      }
 
       svg {
         transition: transform 0.2s ease;

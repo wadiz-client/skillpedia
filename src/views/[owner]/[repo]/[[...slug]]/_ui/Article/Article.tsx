@@ -6,7 +6,10 @@ import { UnderlineNav } from '@primer/react';
 import { Breadcrumbs, Heading, Stack, Text } from '@primer/react-brand';
 import { useTranslations } from 'next-intl';
 
+import type { RepositoryFileMetadata } from '@/features/repository-metadata/api';
+
 import type { ArticleContent, Breadcrumb } from '../../_lib';
+import { ArticleMetadata } from '../ArticleMetadata';
 import { Prose } from '../Prose';
 import { Toc } from '../Toc';
 
@@ -16,6 +19,7 @@ export interface ArticleTab {
   content: ArticleContent;
   filePath: string;
   label: 'README' | 'SKILL';
+  metadata?: RepositoryFileMetadata | null;
 }
 
 interface ArticleProps {
@@ -31,6 +35,7 @@ export const Article = ({ breadcrumbs, owner, repo, tabs, title, description }: 
   const t = useTranslations('OwnerRepoSlugPage.Article');
   const [activeIndex, setActiveIndex] = useState(0);
   const activeTab = tabs[activeIndex] ?? tabs[0];
+  const metadata = activeTab?.metadata;
 
   // 목차에는 h2, h3만 노출합니다.
   const tocHeadings = (activeTab?.content.headings ?? []).filter((heading) => {
@@ -71,6 +76,7 @@ export const Article = ({ breadcrumbs, owner, repo, tabs, title, description }: 
             >
               {title}
             </Heading>
+
             {description && (
               <Text
                 as="p"
@@ -81,11 +87,16 @@ export const Article = ({ breadcrumbs, owner, repo, tabs, title, description }: 
                 {description}
               </Text>
             )}
+
+            {metadata && <ArticleMetadata metadata={metadata} />}
           </Stack>
         </Stack>
 
         {tabs.length > 1 && (
-          <UnderlineNav aria-label={t('tabs.ariaLabel')}>
+          <UnderlineNav
+            aria-label={t('tabs.ariaLabel')}
+            className={styles.tabs}
+          >
             {tabs.map((tab, index) => {
               return (
                 <UnderlineNav.Item

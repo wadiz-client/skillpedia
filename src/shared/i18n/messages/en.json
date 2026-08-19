@@ -101,6 +101,9 @@
         "ariaLabel": "Document type"
       }
     },
+    "ArticleMetadata": {
+      "description": "Written by <name>{authorName}</name>{otherCount, plural, =0 {} other { and # others}} · Updated <time></time>"
+    },
     "Empty": {
       "description": "No <code>SKILL.md</code> document was found."
     },

@@ -1,3 +1,31 @@
+// 마우스 오버 시점에 밑줄을 왼쪽부터 그립니다. 링크 안에 화살표 아이콘이 있는 경우 $trailing-width 값으로 아이콘 아래까지 밑줄이 이어지지 않도록 조정할 수 있습니다.
+@mixin draw-link-underline($trailing-width: 0px) {
+  position: relative;
+
+  &::after {
+    pointer-events: none;
+    content: '';
+
+    position: absolute;
+    bottom: -0.15em;
+    left: 0;
+    transform-origin: 0 0;
+    transform: scaleX(0);
+
+    width: calc(100% - #{$trailing-width});
+    height: 0.125em;
+
+    background-color: currentcolor;
+
+    transition: transform 0.2s ease;
+  }
+
+  &:hover::after,
+  &:active::after {
+    transform: scaleX(1);
+  }
+}
+
 @mixin hide-scrollbar($axis: 'x') {
   @if $axis == 'x' {
     overflow-x: auto;

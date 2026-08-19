@@ -19,10 +19,6 @@ body {
 a {
   color: var(--brand-color-text-link-rest);
   text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
 }
 
 // 목차 앵커 이동 시 고정 헤더에 heading이 가리지 않도록 여백을 보정합니다.

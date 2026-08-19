@@ -22,28 +22,6 @@ interface GetRepositoryMetadataRequest {
   repo: string;
 }
 
-const fetchRepositoryMetadata = async ({
-  owner,
-  repo,
-}: GetRepositoryMetadataRequest): Promise<RepositoryMetadata> => {
-  const octokit = await getRepositoryOctokit(owner, repo);
-
-  const [repositoryResponse, skillPaths] = await Promise.all([
-    octokit.rest.repos.get({ owner, repo }),
-    getRepositorySkillPaths(owner, repo),
-  ]);
-
-  return {
-    description: repositoryResponse.data.description ?? '',
-    owner,
-    rank: null,
-    repo,
-    skillCount: skillPaths.length,
-    starCount: repositoryResponse.data.stargazers_count,
-    updatedAt: repositoryResponse.data.pushed_at ?? repositoryResponse.data.updated_at ?? '',
-  };
-};
-
 /**
  * 저장소 메타데이터 조회
  *
@@ -56,8 +34,23 @@ export const getRepositoryMetadata = ({
   repo,
 }: GetRepositoryMetadataRequest): Promise<RepositoryMetadata> => {
   return unstable_cache(
-    () => {
-      return fetchRepositoryMetadata({ owner, repo });
+    async () => {
+      const octokit = await getRepositoryOctokit(owner, repo);
+
+      const [repositoryResponse, skillPaths] = await Promise.all([
+        octokit.rest.repos.get({ owner, repo }),
+        getRepositorySkillPaths(owner, repo),
+      ]);
+
+      return {
+        description: repositoryResponse.data.description ?? '',
+        owner,
+        rank: null,
+        repo,
+        skillCount: skillPaths.length,
+        starCount: repositoryResponse.data.stargazers_count,
+        updatedAt: repositoryResponse.data.pushed_at ?? repositoryResponse.data.updated_at ?? '',
+      };
     },
     ['repository-metadata', owner, repo],
     { revalidate: GITHUB_REVALIDATE_SECONDS, tags: [getRepositoryCacheTag(owner, repo)] },

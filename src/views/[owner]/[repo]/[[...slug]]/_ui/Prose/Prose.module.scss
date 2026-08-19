@@ -21,10 +21,21 @@
     align-items: center;
   }
 
+  // 본문 링크는 여러 줄로 나뉠 수 있으므로 모든 줄에 밑줄을 그리는 text-decoration을 사용합니다.
+  a {
+    text-decoration: underline;
+
+    // 두께만 바꾸므로 레이아웃에 영향을 주지 않습니다.
+    &:hover {
+      text-decoration-thickness: 0.125em;
+    }
+  }
+
   // 섹션 앵커 아이콘: 상시 노출합니다.
   .anchor {
     display: inline-flex;
     color: var(--brand-color-text-muted);
+    text-decoration: none;
 
     &:hover {
       color: var(--brand-color-text-default);

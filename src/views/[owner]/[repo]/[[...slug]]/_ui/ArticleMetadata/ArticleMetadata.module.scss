@@ -1,0 +1,59 @@
+.container {
+  display: flex;
+  gap: var(--base-size-16);
+  align-items: center;
+
+  .avatarStack {
+    flex-shrink: 0;
+  }
+
+  .author {
+    flex-shrink: 0;
+    white-space: nowrap;
+
+    .name {
+      font-weight: var(--base-text-weight-semibold);
+      color: var(--brand-color-text-default);
+    }
+
+    .committedAt {
+      cursor: default;
+      text-decoration: underline dotted var(--brand-color-border-default);
+      text-underline-offset: 2px;
+    }
+  }
+
+  .commit {
+    display: flex;
+    gap: var(--base-size-6);
+    align-items: center;
+
+    min-width: 0;
+    margin-inline-start: auto;
+    padding: var(--base-size-2) var(--base-size-4);
+    border-radius: var(--base-size-6);
+
+    font-size: 0.75rem;
+    color: var(--brand-color-text-muted);
+
+    transition:
+      color var(--brand-animation-duration-fast) var(--brand-animation-easing-default),
+      background-color var(--brand-animation-duration-fast) var(--brand-animation-easing-default);
+
+    &:hover {
+      color: var(--brand-color-text-default);
+      text-decoration: none;
+      background-color: var(--brand-color-canvas-subtle);
+    }
+
+    svg {
+      flex-shrink: 0;
+    }
+
+    .message {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}

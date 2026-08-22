@@ -1,4 +1,6 @@
+@use 'variables' as *;
+
 .container {
   display: flex;
-  min-height: calc(100vh - 65px);
+  min-height: calc(100vh - $header-height);
 }

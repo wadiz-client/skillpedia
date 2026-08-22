@@ -53,7 +53,7 @@
   }
 
   :global([class*='DialogOverflowWrapper']) {
-    @include hide-scrollbar('y');
+    @include scrollbar('y');
   }
 }
 

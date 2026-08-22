@@ -8,8 +8,16 @@
     white-space: pre-line;
   }
 
+  // 메타데이터 해소 전까지 아바타 스택 높이만큼 자리를 유지합니다.
+  .metadataFallback {
+    min-height: var(--base-size-24);
+  }
+
   .tabs {
     padding-top: var(--base-size-20);
     border-top: 1px solid var(--brand-color-border-muted);
+
+    // Primer UnderlineNav이 탭 행 아래에 그리는 밑줄 트랙
+    box-shadow: none;
   }
 }

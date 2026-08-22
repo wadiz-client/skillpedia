@@ -77,6 +77,9 @@
         "ariaLabel": "{state, select, open {Close the {owner}/{repo} document list} other {Open the {owner}/{repo} document list}}"
       }
     },
+    "Sidebar": {
+      "ariaLabel": "{owner}/{repo} sidebar"
+    },
     "ThemeToggle": {
       "ariaLabel": "{colorMode, select, light {Switch to dark mode} other {Switch to light mode}}"
     }
@@ -106,9 +109,6 @@
     },
     "Empty": {
       "description": "No <code>SKILL.md</code> document was found."
-    },
-    "Sidebar": {
-      "ariaLabel": "{owner}/{repo} sidebar"
     }
   }
 }

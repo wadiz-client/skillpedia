@@ -1,5 +1,8 @@
 html {
   scroll-behavior: smooth;
+  scrollbar-color: var(--brand-color-border-default) transparent;
+  scrollbar-width: thin;
+
   font-size: 16px;
 
   -webkit-font-smoothing: auto;

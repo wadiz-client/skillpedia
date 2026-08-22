@@ -7,13 +7,13 @@
   scroll-margin-top: 140px;
 
   position: sticky;
-  top: 65px;
+  top: $header-height;
 
   flex-shrink: 0;
   align-self: flex-start;
 
   width: 240px;
-  max-height: calc(100vh - 65px);
+  max-height: calc(100vh - $header-height);
 
   .nav {
     padding: var(--base-size-40) var(--base-size-16);

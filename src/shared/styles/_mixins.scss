@@ -43,3 +43,15 @@
     display: none;
   }
 }
+
+@mixin scrollbar($axis: 'y') {
+  @if $axis == 'x' {
+    overflow-x: auto;
+  }
+
+ @else {
+    overflow-y: auto;
+  }
+
+  scrollbar-width: thin;
+}

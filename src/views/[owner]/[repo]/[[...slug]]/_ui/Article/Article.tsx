@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { Suspense, use, useState } from 'react';
 
 import { UnderlineNav } from '@primer/react';
 import { Breadcrumbs, Heading, Stack, Text } from '@primer/react-brand';
@@ -19,8 +19,22 @@ export interface ArticleTab {
   content: ArticleContent;
   filePath: string;
   label: 'README' | 'SKILL';
-  metadata?: RepositoryFileMetadata | null;
+  metadataPromise?: Promise<RepositoryFileMetadata | null> | null;
 }
+
+interface ArticleMetadataBoundaryProps {
+  metadataPromise: Promise<RepositoryFileMetadata | null>;
+}
+
+const ArticleMetadataBoundary = ({ metadataPromise }: ArticleMetadataBoundaryProps) => {
+  const metadata = use(metadataPromise);
+
+  if (metadata === null) {
+    return null;
+  }
+
+  return <ArticleMetadata metadata={metadata} />;
+};
 
 interface ArticleProps {
   breadcrumbs: Breadcrumb[];
@@ -35,7 +49,6 @@ export const Article = ({ breadcrumbs, owner, repo, tabs, title, description }: 
   const t = useTranslations('OwnerRepoSlugPage.Article');
   const [activeIndex, setActiveIndex] = useState(0);
   const activeTab = tabs[activeIndex] ?? tabs[0];
-  const metadata = activeTab?.metadata;
 
   // 목차에는 h2, h3만 노출합니다.
   const tocHeadings = (activeTab?.content.headings ?? []).filter((heading) => {
@@ -88,7 +101,11 @@ export const Article = ({ breadcrumbs, owner, repo, tabs, title, description }: 
               </Text>
             )}
 
-            {metadata && <ArticleMetadata metadata={metadata} />}
+            {activeTab?.metadataPromise && (
+              <Suspense fallback={<div className={styles.metadataFallback} />}>
+                <ArticleMetadataBoundary metadataPromise={activeTab.metadataPromise} />
+              </Suspense>
+            )}
           </Stack>
         </Stack>
 

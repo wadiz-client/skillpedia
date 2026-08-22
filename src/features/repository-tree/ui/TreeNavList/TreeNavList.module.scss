@@ -4,4 +4,10 @@
       margin-top: var(--base-size-24);
     }
   }
+
+  // 폴더 이름인 긴 경우 줄 바꿈합니다.
+  [data-component='ActionList.Item.Label'] {
+    overflow-wrap: anywhere;
+    white-space: normal;
+  }
 }

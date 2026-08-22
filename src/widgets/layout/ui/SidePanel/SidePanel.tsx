@@ -110,6 +110,8 @@ export const SidePanel = ({ owner, repo, treeNodesPromise }: SidePanelProps) => 
           <div ref={navRef}>
             <TreeNavList
               ariaLabel={t('nav.ariaLabel', { owner, repo })}
+              owner={owner}
+              repo={repo}
               treeNodes={treeNodes}
               onNavigate={handleClose}
             />

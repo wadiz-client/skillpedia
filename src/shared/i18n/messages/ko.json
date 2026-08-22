@@ -77,6 +77,9 @@
         "ariaLabel": "{state, select, open {{owner}/{repo} 문서 목록 닫기} other {{owner}/{repo} 문서 목록 열기}}"
       }
     },
+    "Sidebar": {
+      "ariaLabel": "{owner}/{repo} 사이드바"
+    },
     "ThemeToggle": {
       "ariaLabel": "{colorMode, select, light {다크 모드로 전환} other {라이트 모드로 전환}}"
     }
@@ -106,9 +109,6 @@
     },
     "Empty": {
       "description": "<code>SKILL.md</code> 문서를 찾을 수 없습니다."
-    },
-    "Sidebar": {
-      "ariaLabel": "{owner}/{repo} 사이드바"
     }
   }
 }

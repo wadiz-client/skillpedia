@@ -1,5 +1,7 @@
 import { unstable_cache } from 'next/cache';
 
+import { cache } from 'react';
+
 import {
   GITHUB_REVALIDATE_SECONDS,
   getRepositoryCacheTag,
@@ -8,7 +10,6 @@ import {
 
 export interface RepositoryTreeNode {
   children?: RepositoryTreeNode[];
-  href: string;
   name: string;
 }
 
@@ -19,44 +20,9 @@ interface GetRepositoryTreeNodesRequest {
 
 type GetRepositoryTreeNodesResponse = Promise<RepositoryTreeNode[]>;
 
-/**
- * 저장소 SKILL.md 폴더 트리 조회
- *
- * @description
- * GitHub 저장소에서 SKILL.md 파일이 위치한 폴더 경로를 추출해 중첩 트리 구조로 반환합니다.
- * 사이드바 트리는 저장소 단위로만 달라지므로 캐시해 진입마다 트리 조회가 반복되지 않도록 합니다.
- *
- * @example
- * const treeNodes = await getRepositoryTreeNodes({ owner: 'wadiz-client', repo: 'wadiz-claude-plugins' });
- * // [
- * //   {
- * //     href: '/wadiz-client/wadiz-claude-plugins/plugins',
- * //     name: 'plugins',
- * //     children: [
- * //       {
- * //         href: '/wadiz-client/wadiz-claude-plugins/plugins/client',
- * //         name: 'client',
- * //         children: [
- * //           {
- * //             href: '/wadiz-client/wadiz-claude-plugins/plugins/client/skills',
- * //             name: 'skills',
- * //             children: [
- * //               {
- * //                 href: '/wadiz-client/wadiz-claude-plugins/plugins/client/skills/regular-release',
- * //                 name: 'regular-release',
- * //               },
- * //             ],
- * //           },
- * //         ],
- * //       },
- * //     ],
- * //   },
- * // ]
- */
-export const getRepositoryTreeNodes = ({
-  owner,
-  repo,
-}: GetRepositoryTreeNodesRequest): GetRepositoryTreeNodesResponse => {
+// layout과 page가 한 요청에서 같은 참조를 공유해 RSC 페이로드에 트리를 한 번만 직렬화합니다.
+// cache는 인자를 참조로 비교하므로 원시값 인자로 메모이제이션합니다.
+const getCachedRepositoryTreeNodes = cache((owner: string, repo: string): GetRepositoryTreeNodesResponse => {
   return unstable_cache(
     async () => {
       try {
@@ -81,7 +47,6 @@ export const getRepositoryTreeNodes = ({
           }
 
           const segments = path.split('/');
-          const href = `/${owner}/${repo}/${path}`;
 
           let currentTreeNodes = treeNodes;
           let currentPath = '';
@@ -104,7 +69,6 @@ export const getRepositoryTreeNodes = ({
             }
 
             const treeNode: RepositoryTreeNode = {
-              href: isLeaf ? href : `/${owner}/${repo}/${currentPath}`,
               name: segment,
             };
 
@@ -128,4 +92,38 @@ export const getRepositoryTreeNodes = ({
     ['repository-tree-nodes', owner, repo],
     { revalidate: GITHUB_REVALIDATE_SECONDS, tags: [getRepositoryCacheTag(owner, repo)] },
   )();
+});
+
+/**
+ * 저장소 SKILL.md 폴더 트리 조회
+ *
+ * @description
+ * GitHub 저장소에서 SKILL.md 파일이 위치한 폴더 경로를 추출해 중첩 트리 구조로 반환합니다.
+ * 사이드바 트리는 저장소 단위로만 달라지므로 캐시해 진입마다 트리 조회가 반복되지 않도록 합니다.
+ * 노드는 이름만 담고, 경로는 렌더링 시점에 부모 경로를 이어 만듭니다.
+ *
+ * @example
+ * const treeNodes = await getRepositoryTreeNodes({ owner: 'wadiz-client', repo: 'wadiz-claude-plugins' });
+ * // [
+ * //   {
+ * //     name: 'plugins',
+ * //     children: [
+ * //       {
+ * //         name: 'client',
+ * //         children: [
+ * //           {
+ * //             name: 'skills',
+ * //             children: [{ name: 'regular-release' }],
+ * //           },
+ * //         ],
+ * //       },
+ * //     ],
+ * //   },
+ * // ]
+ */
+export const getRepositoryTreeNodes = ({
+  owner,
+  repo,
+}: GetRepositoryTreeNodesRequest): GetRepositoryTreeNodesResponse => {
+  return getCachedRepositoryTreeNodes(owner, repo);
 };

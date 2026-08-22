@@ -1,7 +1,9 @@
 'use client';
 
+import { useState } from 'react';
 import type { ReactNode } from 'react';
 
+import { ChevronDownIcon } from '@primer/octicons-react';
 import { NavList } from '@primer/react';
 import { Text } from '@primer/react-brand';
 
@@ -13,6 +15,8 @@ import type { RepositoryTreeNode } from '../../api';
 import styles from './TreeNavList.module.scss';
 
 interface TreeNavListProps {
+  owner: string;
+  repo: string;
   treeNodes: RepositoryTreeNode[];
   ariaLabel?: string;
   ariaLabelledBy?: string;
@@ -43,51 +47,89 @@ const collapseSingleChildFolders = (node: RepositoryTreeNode): { folder: Reposit
   return { folder, label: names.join('/') };
 };
 
-export const TreeNavList = ({ treeNodes, ariaLabel, ariaLabelledBy, onNavigate }: TreeNavListProps) => {
+export const TreeNavList = ({ owner, repo, treeNodes, ariaLabel, ariaLabelledBy, onNavigate }: TreeNavListProps) => {
   const pathname = usePathname();
+  const basePath = `/${owner}/${repo}`;
+  const [openHrefs, setOpenHrefs] = useState<Set<string>>(new Set());
+
+  const isFolderOpen = (folderHref: string): boolean => {
+    return openHrefs.has(folderHref) || pathname === folderHref || pathname.startsWith(`${folderHref}/`);
+  };
+
+  const handleFolderOpen = (folderHref: string) => {
+    setOpenHrefs((prevOpenHrefs) => {
+      return new Set(prevOpenHrefs).add(folderHref);
+    });
+  };
 
   // 트리 노드를 유형에 따라 렌더링합니다.
   //
   // - 루트 폴더: NavList.Group + GroupHeading
-  // - 중간 폴더: NavList.Item + SubNav
+  // - 접힌 중간 폴더: NavList.Item + 펼침 버튼
+  // - 펼친 중간 폴더: NavList.Item + SubNav
   // - 리프 노드: NavList.Item
-  const renderNavNode = (node: RepositoryTreeNode, isRoot: boolean): ReactNode => {
+  const renderNavNode = (node: RepositoryTreeNode, parentPath: string, isRoot: boolean): ReactNode => {
     const hasChildren = (node.children?.length ?? 0) > 0;
 
     if (hasChildren) {
       const { folder, label } = collapseSingleChildFolders(node);
-      const children = folder.children?.map((child) => {
-        return renderNavNode(child, false);
-      });
+      const folderHref = `${parentPath}/${label}`;
+      const isExpanded = isRoot || isFolderOpen(folderHref);
 
-      if (isRoot) {
+      if (isExpanded) {
+        const children = folder.children?.map((child) => {
+          return renderNavNode(child, folderHref, false);
+        });
+
+        if (isRoot) {
+          return (
+            <NavList.Group key={folderHref}>
+              <NavList.GroupHeading>{label}</NavList.GroupHeading>
+
+              {children}
+            </NavList.Group>
+          );
+        }
+
         return (
-          <NavList.Group key={node.href}>
-            <NavList.GroupHeading>{label}</NavList.GroupHeading>
+          <NavList.Item
+            defaultOpen
+            key={folderHref}
+          >
+            <Text variant="muted">{label}</Text>
 
-            {children}
-          </NavList.Group>
+            <NavList.SubNav>{children}</NavList.SubNav>
+          </NavList.Item>
         );
       }
 
       return (
         <NavList.Item
-          defaultOpen
-          key={node.href}
+          aria-expanded={false}
+          as="button"
+          key={folderHref}
+          type="button"
+          onClick={() => {
+            handleFolderOpen(folderHref);
+          }}
         >
           <Text variant="muted">{label}</Text>
 
-          <NavList.SubNav>{children}</NavList.SubNav>
+          <NavList.TrailingVisual>
+            <ChevronDownIcon />
+          </NavList.TrailingVisual>
         </NavList.Item>
       );
     }
 
+    const nodeHref = `${parentPath}/${node.name}`;
+
     return (
       <NavList.Item
-        aria-current={pathname === node.href ? 'page' : undefined}
+        aria-current={pathname === nodeHref ? 'page' : undefined}
         as={Link}
-        href={node.href}
-        key={node.href}
+        href={nodeHref}
+        key={nodeHref}
         onClick={onNavigate}
       >
         <Text>{normalizeTitle(undefined, node.name)}</Text>
@@ -102,7 +144,7 @@ export const TreeNavList = ({ treeNodes, ariaLabel, ariaLabelledBy, onNavigate }
       className={styles.container}
     >
       {treeNodes.map((node) => {
-        return renderNavNode(node, true);
+        return renderNavNode(node, basePath, true);
       })}
     </NavList>
   );

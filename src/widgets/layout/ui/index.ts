@@ -8,3 +8,6 @@ export const Layout = Object.assign(InternalLayout, {
   Footer,
   Header,
 });
+
+export { Sidebar } from './Sidebar';
+export { SidebarSkeleton } from './Sidebar';

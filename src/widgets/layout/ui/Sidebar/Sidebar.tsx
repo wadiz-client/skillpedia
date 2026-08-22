@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { use, useEffect, useRef } from 'react';
 
 import { Heading } from '@primer/react-brand';
 import { useTranslations } from 'next-intl';
@@ -15,13 +15,14 @@ import styles from './Sidebar.module.scss';
 interface SidebarProps {
   owner: string;
   repo: string;
-  treeNodes: RepositoryTreeNode[];
+  treeNodesPromise: Promise<RepositoryTreeNode[]>;
 }
 
 const NAV_LANDMARK_LABEL_ID = 'sidebar-nav-label';
 
-export const Sidebar = ({ owner, repo, treeNodes }: SidebarProps) => {
-  const t = useTranslations('OwnerRepoSlugPage.Sidebar');
+export const Sidebar = ({ owner, repo, treeNodesPromise }: SidebarProps) => {
+  const t = useTranslations('Layout.Sidebar');
+  const treeNodes = use(treeNodesPromise);
   const pathname = usePathname();
   const innerRef = useRef<HTMLDivElement>(null);
 
@@ -55,6 +56,8 @@ export const Sidebar = ({ owner, repo, treeNodes }: SidebarProps) => {
 
         <TreeNavList
           ariaLabelledBy={NAV_LANDMARK_LABEL_ID}
+          owner={owner}
+          repo={repo}
           treeNodes={treeNodes}
         />
       </div>

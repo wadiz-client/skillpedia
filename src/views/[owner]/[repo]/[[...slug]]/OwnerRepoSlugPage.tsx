@@ -1,16 +1,10 @@
 import { getRepositoryReadmeMarkdown, getRepositorySkillMarkdown } from '@/features/repository-markdown/api';
 import { getRepositoryFileMetadata } from '@/features/repository-metadata/api';
-import { getRepositoryTreeNodes } from '@/features/repository-tree/api';
 import { normalizeTitle } from '@/shared/lib';
-import { Layout } from '@/widgets/layout/ui';
 
 import { getBreadcrumbs, parseMarkdown } from './_lib';
-import { Article } from './_ui/Article';
-import type { ArticleTab } from './_ui/Article';
-import { Empty } from './_ui/Empty';
-import { Sidebar } from './_ui/Sidebar';
-
-import styles from './OwnerRepoSlugPage.module.scss';
+import { Article, Empty, ScrollRestoration } from './_ui';
+import type { ArticleTab } from './_ui';
 
 interface OwnerRepoSlugPageProps {
   owner: string;
@@ -26,24 +20,23 @@ export const OwnerRepoSlugPage = async ({ owner, repo, slug }: OwnerRepoSlugPage
 
   const path = slug.join('/');
 
-  // 트리를 먼저 기다리면 왕복이 순차로 누적되므로 마크다운 조회와 함께 시작합니다.
-  const [treeNodesResult, readmeMarkdownResult, skillMarkdownResult] = await Promise.allSettled([
-    getRepositoryTreeNodes({ owner, repo }),
+  const [readmeMarkdownResult, skillMarkdownResult] = await Promise.allSettled([
     getRepositoryReadmeMarkdown({ owner, path, repo }),
     getRepositorySkillMarkdown({ owner, path, repo }),
   ]);
 
-  const navItems = treeNodesResult.status === 'fulfilled' ? treeNodesResult.value : [];
   const readme = readmeMarkdownResult.status === 'fulfilled' ? readmeMarkdownResult.value : null;
   const skill = skillMarkdownResult.status === 'fulfilled' ? skillMarkdownResult.value : null;
   const readmeMarkdown = readme ? parseMarkdown(readme.content) : null;
   const skillMarkdown = skill ? parseMarkdown(skill.content) : null;
 
-  // 파일 경로는 마크다운 조회 결과로 확정되므로, 두 조회를 함께 시작해 왕복이 순차로 누적되지 않도록 합니다.
-  const [readmeMetadata, skillMetadata] = await Promise.all([
-    readme ? getRepositoryFileMetadata({ filePath: readme.filePath, owner, repo }) : null,
-    skill ? getRepositoryFileMetadata({ filePath: skill.path, owner, repo }) : null,
-  ]);
+  // 메타데이터는 본문 노출을 막지 않도록 조회를 기다리지 않고 프로미스를 탭에 담아 넘깁니다.
+  const readmeMetadataPromise = readme
+    ? getRepositoryFileMetadata({ filePath: readme.filePath, owner, repo })
+    : null;
+  const skillMetadataPromise = skill
+    ? getRepositoryFileMetadata({ filePath: skill.path, owner, repo })
+    : null;
 
   const folderName = path ? path.split('/').at(-1)! : repo;
   const breadcrumbs = getBreadcrumbs({ owner, repo, slug });
@@ -56,7 +49,7 @@ export const OwnerRepoSlugPage = async ({ owner, repo, slug }: OwnerRepoSlugPage
       content: readmeMarkdown.content,
       filePath: readme.filePath,
       label: 'README',
-      metadata: readmeMetadata,
+      metadataPromise: readmeMetadataPromise,
     });
   }
 
@@ -65,7 +58,7 @@ export const OwnerRepoSlugPage = async ({ owner, repo, slug }: OwnerRepoSlugPage
       content: skillMarkdown.content,
       filePath: skill.path,
       label: 'SKILL',
-      metadata: skillMetadata,
+      metadataPromise: skillMetadataPromise,
     });
   }
 
@@ -78,25 +71,21 @@ export const OwnerRepoSlugPage = async ({ owner, repo, slug }: OwnerRepoSlugPage
     readmeMarkdown?.frontmatter.description ?? skillMarkdown?.frontmatter.description;
 
   return (
-    <div className={styles.container}>
-      <div className={styles.content}>
-        <Sidebar owner={owner} repo={repo} treeNodes={navItems} />
+    <>
+      <ScrollRestoration />
 
-        {tabs.length > 0 ? (
-          <Article
-            breadcrumbs={breadcrumbs}
-            description={description}
-            owner={owner}
-            repo={repo}
-            tabs={tabs}
-            title={title}
-          />
-        ) : (
-          <Empty owner={owner} repo={repo} />
-        )}
-      </div>
-
-      <Layout.Footer />
-    </div>
+      {tabs.length > 0 ? (
+        <Article
+          breadcrumbs={breadcrumbs}
+          description={description}
+          owner={owner}
+          repo={repo}
+          tabs={tabs}
+          title={title}
+        />
+      ) : (
+        <Empty owner={owner} repo={repo} />
+      )}
+    </>
   );
 };

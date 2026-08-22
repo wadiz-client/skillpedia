@@ -15,9 +15,5 @@
 
   .tabs {
     padding-top: var(--base-size-20);
-    border-top: 1px solid var(--brand-color-border-muted);
-
-    // Primer UnderlineNav이 탭 행 아래에 그리는 밑줄 트랙
-    box-shadow: none;
   }
 }

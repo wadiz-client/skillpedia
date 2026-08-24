@@ -1,5 +1,3 @@
-import type { Metadata } from 'next';
-
 import { notFound } from 'next/navigation';
 
 import '@primer/brand-primitives/lib/design-tokens/css/tokens/base/colors/color-scales-with-modes.css';
@@ -11,7 +9,7 @@ import '@primer/react-brand/fonts/fonts.css';
 import '@primer/react-brand/lib/css/main.css';
 import 'modern-normalize/modern-normalize.css';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 
 import { routing } from '@/shared/i18n/routing';
 import type { Locale } from '@/shared/i18n/routing';
@@ -29,26 +27,6 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => {
     return { locale };
   });
-}
-
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'Metadata' });
-
-  return {
-    description: t('description'),
-    icons: {
-      icon: [
-        { media: '(prefers-color-scheme: light)', type: 'image/svg+xml', url: '/favicon_dark.svg' },
-        { media: '(prefers-color-scheme: dark)', type: 'image/svg+xml', url: '/favicon_light.svg' },
-      ],
-    },
-    title: t('title'),
-  };
 }
 
 export default async function RootLayout({ children, params }: RootLayoutProps) {

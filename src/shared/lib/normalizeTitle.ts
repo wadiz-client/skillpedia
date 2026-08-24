@@ -8,6 +8,7 @@ const ACRONYMS = new Set([
   'cd',
   'ci',
   'cli',
+  'cms',
   'cqrs',
   'css',
   'db',

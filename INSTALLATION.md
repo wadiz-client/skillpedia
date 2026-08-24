@@ -62,6 +62,7 @@ Add the following environment variables only when you need them.
 | Environment variable        | Description                                                                     |
 | --------------------------- | ------------------------------------------------------------------------------- |
 | `GITHUB_TOKEN`              | Used when public repositories without the app installed are listed together     |
+| `SITE_URL`                  | Sets the deployment URL when self-hosting; used for share card image URLs       |
 | `HTTPS_PROXY`, `HTTP_PROXY` | Sets the proxy URL on an internal network that reaches the internet via a proxy |
 
 ## Repository list

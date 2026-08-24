@@ -1,7 +1,9 @@
+import type { Metadata } from 'next';
+
 import { headers } from 'next/headers';
 import { userAgent } from 'next/server';
 
-import { setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { HomePage } from '@/views/(home)/HomePage';
 import { getRankedRepositoryMetadataList } from '@/views/(home)/_lib';
@@ -13,6 +15,38 @@ interface PageProps {
 // headers()로 기기를 판별하기 때문에 매 요청 시 렌더링합니다.
 // 저장소 메타데이터 재사용은 getRepositoryMetadata의 캐시가 담당합니다.
 export const dynamic = 'force-dynamic';
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Metadata' });
+
+  return {
+    description: t('description'),
+    icons: {
+      icon: [
+        { media: '(prefers-color-scheme: light)', type: 'image/svg+xml', url: '/favicon_dark.svg' },
+        { media: '(prefers-color-scheme: dark)', type: 'image/svg+xml', url: '/favicon_light.svg' },
+      ],
+    },
+    metadataBase: new URL(process.env.SITE_URL!),
+    openGraph: {
+      description: t('description'),
+      images: [{ alt: t('title'), height: 1280, url: '/images/hero_light.jpg', width: 2560 }],
+      locale: locale === 'ko' ? 'ko_KR' : 'en_US',
+      siteName: t('title'),
+      title: t('title'),
+      type: 'website',
+      url: `/${locale}`,
+    },
+    title: t('title'),
+    twitter: {
+      card: 'summary_large_image',
+      description: t('description'),
+      images: ['/images/hero_light.jpg'],
+      title: t('title'),
+    },
+  };
+}
 
 export default async function Page({ params }: PageProps) {
   const { locale } = await params;

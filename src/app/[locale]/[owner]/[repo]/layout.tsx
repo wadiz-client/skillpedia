@@ -23,34 +23,34 @@ export default async function OwnerRepoLayout({ children, params }: OwnerRepoLay
 
   return (
     <Layout
-      owner={owner}
-      repo={repo}
-    >
-      <Layout.Header
         owner={owner}
         repo={repo}
-        treeNodesPromise={treeNodesPromise}
-      />
-      <Layout.Content>
-        <div className={styles.container}>
-          <div className={styles.content}>
-            <Suspense fallback={<SidebarSkeleton />}>
-              <Sidebar
-                owner={owner}
-                repo={repo}
-                treeNodesPromise={treeNodesPromise}
-              />
-            </Suspense>
+      >
+        <Layout.Header
+          owner={owner}
+          repo={repo}
+          treeNodesPromise={treeNodesPromise}
+        />
+        <Layout.Content>
+          <div className={styles.container}>
+            <div className={styles.content}>
+              <Suspense fallback={<SidebarSkeleton />}>
+                <Sidebar
+                  owner={owner}
+                  repo={repo}
+                  treeNodesPromise={treeNodesPromise}
+                />
+              </Suspense>
 
-            {children}
+              {children}
+            </div>
+
+            <Layout.Footer />
           </div>
-
-          <Layout.Footer />
-        </div>
-      </Layout.Content>
-      <Fab.Container>
-        <Fab.ScrollToTopButton />
-      </Fab.Container>
+        </Layout.Content>
+        <Fab.Container>
+          <Fab.ScrollToTopButton />
+        </Fab.Container>
     </Layout>
   );
 }

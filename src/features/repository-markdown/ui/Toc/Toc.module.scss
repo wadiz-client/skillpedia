@@ -2,18 +2,7 @@
 @use 'mixins' as *;
 
 .container {
-  @include hide-scrollbar('y');
-
-  scroll-margin-top: 140px;
-
-  position: sticky;
-  top: $header-height;
-
-  flex-shrink: 0;
-  align-self: flex-start;
-
-  width: 240px;
-  max-height: calc(100vh - $header-height);
+  @include scrollbar('y');
 
   .nav {
     padding: var(--base-size-40) var(--base-size-16);
@@ -45,8 +34,22 @@
   }
 }
 
+// 본문 오른쪽 열에 고정 배치하는 변형입니다.
+.column {
+  scroll-margin-top: 140px;
+
+  position: sticky;
+  top: $header-height;
+
+  flex-shrink: 0;
+  align-self: flex-start;
+
+  width: 240px;
+  max-height: calc(100vh - $header-height);
+}
+
 @media (width < $breakpoint-xlarge) {
-  .container {
+  .column {
     display: none;
   }
 }

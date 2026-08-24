@@ -4,19 +4,26 @@ import { useEffect, useRef, useState } from 'react';
 
 import { ActionList } from '@primer/react';
 import { Text } from '@primer/react-brand';
-
-import type { TocHeading } from '../../_lib';
+import classNames from 'classnames';
 
 import styles from './Toc.module.scss';
 
+export interface TocHeading {
+  depth: number;
+  id: string;
+  value: string;
+}
+
 interface TocProps {
   headings: TocHeading[];
+  variant?: 'column' | 'panel';
+  onNavigate?: () => void;
 }
 
 // 활성 항목이 목차 영역 경계에 닿기 전에 확보할 여백입니다.
 const SCROLL_EDGE_MARGIN = 48;
 
-export const Toc = ({ headings }: TocProps) => {
+export const Toc = ({ headings, variant = 'panel', onNavigate }: TocProps) => {
   const [activeLinkId, setActiveLinkId] = useState<string>('');
   const containerRef = useRef<HTMLElement>(null);
 
@@ -105,7 +112,7 @@ export const Toc = ({ headings }: TocProps) => {
 
   return (
     <aside
-      className={styles.container}
+      className={classNames(styles.container, variant === 'column' && styles.column)}
       ref={containerRef}
     >
       <nav
@@ -129,6 +136,7 @@ export const Toc = ({ headings }: TocProps) => {
                 className={heading.depth < 3 ? undefined : styles.indent}
                 href={`#${heading.id}`}
                 key={heading.id}
+                onClick={onNavigate}
               >
                 <Text
                   className={styles.value}

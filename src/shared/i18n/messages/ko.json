@@ -73,6 +73,11 @@
       "nav": {
         "ariaLabel": "{owner}/{repo} 문서 목록"
       },
+      "tabs": {
+        "ariaLabel": "패널 메뉴",
+        "documents": "문서 목록",
+        "toc": "목차"
+      },
       "trigger": {
         "ariaLabel": "{state, select, open {{owner}/{repo} 문서 목록 닫기} other {{owner}/{repo} 문서 목록 열기}}"
       }

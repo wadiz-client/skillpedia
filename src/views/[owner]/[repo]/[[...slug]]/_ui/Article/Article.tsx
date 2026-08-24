@@ -1,17 +1,17 @@
 'use client';
 
-import { Suspense, use, useState } from 'react';
+import { Suspense, use, useEffect, useMemo, useState } from 'react';
 
 import { UnderlineNav } from '@primer/react';
 import { Breadcrumbs, Heading, Stack, Text } from '@primer/react-brand';
 import { useTranslations } from 'next-intl';
 
+import { Toc, TocStore } from '@/features/repository-markdown/ui';
 import type { RepositoryFileMetadata } from '@/features/repository-metadata/api';
 
 import type { ArticleContent, Breadcrumb } from '../../_lib';
 import { ArticleMetadata } from '../ArticleMetadata';
 import { Prose } from '../Prose';
-import { Toc } from '../Toc';
 
 import styles from './Article.module.scss';
 
@@ -51,9 +51,19 @@ export const Article = ({ breadcrumbs, owner, repo, tabs, title, description }: 
   const activeTab = tabs[activeIndex] ?? tabs[0];
 
   // 목차에는 h2, h3만 노출합니다.
-  const tocHeadings = (activeTab?.content.headings ?? []).filter((heading) => {
-    return heading.depth === 2 || heading.depth === 3;
-  });
+  const tocHeadings = useMemo(() => {
+    return (activeTab?.content.headings ?? []).filter((heading) => {
+      return heading.depth === 2 || heading.depth === 3;
+    });
+  }, [activeTab]);
+
+  useEffect(() => {
+    TocStore.setHeadings(tocHeadings);
+
+    return () => {
+      TocStore.setHeadings([]);
+    };
+  }, [tocHeadings]);
 
   return (
     <main className={styles.container}>
@@ -145,7 +155,10 @@ export const Article = ({ breadcrumbs, owner, repo, tabs, title, description }: 
               owner={owner}
               repo={repo}
             />
-            <Toc headings={tocHeadings} />
+            <Toc
+              headings={tocHeadings}
+              variant="column"
+            />
           </Stack>
         </article>
       </Stack>

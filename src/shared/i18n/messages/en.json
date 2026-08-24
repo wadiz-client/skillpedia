@@ -73,6 +73,11 @@
       "nav": {
         "ariaLabel": "{owner}/{repo} document list"
       },
+      "tabs": {
+        "ariaLabel": "Panel menu",
+        "documents": "Documents",
+        "toc": "Contents"
+      },
       "trigger": {
         "ariaLabel": "{state, select, open {Close the {owner}/{repo} document list} other {Open the {owner}/{repo} document list}}"
       }

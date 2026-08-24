@@ -2,11 +2,7 @@ import GithubSlugger from 'github-slugger';
 import matter from 'gray-matter';
 import { Marked } from 'marked';
 
-export interface TocHeading {
-  depth: number;
-  id: string;
-  value: string;
-}
+import type { TocHeading } from '@/features/repository-markdown/ui';
 
 export interface ArticleContent {
   headings: TocHeading[];

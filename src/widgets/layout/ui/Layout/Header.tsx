@@ -12,9 +12,10 @@ import { routing } from '@/shared/i18n/routing';
 import type { Locale } from '@/shared/i18n/routing';
 import { ClaudeCodeSymbolMark } from '@/shared/ui';
 
-import { SidePanel } from './SidePanel';
+import { SidePanel } from '../SidePanel';
+import { ThemeToggle } from '../ThemeToggle';
+
 import { SymbolMark } from './SymbolMark';
-import { ThemeToggle } from './ThemeToggle';
 
 import styles from './Header.module.scss';
 

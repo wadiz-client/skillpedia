@@ -55,9 +55,13 @@
   :global([class*='DialogOverflowWrapper']) {
     @include scrollbar('y');
   }
+
+  .tabs {
+    width: 100%;
+  }
 }
 
-@media (width >= $breakpoint-large) {
+@media (width >= $breakpoint-xlarge) {
   .container {
     display: none;
   }

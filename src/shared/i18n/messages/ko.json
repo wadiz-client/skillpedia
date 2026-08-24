@@ -109,6 +109,12 @@
     },
     "Empty": {
       "description": "<code>SKILL.md</code> 문서를 찾을 수 없습니다."
+    },
+    "Prose": {
+      "anchor": {
+        "ariaLabel": "섹션 링크 복사",
+        "copiedAriaLabel": "섹션 링크 복사 완료"
+      }
     }
   }
 }

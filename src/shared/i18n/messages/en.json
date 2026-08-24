@@ -109,6 +109,12 @@
     },
     "Empty": {
       "description": "No <code>SKILL.md</code> document was found."
+    },
+    "Prose": {
+      "anchor": {
+        "ariaLabel": "Copy link to this section",
+        "copiedAriaLabel": "Link copied"
+      }
     }
   }
 }

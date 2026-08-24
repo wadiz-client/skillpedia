@@ -1,10 +1,11 @@
 'use client';
 
-import { Children } from 'react';
+import { Children, useState } from 'react';
 import type { ReactElement, ReactNode } from 'react';
 
-import { LinkIcon } from '@primer/octicons-react';
+import { CheckIcon, LinkIcon } from '@primer/octicons-react';
 import { Heading, OrderedList, Text, UnorderedList } from '@primer/react-brand';
+import { useTranslations } from 'next-intl';
 import Markdown from 'react-markdown';
 import type { Components } from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
@@ -16,6 +17,40 @@ import { CodeBlock } from '../CodeBlock';
 
 import styles from './Prose.module.scss';
 
+const COPIED_RESET_DELAY = 1500;
+
+const HeadingAnchor = ({ id }: { id: string }) => {
+  const t = useTranslations('OwnerRepoSlugPage.Prose.anchor');
+  const [isCopied, setIsCopied] = useState(false);
+  const ariaLabel = isCopied ? t('copiedAriaLabel') : t('ariaLabel');
+
+  const handleClick = async () => {
+    const { origin, pathname } = window.location;
+
+    try {
+      await navigator.clipboard.writeText(`${origin}${pathname}#${id}`);
+      setIsCopied(true);
+      setTimeout(() => {
+        setIsCopied(false);
+      }, COPIED_RESET_DELAY);
+    } catch {
+      setIsCopied(false);
+    }
+  };
+
+  return (
+    <a
+      aria-label={ariaLabel}
+      className={styles.anchor}
+      href={`#${id}`}
+      title={ariaLabel}
+      onClick={handleClick}
+    >
+      {isCopied ? <CheckIcon size={20} /> : <LinkIcon size={20} />}
+    </a>
+  );
+};
+
 // heading은 Heading 컴포넌트로 렌더하고, id가 있으면 섹션 앵커 링크를 덧붙입니다.
 const renderHeading = (as: 'h2' | 'h3' | 'h4' | 'h5' | 'h6', children: ReactNode, id?: string): ReactElement => {
   return (
@@ -25,15 +60,7 @@ const renderHeading = (as: 'h2' | 'h3' | 'h4' | 'h5' | 'h6', children: ReactNode
       id={id}
     >
       {children}
-      {id ? (
-        <a
-          aria-label="Link to this section"
-          className={styles.anchor}
-          href={`#${id}`}
-        >
-          <LinkIcon size={20} />
-        </a>
-      ) : null}
+      {id ? <HeadingAnchor id={id} /> : null}
     </Heading>
   );
 };

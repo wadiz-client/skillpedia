@@ -114,6 +114,7 @@
 
       .middle {
         flex: 1;
+        min-height: calc(var(--brand-text-size-100) * var(--brand-text-lineHeight-100) * 2);
 
         .description {
           overflow: hidden;

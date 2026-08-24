@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         { media: '(prefers-color-scheme: dark)', type: 'image/svg+xml', url: '/favicon_light.svg' },
       ],
     },
-    metadataBase: new URL(process.env.SITE_URL!),
+    metadataBase: process.env.SITE_URL ? new URL(process.env.SITE_URL) : undefined,
     openGraph: {
       description: t('description'),
       images: [{ alt: t('title'), height: 1280, url: '/images/hero_light.jpg', width: 2560 }],

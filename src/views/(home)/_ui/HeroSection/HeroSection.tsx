@@ -7,7 +7,7 @@ import { Box, FormControl, Hero, Label, Section, TextInput } from '@primer/react
 import { useTranslations } from 'next-intl';
 
 import { useRouter } from '@/shared/i18n/navigation';
-import { ClaudeCodeToken } from '@/shared/ui';
+import { AgentSkillsToken } from '@/shared/ui';
 
 import { NetworkCanvas } from './NetworkCanvas';
 import { useHeroContent } from './useHeroContent';
@@ -34,7 +34,9 @@ export const HeroSection = ({ isMobile, topRepositoryUrl }: HeroSectionProps) =>
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
 
-    const value = (repository.trim() || exampleRepositoryUrl).replace(/^https?:\/\/github\.com\//i, '').replace(/\/$/, '');
+    const value = (repository.trim() || exampleRepositoryUrl)
+      .replace(/^https?:\/\/github\.com\//i, '')
+      .replace(/\/$/, '');
 
     const isValidFormat = /^[\w.-]+\/[\w.-]+$/.test(value);
 
@@ -96,8 +98,13 @@ export const HeroSection = ({ isMobile, topRepositoryUrl }: HeroSectionProps) =>
             variant="muted"
           >
             {t.rich('description', {
-              claudeCode: (chunks) => {
-                return <ClaudeCodeToken size="large" text={chunks} />;
+              agentSkills: (chunks) => {
+                return (
+                  <AgentSkillsToken
+                    size="large"
+                    text={chunks}
+                  />
+                );
               },
               code: (chunks) => {
                 return <code>{chunks}</code>;

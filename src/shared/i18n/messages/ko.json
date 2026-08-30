@@ -2,7 +2,7 @@
   "HomePage": {
     "HeroSection": {
       "title": "<line>흩어진 스킬 문서를</line><line>한곳에서, 정확하게</line>",
-      "description": "GitHub 저장소 곳곳에 흩어진 <claudeCode>Claude Code</claudeCode> 스킬(<code>SKILL.md</code>)을 찾아서 구조화된 형태로 제공합니다.",
+      "description": "GitHub 저장소 곳곳에 흩어진 <agentSkills>agentskills.io</agentSkills> 스킬(<code>SKILL.md</code>)을 찾아서 구조화된 형태로 제공합니다.",
       "form": {
         "error": "owner/repo 형식으로 작성해 주세요. 예: anthropics/skills",
         "label": "GitHub 저장소 주소",
@@ -18,7 +18,7 @@
     },
     "RepositorySection": {
       "title": "저장소 둘러보기",
-      "description": "<claudeCode>Claude Code</claudeCode>에서 사용하는 당신의 스킬을 공유하고 저장소를 홍보해 주세요. <code>repositories.yaml</code>에 저장소를 추가하고 Pull Request를 열면 검토 후 목록에 등록해 드립니다.",
+      "description": "<agentSkills>agentskills.io</agentSkills> 표준으로 작성한 당신의 스킬을 공유하고 저장소를 홍보해 주세요. <code>repositories.yaml</code>에 저장소를 추가하고 Pull Request를 열면 검토 후 목록에 등록해 드립니다.",
       "skillCount": "{count} SKILL.md",
       "totalCount": "전체 저장소",
       "totalSkillCount": "전체 스킬",
@@ -37,7 +37,11 @@
         },
         {
           "question": "스킬이 무엇인가요?",
-          "answer": "AI 에이전트가 도구를 정확하게 사용하도록 엔지니어가 작성한 지침입니다. <claudeCode>Claude Code</claudeCode>에서 사용하고, 저장소의 <code>SKILL.md</code> 파일에 정의합니다."
+          "answer": "AI 에이전트가 도구를 정확하게 사용하도록 엔지니어가 작성한 지침입니다. <agentSkills>agentskills.io</agentSkills>가 공개한 열린 표준을 따르며, 저장소의 <code>SKILL.md</code> 파일에 정의합니다."
+        },
+        {
+          "question": "어떤 도구에서 스킬을 사용하나요?",
+          "answer": "SKILL.md는 특정 제품의 형식이 아니라 여러 AI 에이전트가 함께 사용하는 열린 표준입니다. 표준을 사용하는 도구 목록은 <a>agentskills.io/clients</a>에서 확인할 수 있습니다."
         },
         {
           "question": "스킬 문서는 어떻게 가져오나요?",

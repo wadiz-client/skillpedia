@@ -1,2 +1,2 @@
-export { ClaudeCodeSymbolMark } from './ClaudeCodeSymbolMark';
-export { ClaudeCodeToken } from './ClaudeCodeToken';
+export { AgentSkillsSymbolMark } from './AgentSkillsSymbolMark';
+export { AgentSkillsToken } from './AgentSkillsToken';

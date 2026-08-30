@@ -8,7 +8,7 @@ import { AnimationProvider, Box, Button, Heading, Section, Statistic, Text } fro
 import { useTranslations } from 'next-intl';
 
 import type { RepositoryMetadata } from '@/features/repository-metadata/api';
-import { ClaudeCodeToken } from '@/shared/ui';
+import { AgentSkillsToken } from '@/shared/ui';
 
 import { RepositoryCard } from './RepositoryCard';
 import { SpotlightCanvas } from './SpotlightCanvas';
@@ -64,9 +64,9 @@ export const RepositorySection = ({ isMobile, repositoryMetadataList }: Reposito
               variant="muted"
             >
               {t.rich('description', {
-                claudeCode: (chunks) => {
+                agentSkills: (chunks) => {
                   return (
-                    <ClaudeCodeToken
+                    <AgentSkillsToken
                       size="medium"
                       text={chunks}
                     />

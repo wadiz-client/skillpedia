@@ -10,7 +10,7 @@ import type { RepositoryTreeNode } from '@/features/repository-tree/api';
 import { Link, usePathname, useRouter } from '@/shared/i18n/navigation';
 import { routing } from '@/shared/i18n/routing';
 import type { Locale } from '@/shared/i18n/routing';
-import { ClaudeCodeSymbolMark } from '@/shared/ui';
+import { AgentSkillsSymbolMark } from '@/shared/ui';
 
 import { SidePanel } from '../SidePanel';
 import { ThemeToggle } from '../ThemeToggle';
@@ -81,8 +81,15 @@ export const Header = ({ owner, repo, treeNodesPromise }: HeaderProps) => {
 
           <span className={styles.tagline}>
             for
-            <ClaudeCodeSymbolMark />
-            Claude Code
+            <a
+              className={styles.link}
+              href="https://agentskills.io"
+              rel="noreferrer"
+              target="_blank"
+            >
+              <AgentSkillsSymbolMark />
+              agentskills.io
+            </a>
           </span>
         </div>
 

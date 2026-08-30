@@ -81,6 +81,17 @@
           background-color: var(--brand-color-border-default);
         }
 
+        .link {
+          display: flex;
+          gap: var(--base-size-6);
+          align-items: center;
+          color: inherit;
+
+          &:hover {
+            color: var(--brand-color-text-default);
+          }
+        }
+
         @media (width < $breakpoint-medium) {
           display: none;
         }

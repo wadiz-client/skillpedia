@@ -2,7 +2,7 @@
   "HomePage": {
     "HeroSection": {
       "title": "<line>Scattered Skill Docs,</line><line>in One Place, Precisely</line>",
-      "description": "Finds <claudeCode>Claude Code</claudeCode> skills (<code>SKILL.md</code>) scattered across GitHub repositories and presents them in a structured form.",
+      "description": "Finds <agentSkills>agentskills.io</agentSkills> skills (<code>SKILL.md</code>) scattered across GitHub repositories and presents them in a structured form.",
       "form": {
         "error": "Please use the owner/repo format. Example: anthropics/skills",
         "label": "GitHub repository URL",
@@ -18,7 +18,7 @@
     },
     "RepositorySection": {
       "title": "Browse Repositories",
-      "description": "Share your own skills for <claudeCode>Claude Code</claudeCode> and get your repository noticed. Add your repository to <code>repositories.yaml</code> and open a Pull Request, and we'll review it and add it to the list.",
+      "description": "Share your own skills written to the <agentSkills>agentskills.io</agentSkills> standard and get your repository noticed. Add your repository to <code>repositories.yaml</code> and open a Pull Request, and we'll review it and add it to the list.",
       "skillCount": "{count} SKILL.md",
       "totalCount": "Repositories",
       "totalSkillCount": "Skills",
@@ -37,7 +37,11 @@
         },
         {
           "question": "What is a skill?",
-          "answer": "A guide written by engineers so that AI agents can use a tool correctly. <claudeCode>Claude Code</claudeCode> reads it, and each skill lives in a <code>SKILL.md</code> file in a repository."
+          "answer": "A guide written by engineers so that AI agents can use a tool correctly. It follows the open standard published by <agentSkills>agentskills.io</agentSkills>, and each skill lives in a <code>SKILL.md</code> file in a repository."
+        },
+        {
+          "question": "Which tools use skills?",
+          "answer": "SKILL.md is not a single product's format but an open standard that many AI agents share. See the list of tools that use the standard at <a>agentskills.io/clients</a>."
         },
         {
           "question": "How does Skillpedia fetch skill docs?",

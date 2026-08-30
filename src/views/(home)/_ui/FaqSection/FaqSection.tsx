@@ -3,7 +3,7 @@
 import { AnimationProvider, Box, FAQ, Section } from '@primer/react-brand';
 import { useTranslations } from 'next-intl';
 
-import { ClaudeCodeToken } from '@/shared/ui';
+import { AgentSkillsToken } from '@/shared/ui';
 
 interface FaqItem {
   answer: string;
@@ -46,9 +46,20 @@ export const FaqSection = () => {
                   <FAQ.Answer>
                     <p>
                       {t.rich(`items.${index}.answer`, {
-                        claudeCode: (chunks) => {
+                        a: (chunks) => {
                           return (
-                            <ClaudeCodeToken
+                            <a
+                              href="https://agentskills.io/clients"
+                              rel="noreferrer"
+                              target="_blank"
+                            >
+                              {chunks}
+                            </a>
+                          );
+                        },
+                        agentSkills: (chunks) => {
+                          return (
+                            <AgentSkillsToken
                               size="medium"
                               text={chunks}
                             />

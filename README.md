@@ -24,18 +24,14 @@ Skillpedia reads skill documents authored by engineers so that both people and A
 
 ## Tech stack
 
-| Category             | Technology                                           |
-| -------------------- | ---------------------------------------------------- |
-| Language             | TypeScript                                           |
-| Framework            | Next.js (App Router)                                 |
-| UI library           | @primer/react-brand, @primer/react                   |
-| Styling              | CSS Modules (SCSS)                                   |
-| Internationalization | next-intl                                            |
-| API client           | Octokit (GitHub App)                                 |
-| Markdown rendering   | react-markdown (remark-gfm, rehype-raw, rehype-slug) |
-| Frontmatter · TOC    | gray-matter, marked, github-slugger                  |
-| Syntax highlighting  | react-syntax-highlighter                             |
-| Package manager      | npm                                                  |
+| Category             | Technology           |
+| -------------------- | -------------------- |
+| Language             | TypeScript           |
+| Framework            | Next.js (App Router) |
+| UI library           | GitHub Primer        |
+| Styling              | CSS Modules (SCSS)   |
+| Internationalization | next-intl            |
+| API client           | Octokit (GitHub App) |
 
 ## Project structure
 
@@ -90,16 +86,8 @@ npm run dev
 
 The app runs at `http://localhost:3000`.
 
-## Build and deploy
-
-### Build
+## Build
 
 ```shell
 npm run build
 ```
-
-### Deploy
-
-Merging changes into the `main` branch triggers an automatic deployment through Vercel.
-
-- [Vercel Dashboard](https://vercel.com/dashboard)

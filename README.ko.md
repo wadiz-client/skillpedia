@@ -24,18 +24,14 @@ Skillpedia(스킬피디아)는 개발자가 작성한 스킬 문서를 읽어, �
 
 ## 기술 스택
 
-| 구분            | 기술                                                 |
-| --------------- | ---------------------------------------------------- |
-| 언어            | TypeScript                                           |
-| 프레임워크      | Next.js (App Router)                                 |
-| UI 라이브러리   | @primer/react-brand, @primer/react                   |
-| 스타일          | CSS Modules (SCSS)                                   |
-| 국제화          | next-intl                                            |
-| API 클라이언트  | Octokit (GitHub App)                                 |
-| 마크다운 렌더링 | react-markdown (remark-gfm, rehype-raw, rehype-slug) |
-| 프런트매터·목차 | gray-matter, marked, github-slugger                  |
-| 코드 하이라이트 | react-syntax-highlighter                             |
-| 패키지 관리     | npm                                                  |
+| 구분           | 기술                 |
+| -------------- | -------------------- |
+| 언어           | TypeScript           |
+| 프레임워크     | Next.js (App Router) |
+| UI 라이브러리  | GitHub Primer        |
+| 스타일         | CSS Modules (SCSS)   |
+| 다국어         | next-intl            |
+| API 클라이언트 | Octokit (GitHub App) |
 
 ## 프로젝트 구조
 
@@ -50,7 +46,7 @@ src/
 │               #   (HomePage, OwnerRepoSlugPage + _ui: Article·Prose·CodeBlock·Sidebar·Toc, _lib: parseMarkdown 등)
 ├── widgets/    # 전역 레이아웃 블록 (Layout, Header, Content)
 ├── features/   # 사용자 상호작용 기능 (repository-markdown, repository-metadata, repository-tree)
-└── shared/     # 공통 API 클라이언트·스타일·국제화 (github, breakpoint)
+└── shared/     # 공통 API 클라이언트·스타일·다국어 (github, breakpoint)
 ```
 
 수집 대상 저장소 목록은 `repositories.yaml`에 정의합니다. 운영 환경인 경우 `REPOSITORIES` GitHub Actions 변수로 목록을 주입합니다.
@@ -90,16 +86,8 @@ npm run dev
 
 브라우저에서 `http://localhost:3000`으로 접속합니다.
 
-## 빌드 및 배포
-
-### 빌드
+## 빌드
 
 ```shell
 npm run build
 ```
-
-### 배포
-
-GitHub 저장소의 `main` 브랜치에 변경 사항을 병합하면 Vercel을 통해 자동으로 배포를 진행합니다.
-
-- [Vercel Dashboard](https://vercel.com/dashboard)

@@ -33,6 +33,7 @@
         align-items: center;
 
         color: var(--brand-color-text-default);
+        text-decoration: none;
 
         transition: transform 200ms ease;
 
@@ -115,6 +116,7 @@
         border-radius: var(--base-size-6);
 
         color: var(--brand-color-text-muted);
+        text-decoration: none;
 
         &:hover {
           color: var(--brand-color-text-default);

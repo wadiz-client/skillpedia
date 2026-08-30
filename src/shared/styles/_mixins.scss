@@ -20,6 +20,10 @@
     transition: transform 0.2s ease;
   }
 
+  &:hover {
+    text-decoration: none;
+  }
+
   &:hover::after,
   &:active::after {
     transform: scaleX(1);

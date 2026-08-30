@@ -64,7 +64,7 @@ export const SidePanel = ({ owner, repo, treeNodesPromise }: SidePanelProps) => 
         <Heading
           as="h2"
           id={dialogLabelId}
-          size="subhead-large"
+          size="subhead-medium"
         >
           {owner}/{repo}
         </Heading>

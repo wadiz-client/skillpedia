@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 
+import { GoogleTagManager } from '@next/third-parties/google';
 import '@primer/brand-primitives/lib/design-tokens/css/tokens/base/colors/color-scales-with-modes.css';
 import '@primer/brand-primitives/lib/design-tokens/css/tokens/functional/colors/global-with-modes.css';
 import '@primer/primitives/dist/css/functional/themes/dark.css';
@@ -23,6 +24,8 @@ interface RootLayoutProps {
   params: Promise<{ locale: string }>;
 }
 
+const gtmId = process.env.NODE_ENV === 'production' ? process.env.GTM_ID : undefined;
+
 export function generateStaticParams() {
   return routing.locales.map((locale) => {
     return { locale };
@@ -42,6 +45,7 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
   // @primer/react가 불러오는 focus-visible 폴리필이 클라이언트에서 html에 클래스와 속성을 추가합니다.
   return (
     <html data-dark-theme="dark" data-light-theme="light" lang={locale} suppressHydrationWarning>
+      {gtmId ? <GoogleTagManager gtmId={gtmId} /> : null}
       <body>
         <NextIntlClientProvider now={new Date()}>
           <ColorModeProvider>

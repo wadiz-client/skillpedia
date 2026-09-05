@@ -20,7 +20,7 @@ interface TreeNavListProps {
   treeNodes: RepositoryTreeNode[];
   ariaLabel?: string;
   ariaLabelledBy?: string;
-  onNavigate?: () => void;
+  onNavigate?: (href: string) => void;
 }
 
 /**
@@ -130,7 +130,9 @@ export const TreeNavList = ({ owner, repo, treeNodes, ariaLabel, ariaLabelledBy,
         as={Link}
         href={nodeHref}
         key={nodeHref}
-        onClick={onNavigate}
+        onClick={() => {
+          onNavigate?.(nodeHref);
+        }}
       >
         <Text>{normalizeTitle(undefined, node.name)}</Text>
       </NavList.Item>

@@ -6,6 +6,7 @@ import { SearchIcon } from '@primer/octicons-react';
 import { Box, FormControl, Hero, Label, Section, TextInput } from '@primer/react-brand';
 import { useTranslations } from 'next-intl';
 
+import { homeTracker } from '@/features/event-tracker/lib';
 import { useRouter } from '@/shared/i18n/navigation';
 import { AgentSkillsToken } from '@/shared/ui';
 
@@ -41,6 +42,8 @@ export const HeroSection = ({ isMobile, topRepositoryUrl }: HeroSectionProps) =>
     const isValidFormat = /^[\w.-]+\/[\w.-]+$/.test(value);
 
     if (isValidFormat) {
+      homeTracker.trackingHeroSubmitButtonClick(value, repository.trim().length === 0);
+
       router.push(`/${value}`);
 
       return;

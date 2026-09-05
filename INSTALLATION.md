@@ -62,6 +62,7 @@ Add the following environment variables only when you need them.
 | Environment variable        | Description                                                                     |
 | --------------------------- | ------------------------------------------------------------------------------- |
 | `GITHUB_TOKEN`              | Used when public repositories without the app installed are listed together     |
+| `GTM_ID`                    | Sets the container ID for Google Tag Manager; applied in production mode only   |
 | `SITE_URL`                  | Sets the deployment URL when self-hosting; used for share card image URLs       |
 | `HTTPS_PROXY`, `HTTP_PROXY` | Sets the proxy URL on an internal network that reaches the internet via a proxy |
 
@@ -98,7 +99,7 @@ First, move the `.github/workflows/templates/build-and-deploy.yml` file to the `
 
 | Type      | Name                                                                       |
 | --------- | -------------------------------------------------------------------------- |
-| Variables | `APP_ID`, `REPOSITORIES`                                                   |
+| Variables | `APP_ID`, `GTM_ID`, `REPOSITORIES`                                         |
 | Secrets   | `APP_PRIVATE_KEY`, `PAT` (a personal access token for public repositories) |
 
 Finally, run the **Build and deploy** workflow from the **Actions** tab. The runner creates the `.env` file, builds the app, and serves it on port 3000 with pm2.

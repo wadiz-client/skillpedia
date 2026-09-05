@@ -5,6 +5,7 @@ import { use, useEffect, useRef } from 'react';
 import { Heading } from '@primer/react-brand';
 import { useTranslations } from 'next-intl';
 
+import { repositoryTracker } from '@/features/event-tracker/lib';
 import type { RepositoryTreeNode } from '@/features/repository-tree/api';
 import { TreeNavList } from '@/features/repository-tree/ui';
 import { usePathname } from '@/shared/i18n/navigation';
@@ -59,6 +60,9 @@ export const Sidebar = ({ owner, repo, treeNodesPromise }: SidebarProps) => {
           owner={owner}
           repo={repo}
           treeNodes={treeNodes}
+          onNavigate={(href) => {
+            repositoryTracker.trackingSidebarDocumentLinkClick(`${owner}/${repo}`, href);
+          }}
         />
       </div>
     </aside>

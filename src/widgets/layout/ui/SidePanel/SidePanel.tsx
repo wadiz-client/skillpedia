@@ -8,6 +8,7 @@ import type { DialogHeaderProps } from '@primer/react';
 import { Heading } from '@primer/react-brand';
 import { useTranslations } from 'next-intl';
 
+import { repositoryTracker } from '@/features/event-tracker/lib';
 import { Toc, useTocHeadings } from '@/features/repository-markdown/ui';
 import type { RepositoryTreeNode } from '@/features/repository-tree/api';
 import { TreeNavList } from '@/features/repository-tree/ui';
@@ -166,7 +167,10 @@ export const SidePanel = ({ owner, repo, treeNodesPromise }: SidePanelProps) => 
                 owner={owner}
                 repo={repo}
                 treeNodes={treeNodes}
-                onNavigate={handleClose}
+                onNavigate={(href) => {
+                  repositoryTracker.trackingSidebarDocumentLinkClick(`${owner}/${repo}`, href);
+                  handleClose();
+                }}
               />
             </div>
           ) : (

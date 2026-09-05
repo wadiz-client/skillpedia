@@ -6,6 +6,7 @@ import { Avatar, useAnimation } from '@primer/react-brand';
 import classNames from 'classnames';
 import { useFormatter, useNow, useTranslations } from 'next-intl';
 
+import { homeTracker, useTrackingEventRef } from '@/features/event-tracker/lib';
 import type { RepositoryMetadata } from '@/features/repository-metadata/api';
 import { Link } from '@/shared/i18n/navigation';
 
@@ -28,11 +29,22 @@ export const RepositoryCard = ({ index, isAnimationEnabled = true, repositoryMet
     variant: 'slide-in-up',
   });
 
+  const { ref } = useTrackingEventRef({
+    impressionCallback: () => {
+      homeTracker.trackingRepositoryCardImpression(`${owner}/${repo}`, rank ?? 0);
+    },
+    shouldTrackImpressionOnce: true,
+  });
+
   return (
     <Link
       className={classNames(styles.container, isAnimationEnabled ? animationClasses : undefined)}
       href={`/${owner}/${repo}`}
+      ref={ref}
       style={isAnimationEnabled ? animationStyles : undefined}
+      onClick={() => {
+        homeTracker.trackingRepositoryCardClick(`${owner}/${repo}`, rank ?? 0);
+      }}
     >
       {rank ? (
         <span

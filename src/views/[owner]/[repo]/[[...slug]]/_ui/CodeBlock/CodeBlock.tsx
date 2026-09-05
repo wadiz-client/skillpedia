@@ -6,6 +6,8 @@ import { CheckIcon, CopyIcon } from '@primer/octicons-react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { atomOneDark, github } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
+import { repositoryTracker } from '@/features/event-tracker/lib';
+
 import styles from './CodeBlock.module.scss';
 
 interface CodeBlockProps {
@@ -21,6 +23,7 @@ export const CodeBlock = ({ language, value }: CodeBlockProps) => {
     try {
       await navigator.clipboard.writeText(value);
       setCopied(true);
+      repositoryTracker.trackingCodeBlockCopyButtonClick(language ?? 'text');
       setTimeout(() => {
         setCopied(false);
       }, 1500);

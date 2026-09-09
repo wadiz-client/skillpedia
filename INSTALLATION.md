@@ -59,12 +59,12 @@ APP_PRIVATE_KEY=
 
 Add the following environment variables only when you need them.
 
-| Environment variable        | Description                                                                     |
-| --------------------------- | ------------------------------------------------------------------------------- |
-| `GITHUB_TOKEN`              | Used when public repositories without the app installed are listed together     |
-| `GTM_ID`                    | Sets the container ID for Google Tag Manager; applied in production mode only   |
-| `SITE_URL`                  | Sets the deployment URL when self-hosting; used for share card image URLs       |
-| `HTTPS_PROXY`, `HTTP_PROXY` | Sets the proxy URL on an internal network that reaches the internet via a proxy |
+| Environment variable        | Description                                                                                                           |
+| --------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `GITHUB_TOKEN`              | Used when public repositories without the app installed are listed together                                           |
+| `GTM_ID`                    | Sets the container ID for Google Tag Manager; applied in production mode only ([Data collection](./EVENT_TRACKER.md)) |
+| `SITE_URL`                  | Sets the deployment URL when self-hosting; used for share card image URLs                                             |
+| `HTTPS_PROXY`, `HTTP_PROXY` | Sets the proxy URL on an internal network that reaches the internet via a proxy                                       |
 
 ## Repository list
 

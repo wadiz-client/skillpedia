@@ -29,7 +29,9 @@
    2. [배럴(Barrel) 파일 규칙](#배럴barrel-파일-규칙)
    3. [import 순서](#import-순서)
    4. [타입 전용 import](#타입-전용-import)
-6. [요약](#요약)
+6. [정적 파일](#정적-파일)
+   1. [이미지 파일](#이미지-파일)
+7. [요약](#요약)
 
 ## 컴포넌트
 
@@ -618,6 +620,28 @@ import { ButtonProps } from '@wadiz/waffle/Button';
 import { useNotificationRequest, type UseNotificationRequest } from '../../lib';
 ```
 
+## 정적 파일
+
+### 이미지 파일
+
+- kebab-case 형식
+- 변형은 하이픈 뒤 접미사로 작성 (`-dark`, `-light`, `-circle` 등)
+- 외부 아이콘을 쓰는 경우 원본 이름을 그대로 두고 변형만 접미사로 덧붙임
+
+```
+✅ 올바른 예
+app-icon-dark.svg
+favicon-light.svg
+hero-light.jpg
+comment-discussion-circle.png
+
+❌ 잘못된 예
+app-icon_dark.svg
+favicon_light.svg
+heroLight.jpg
+comment_discussion_circle.png
+```
+
 ## 요약
 
 - const + 화살표 함수 사용 (function 선언 금지)
@@ -641,3 +665,4 @@ import { useNotificationRequest, type UseNotificationRequest } from '../../lib';
 | Enum 형태 객체   | UPPER_SNAKE_CASE                       | PAY_BY                  |
 | 로컬 변수        | camelCase                              | isActive, userName      |
 | Boolean 변수     | `is`, `has`, `should` 등의 접두사 사용 | isOpen, hasChildren     |
+| 이미지 파일      | kebab-case + 변형 접미사               | hero-light.jpg          |

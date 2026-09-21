@@ -3,8 +3,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./public/images/hero_dark.jpg" />
-  <img alt="Skillpedia hero" src="./public/images/hero_light.jpg" width="100%" />
+  <source media="(prefers-color-scheme: dark)" srcset="./public/images/hero-dark.jpg" />
+  <img alt="Skillpedia hero" src="./public/images/hero-light.jpg" width="100%" />
 </picture>
 
 # Skillpedia

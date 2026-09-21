@@ -59,12 +59,13 @@ APP_PRIVATE_KEY=
 
 Add the following environment variables only when you need them.
 
-| Environment variable        | Description                                                                                                           |
-| --------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `GITHUB_TOKEN`              | Used when public repositories without the app installed are listed together                                           |
-| `GTM_ID`                    | Sets the container ID for Google Tag Manager; applied in production mode only ([Data collection](./EVENT_TRACKER.md)) |
-| `SITE_URL`                  | Sets the deployment URL when self-hosting; used for share card image URLs                                             |
-| `HTTPS_PROXY`, `HTTP_PROXY` | Sets the proxy URL on an internal network that reaches the internet via a proxy                                       |
+| Environment variable        | Description                                                                                                                                                                                           |
+| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `FEEDLOOP_ID`               | Sets the service ID issued after you register your own service at [Feedloop](https://ai-feedloop.vercel.app/bots/new) to collect feedback through its chatbot widget; applied in production mode only |
+| `GITHUB_TOKEN`              | Used when public repositories without the app installed are listed together                                                                                                                           |
+| `GTM_ID`                    | Sets the container ID for Google Tag Manager; applied in production mode only ([Data collection](./EVENT_TRACKER.md))                                                                                 |
+| `SITE_URL`                  | Sets the deployment URL when self-hosting; used for share card image URLs                                                                                                                             |
+| `HTTPS_PROXY`, `HTTP_PROXY` | Sets the proxy URL on an internal network that reaches the internet via a proxy                                                                                                                       |
 
 ## Repository list
 
@@ -99,7 +100,7 @@ First, move the `.github/workflows/templates/build-and-deploy.yml` file to the `
 
 | Type      | Name                                                                       |
 | --------- | -------------------------------------------------------------------------- |
-| Variables | `APP_ID`, `GTM_ID`, `REPOSITORIES`                                         |
+| Variables | `APP_ID`, `FEEDLOOP_ID`, `GTM_ID`, `REPOSITORIES`                          |
 | Secrets   | `APP_PRIVATE_KEY`, `PAT` (a personal access token for public repositories) |
 
 Finally, run the **Build and deploy** workflow from the **Actions** tab. The runner creates the `.env` file, builds the app, and serves it on port 3000 with pm2.

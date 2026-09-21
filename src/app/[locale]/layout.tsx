@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import Script from 'next/script';
 
 import { GoogleTagManager } from '@next/third-parties/google';
 import '@primer/brand-primitives/lib/design-tokens/css/tokens/base/colors/color-scales-with-modes.css';
@@ -24,6 +25,7 @@ interface RootLayoutProps {
   params: Promise<{ locale: string }>;
 }
 
+const feedloopId = process.env.NODE_ENV === 'production' ? process.env.FEEDLOOP_ID : undefined;
 const gtmId = process.env.NODE_ENV === 'production' ? process.env.GTM_ID : undefined;
 
 export function generateStaticParams() {
@@ -52,6 +54,13 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
             <PrimerThemeProvider>{children}</PrimerThemeProvider>
           </ColorModeProvider>
         </NextIntlClientProvider>
+        {feedloopId ? (
+          <Script
+            async
+            data-feedloop={feedloopId}
+            src="https://ai-feedloop.vercel.app/widget.js"
+          />
+        ) : null}
       </body>
     </html>
   );

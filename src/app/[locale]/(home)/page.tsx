@@ -24,14 +24,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     description: t('description'),
     icons: {
       icon: [
-        { media: '(prefers-color-scheme: light)', type: 'image/svg+xml', url: '/favicon_dark.svg' },
-        { media: '(prefers-color-scheme: dark)', type: 'image/svg+xml', url: '/favicon_light.svg' },
+        { media: '(prefers-color-scheme: light)', type: 'image/svg+xml', url: '/favicon-dark.svg' },
+        { media: '(prefers-color-scheme: dark)', type: 'image/svg+xml', url: '/favicon-light.svg' },
       ],
     },
     metadataBase: process.env.SITE_URL ? new URL(process.env.SITE_URL) : undefined,
     openGraph: {
       description: t('description'),
-      images: [{ alt: t('title'), height: 1280, url: '/images/hero_light.jpg', width: 2560 }],
+      images: [{ alt: t('title'), height: 1280, url: '/images/hero-light.jpg', width: 2560 }],
       locale: locale === 'ko' ? 'ko_KR' : 'en_US',
       siteName: t('title'),
       title: t('title'),
@@ -42,7 +42,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     twitter: {
       card: 'summary_large_image',
       description: t('description'),
-      images: ['/images/hero_light.jpg'],
+      images: ['/images/hero-light.jpg'],
       title: t('title'),
     },
   };

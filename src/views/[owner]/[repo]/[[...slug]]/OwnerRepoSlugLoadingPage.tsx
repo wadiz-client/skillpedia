@@ -1,3 +1,5 @@
+'use client';
+
 import { useTranslations } from 'next-intl';
 
 import { ProgressPanel, ScrollRestoration } from './_ui';

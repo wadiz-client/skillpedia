@@ -22,10 +22,10 @@ type GetRepositoryTreeNodesResponse = Promise<RepositoryTreeNode[]>;
 
 // layout과 page가 한 요청에서 같은 참조를 공유해 RSC 페이로드에 트리를 한 번만 직렬화합니다.
 // cache는 인자를 참조로 비교하므로 원시값 인자로 메모이제이션합니다.
-const getCachedRepositoryTreeNodes = cache((owner: string, repo: string): GetRepositoryTreeNodesResponse => {
-  return unstable_cache(
-    async () => {
-      try {
+const getCachedRepositoryTreeNodes = cache(async (owner: string, repo: string): GetRepositoryTreeNodesResponse => {
+  try {
+    return await unstable_cache(
+      async () => {
         const skillPaths = await getRepositorySkillPaths(owner, repo);
 
         // SKILL.md 파일이 있는 폴더 경로만 추출합니다.
@@ -85,13 +85,16 @@ const getCachedRepositoryTreeNodes = cache((owner: string, repo: string): GetRep
         }
 
         return treeNodes;
-      } catch {
-        return [];
-      }
-    },
-    ['repository-tree-nodes', owner, repo],
-    { revalidate: GITHUB_REVALIDATE_SECONDS, tags: [getRepositoryCacheTag(owner, repo)] },
-  )();
+      },
+      ['repository-tree-nodes', owner, repo],
+      { revalidate: GITHUB_REVALIDATE_SECONDS, tags: [getRepositoryCacheTag(owner, repo)] },
+    )();
+  } catch (error) {
+    // 실패 결과가 캐시에 남아 빈 트리가 계속 노출되지 않도록 캐시 밖에서 처리합니다.
+    console.error(`저장소 트리 조회에 실패했습니다: ${owner}/${repo}`, error);
+
+    return [];
+  }
 });
 
 /**

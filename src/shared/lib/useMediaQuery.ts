@@ -22,3 +22,8 @@ export const useMediaQuery = (query: string): boolean => {
 
   return isMatched;
 };
+
+export const useIsDesktop = (): boolean => {
+  // $breakpoint-medium과 같습니다.
+  return useMediaQuery('(min-width: 48rem)');
+};

@@ -100,10 +100,11 @@
   "OwnerRepoSlugLoadingPage": {
     "ariaLabel": "문서를 불러오는 중",
     "ProgressPanel": {
-      "stages": {
-        "fetching": "GitHub 저장소에서 문서를 가져오고 있어요.",
-        "analyzing": "SKILL 문서를 분석하고 구조화하고 있어요.",
-        "preparing": "읽기 좋은 문서 화면을 준비하고 있어요."
+      "steps": {
+        "tree": "GitHub 저장소에서 문서 목록을 가져오고 있어요.",
+        "readme": "README 문서를 가져오고 있어요.",
+        "skill": "SKILL 문서를 가져오고 있어요.",
+        "render": "읽기 좋은 문서 화면을 준비하고 있어요."
       }
     }
   },

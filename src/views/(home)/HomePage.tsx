@@ -6,11 +6,10 @@ import { FaqSection, HeroSection, PrivateRepositorySection, RepositorySection } 
 import styles from './HomePage.module.scss';
 
 interface HomePageProps {
-  isMobile: boolean;
   repositoryMetadataList: RepositoryMetadata[];
 }
 
-export const HomePage = ({ isMobile, repositoryMetadataList }: HomePageProps) => {
+export const HomePage = ({ repositoryMetadataList }: HomePageProps) => {
   const topRepositoryMetadata = repositoryMetadataList.find((repositoryMetadata) => {
     return repositoryMetadata.rank === 1;
   });
@@ -20,14 +19,8 @@ export const HomePage = ({ isMobile, repositoryMetadataList }: HomePageProps) =>
 
   return (
     <div className={styles.container}>
-      <HeroSection
-        isMobile={isMobile}
-        topRepositoryUrl={topRepositoryUrl}
-      />
-      <RepositorySection
-        isMobile={isMobile}
-        repositoryMetadataList={repositoryMetadataList}
-      />
+      <HeroSection topRepositoryUrl={topRepositoryUrl} />
+      <RepositorySection repositoryMetadataList={repositoryMetadataList} />
       <FaqSection />
       <PrivateRepositorySection />
       <Layout.Footer />

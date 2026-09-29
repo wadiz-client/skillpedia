@@ -100,10 +100,11 @@
   "OwnerRepoSlugLoadingPage": {
     "ariaLabel": "Loading document",
     "ProgressPanel": {
-      "stages": {
-        "fetching": "Fetching documents from the GitHub repository.",
-        "analyzing": "Analyzing and structuring SKILL documents.",
-        "preparing": "Preparing a readable document view."
+      "steps": {
+        "tree": "Fetching the document list from the GitHub repository.",
+        "readme": "Fetching the README document.",
+        "skill": "Fetching the SKILL document.",
+        "render": "Preparing a readable document view."
       }
     }
   },

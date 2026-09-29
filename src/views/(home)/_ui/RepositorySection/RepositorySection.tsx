@@ -8,6 +8,7 @@ import { AnimationProvider, Box, Button, Heading, Section, Statistic, Text } fro
 import { useTranslations } from 'next-intl';
 
 import type { RepositoryMetadata } from '@/features/repository-metadata/api';
+import { useIsDesktop } from '@/shared/lib';
 import { AgentSkillsToken } from '@/shared/ui';
 
 import { RepositoryCard } from './RepositoryCard';
@@ -18,17 +19,17 @@ import styles from './RepositorySection.module.scss';
 const MOBILE_REPOSITORY_COUNT = 10;
 
 interface RepositorySectionProps {
-  isMobile: boolean;
   repositoryMetadataList: RepositoryMetadata[];
 }
 
-export const RepositorySection = ({ isMobile, repositoryMetadataList }: RepositorySectionProps) => {
+export const RepositorySection = ({ repositoryMetadataList }: RepositorySectionProps) => {
   const t = useTranslations('HomePage.RepositorySection');
+  const isDesktop = useIsDesktop();
   const [isExpanded, setIsExpanded] = useState(false);
   const totalSkillCount = repositoryMetadataList.reduce((sum, repositoryMetadata) => {
     return sum + repositoryMetadata.skillCount;
   }, 0);
-  const isCollapsed = isMobile && !isExpanded;
+  const isCollapsed = !isDesktop && !isExpanded;
   const visibleRepositoryMetadataList = isCollapsed
     ? repositoryMetadataList.slice(0, MOBILE_REPOSITORY_COUNT)
     : repositoryMetadataList;
@@ -108,7 +109,7 @@ export const RepositorySection = ({ isMobile, repositoryMetadataList }: Reposito
 
         {repositoryMetadataList.length > 0 ? (
           <div className={styles.inner}>
-            {isMobile ? null : <SpotlightCanvas />}
+            {isDesktop ? <SpotlightCanvas /> : null}
             <AnimationProvider
               animationTrigger="on-visible"
               autoStaggerChildren={false}
@@ -120,7 +121,7 @@ export const RepositorySection = ({ isMobile, repositoryMetadataList }: Reposito
                   return (
                     <RepositoryCard
                       index={index}
-                      isAnimationEnabled={!isMobile || index < MOBILE_REPOSITORY_COUNT}
+                      isAnimationEnabled={isDesktop || index < MOBILE_REPOSITORY_COUNT}
                       key={`${repositoryMetadata.owner}/${repositoryMetadata.repo}`}
                       repositoryMetadata={repositoryMetadata}
                     />

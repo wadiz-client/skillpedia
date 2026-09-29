@@ -3,6 +3,7 @@ import { Suspense } from 'react';
 import { setRequestLocale } from 'next-intl/server';
 
 import { getRepositoryTreeNodes } from '@/features/repository-tree/api';
+import { getProgressStepProps, ProgressStep } from '@/views/[owner]/[repo]/[[...slug]]/_ui';
 import { Fab } from '@/widgets/fab/ui';
 import { Layout, Sidebar, SidebarSkeleton } from '@/widgets/layout/ui';
 
@@ -39,6 +40,12 @@ export default async function OwnerRepoLayout({ children, params }: OwnerRepoLay
                   owner={owner}
                   repo={repo}
                   treeNodesPromise={treeNodesPromise}
+                />
+              </Suspense>
+
+              <Suspense fallback={null}>
+                <ProgressStep
+                  {...getProgressStepProps({ owner, path: '', promise: treeNodesPromise, repo, step: 'tree' })}
                 />
               </Suspense>
 

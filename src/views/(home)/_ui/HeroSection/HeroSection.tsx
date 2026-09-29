@@ -8,6 +8,7 @@ import { useTranslations } from 'next-intl';
 
 import { homeTracker } from '@/features/event-tracker/lib';
 import { useRouter } from '@/shared/i18n/navigation';
+import { useIsDesktop } from '@/shared/lib';
 import { AgentSkillsToken } from '@/shared/ui';
 
 import { NetworkCanvas } from './NetworkCanvas';
@@ -18,13 +19,13 @@ import styles from './HeroSection.module.scss';
 const FALLBACK_REPOSITORY_URL = 'https://github.com/anthropics/skills';
 
 interface HeroSectionProps {
-  isMobile: boolean;
   topRepositoryUrl?: string;
 }
 
-export const HeroSection = ({ isMobile, topRepositoryUrl }: HeroSectionProps) => {
+export const HeroSection = ({ topRepositoryUrl }: HeroSectionProps) => {
   const t = useTranslations('HomePage.HeroSection');
   const router = useRouter();
+  const isDesktop = useIsDesktop();
   const { rootRef, variant } = useHeroContent<HTMLDivElement>();
   const [repository, setRepository] = useState('');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -123,7 +124,7 @@ export const HeroSection = ({ isMobile, topRepositoryUrl }: HeroSectionProps) =>
             <form onSubmit={handleSubmit}>
               <FormControl
                 fullWidth
-                size={isMobile ? 'medium' : 'large'}
+                size={isDesktop ? 'large' : 'medium'}
                 validationStatus={errorMessage ? 'error' : undefined}
               >
                 <FormControl.Label visuallyHidden>{t('form.label')}</FormControl.Label>
@@ -131,7 +132,7 @@ export const HeroSection = ({ isMobile, topRepositoryUrl }: HeroSectionProps) =>
                   fullWidth
                   leadingVisual={<SearchIcon />}
                   placeholder={exampleRepositoryUrl}
-                  size={isMobile ? 'medium' : 'large'}
+                  size={isDesktop ? 'large' : 'medium'}
                   type="search"
                   value={repository}
                   onChange={(event) => {
@@ -144,7 +145,7 @@ export const HeroSection = ({ isMobile, topRepositoryUrl }: HeroSectionProps) =>
               <Hero.PrimaryAction
                 as="button"
                 href="#"
-                size={isMobile ? 'medium' : 'large'}
+                size={isDesktop ? 'large' : 'medium'}
               >
                 {t('form.submit')}
               </Hero.PrimaryAction>

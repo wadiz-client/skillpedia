@@ -24,13 +24,15 @@
     opacity var(--brand-animation-duration-default) var(--brand-animation-easing-default),
     transform var(--brand-animation-duration-default) var(--brand-animation-easing-default);
 
-  &:hover {
+  &:hover,
+  &:focus-visible {
     border-color: var(--brand-color-border-muted);
     text-decoration: none;
     box-shadow: 0 var(--base-size-8) var(--base-size-24) rgb(31 35 40 / 12%);
 
     .content .overlay {
       opacity: 1;
+      transform: translateX(0);
     }
   }
 
@@ -138,6 +140,9 @@
         flex-wrap: wrap;
         gap: var(--base-size-8);
 
+        // 우측 하단 화살표 표시와 겹치지 않도록 여백을 확보합니다.
+        padding-inline-end: var(--base-size-40);
+
         // Primer Label의 아이콘과 텍스트 간격을 더합니다.
         .label {
           gap: var(--base-size-4);
@@ -149,35 +154,25 @@
       }
     }
 
+    // 카드 전체를 덮지 않고 우측 하단에 이동 힌트만 노출합니다.
     .overlay {
+      pointer-events: none;
+
       position: absolute;
       z-index: 1;
-      inset: 0;
+      right: var(--base-size-24);
+      bottom: var(--base-size-24);
 
       display: flex;
-      flex-direction: column;
-      gap: var(--base-size-16);
       align-items: center;
       justify-content: center;
 
       opacity: 0;
-      background: color-mix(in srgb, var(--brand-color-canvas-default) 60%, transparent);
-      backdrop-filter: blur(var(--base-size-4));
 
-      transition: opacity 0.32s ease-out;
-
-      .title {
-        padding: 0 var(--base-size-24);
-
-        font-size: var(--brand-text-size-300);
-        font-weight: 700;
-        line-height: var(--brand-text-lineHeight-500);
-        text-align: center;
-
-        .owner {
-          @extend %owner;
-        }
-      }
+      transition:
+        opacity 0.2s ease-out,
+        transform 0.2s ease-out;
+      transform: translateX(calc(var(--base-size-4) * -1));
 
       .arrow {
         display: flex;
@@ -193,5 +188,12 @@
         background: var(--brand-color-text-default);
       }
     }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .container .content .overlay {
+    transition: none;
+    transform: none;
   }
 }

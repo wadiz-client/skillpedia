@@ -110,10 +110,6 @@ export const RepositoryCard = ({ index, isAnimationEnabled = true, repositoryMet
           aria-hidden
           className={styles.overlay}
         >
-          <span className={styles.title}>
-            <span className={styles.owner}>{owner}/</span>
-            {repo}
-          </span>
           <span className={styles.arrow}>
             <ArrowRightIcon size={16} />
           </span>

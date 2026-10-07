@@ -132,12 +132,13 @@ const markdownComponents: Components = {
 
 interface ProseProps {
   filePath: string;
+  isPrivateRepository: boolean;
   markdown: string;
   owner: string;
   repo: string;
 }
 
-export const Prose = ({ filePath, markdown, owner, repo }: ProseProps) => {
+export const Prose = ({ filePath, isPrivateRepository, markdown, owner, repo }: ProseProps) => {
   return (
     <div className={styles.prose}>
       <Markdown
@@ -145,7 +146,7 @@ export const Prose = ({ filePath, markdown, owner, repo }: ProseProps) => {
         rehypePlugins={[rehypeRaw, rehypeSlug]}
         remarkPlugins={[remarkGfm]}
         urlTransform={(url, key) => {
-          return resolveMarkdownUrl({ filePath, key, owner, repo, url });
+          return resolveMarkdownUrl({ filePath, isPrivateRepository, key, owner, repo, url });
         }}
       >
         {markdown}

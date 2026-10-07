@@ -40,6 +40,7 @@ export const RepositoryCard = ({ index, isAnimationEnabled = true, repositoryMet
     <Link
       className={classNames(styles.container, isAnimationEnabled ? animationClasses : undefined)}
       href={`/${owner}/${repo}`}
+      prefetch={false}
       ref={ref}
       style={isAnimationEnabled ? animationStyles : undefined}
       onClick={() => {

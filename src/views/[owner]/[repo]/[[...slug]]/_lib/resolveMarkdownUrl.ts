@@ -2,6 +2,7 @@ import { defaultUrlTransform } from 'react-markdown';
 
 interface ResolveMarkdownUrlRequest {
   filePath: string;
+  isPrivateRepository: boolean;
   key: string;
   owner: string;
   repo: string;
@@ -42,10 +43,17 @@ const resolvePath = (filePath: string, path: string): string => {
  * 문서 안 이미지·링크 주소 변환
  *
  * @description
- * 저장소 파일을 가리키는 상대 경로를 이미지 중계 라우트 주소와 GitHub 문서 주소로 바꿉니다.
- * 변환 대상이 아닌 주소는 react-markdown 기본 변환에 넘겨 위험한 프로토콜을 걸러 냅니다.
+ * 저장소 파일을 가리키는 상대 경로를 이미지 주소와 GitHub 문서 주소로 변환합니다.
+ * 변환 대상이 아닌 주소는 react-markdown 기본 변환에 넘겨 위험한 프로토콜을 제거합니다.
  */
-export const resolveMarkdownUrl = ({ filePath, key, owner, repo, url }: ResolveMarkdownUrlRequest): string => {
+export const resolveMarkdownUrl = ({
+  filePath,
+  isPrivateRepository,
+  key,
+  owner,
+  repo,
+  url,
+}: ResolveMarkdownUrlRequest): string => {
   if (!checkIsRepositoryPath(url)) {
     return defaultUrlTransform(url);
   }
@@ -56,7 +64,12 @@ export const resolveMarkdownUrl = ({ filePath, key, owner, repo, url }: ResolveM
   const resolvedPath = resolvePath(filePath, path);
 
   if (key === 'src') {
-    return `/api/proxy/repository-images/${owner}/${repo}/${resolvedPath}`;
+    // 비공개 저장소 이미지는 인증이 필요하므로 중계 라우트를 거칩니다.
+    if (isPrivateRepository) {
+      return `/api/proxy/repository-images/${owner}/${repo}/${resolvedPath}`;
+    }
+
+    return `https://raw.githubusercontent.com/${owner}/${repo}/HEAD/${resolvedPath}`;
   }
 
   return `https://github.com/${owner}/${repo}/blob/HEAD/${resolvedPath}${suffix}`;

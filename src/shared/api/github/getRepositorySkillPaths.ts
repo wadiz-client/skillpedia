@@ -1,7 +1,7 @@
 import { unstable_cache } from 'next/cache';
 
-import { GITHUB_REVALIDATE_SECONDS, getRepositoryCacheTag } from './cache';
-import { getRepositoryOctokit } from './github-app';
+import { GITHUB_REVALIDATE_SECONDS, getRepositoryCacheTag } from './getRepositoryCacheTag';
+import { getRepositoryOctokit } from './getRepositoryOctokit';
 
 // SKILL.md 파일 여부를 판별합니다. 파일명 앞이 문자열 시작 또는 /인 경우입니다.
 const checkIsSkillFile = (path: string) => {

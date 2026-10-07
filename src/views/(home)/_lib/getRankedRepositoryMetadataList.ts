@@ -14,7 +14,7 @@ const getRepositories = (): string[] => {
   const filePath = join(process.cwd(), 'repositories.yaml');
   const content = process.env.REPOSITORIES ?? (existsSync(filePath) ? readFileSync(filePath, 'utf8') : '');
 
-  if (!content) {
+  if (content === '') {
     return [];
   }
 

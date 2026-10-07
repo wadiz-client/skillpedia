@@ -3,6 +3,7 @@ import type {
   GetRepositorySkillMarkdownResponse,
 } from '@/features/repository-markdown/api';
 import { getRepositoryFileMetadata } from '@/features/repository-metadata/api';
+import { checkIsPrivateRepository } from '@/shared/api/github';
 import { normalizeTitle } from '@/shared/lib';
 
 import { getBreadcrumbs, parseMarkdown } from '../../_lib';
@@ -28,10 +29,18 @@ export const OwnerRepoSlugContent = async ({
 }: OwnerRepoSlugContentProps) => {
   const path = slug.join('/');
 
-  const [readmeMarkdownResult, skillMarkdownResult] = await Promise.allSettled([readmePromise, skillPromise]);
+  const [readmeMarkdownResult, skillMarkdownResult, isPrivateRepositoryResult] = await Promise.allSettled([
+    readmePromise,
+    skillPromise,
+    checkIsPrivateRepository(owner, repo),
+  ]);
 
   const readme = readmeMarkdownResult.status === 'fulfilled' ? readmeMarkdownResult.value : null;
   const skill = skillMarkdownResult.status === 'fulfilled' ? skillMarkdownResult.value : null;
+
+  // 공개 여부를 확인하지 못한 경우 이미지가 깨지지 않도록 비공개로 간주하고 중계 라우트를 사용합니다.
+  const isPrivateRepository = isPrivateRepositoryResult.status === 'fulfilled' ? isPrivateRepositoryResult.value : true;
+
   const readmeMarkdown = readme ? parseMarkdown(readme.content) : null;
   const skillMarkdown = skill ? parseMarkdown(skill.content) : null;
 
@@ -75,6 +84,7 @@ export const OwnerRepoSlugContent = async ({
         <Article
           breadcrumbs={breadcrumbs}
           description={description}
+          isPrivateRepository={isPrivateRepository}
           owner={owner}
           repo={repo}
           tabs={tabs}

@@ -10,7 +10,8 @@ const CONTENT_TYPES: Record<string, string | undefined> = {
   webp: 'image/webp',
 };
 
-const CACHE_CONTROL = 'public, max-age=3600';
+const CACHE_SECONDS = 24 * 60 * 60;
+const CACHE_CONTROL = `public, max-age=${CACHE_SECONDS}, s-maxage=${CACHE_SECONDS}, stale-while-revalidate=${CACHE_SECONDS}`;
 
 interface RouteContext {
   params: Promise<{ owner: string; path: string[]; repo: string }>;

@@ -130,6 +130,7 @@ export const TreeNavList = ({ owner, repo, treeNodes, ariaLabel, ariaLabelledBy,
         as={Link}
         href={nodeHref}
         key={nodeHref}
+        prefetch={false}
         onClick={() => {
           onNavigate?.(nodeHref);
         }}

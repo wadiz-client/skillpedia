@@ -38,6 +38,7 @@ const ArticleMetadataBoundary = ({ metadataPromise }: ArticleMetadataBoundaryPro
 
 interface ArticleProps {
   breadcrumbs: Breadcrumb[];
+  isPrivateRepository: boolean;
   owner: string;
   repo: string;
   tabs: ArticleTab[];
@@ -45,7 +46,7 @@ interface ArticleProps {
   description?: string;
 }
 
-export const Article = ({ breadcrumbs, owner, repo, tabs, title, description }: ArticleProps) => {
+export const Article = ({ breadcrumbs, isPrivateRepository, owner, repo, tabs, title, description }: ArticleProps) => {
   const t = useTranslations('OwnerRepoSlugPage.Article');
   const [activeIndex, setActiveIndex] = useState(0);
   const activeTab = tabs[activeIndex] ?? tabs[0];
@@ -151,6 +152,7 @@ export const Article = ({ breadcrumbs, owner, repo, tabs, title, description }: 
           >
             <Prose
               filePath={activeTab?.filePath ?? ''}
+              isPrivateRepository={isPrivateRepository}
               markdown={activeTab?.content.markdown ?? ''}
               owner={owner}
               repo={repo}

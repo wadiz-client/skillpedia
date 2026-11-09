@@ -110,9 +110,11 @@ export const RepositorySection = ({ repositoryMetadataList }: RepositorySectionP
         {repositoryMetadataList.length > 0 ? (
           <div className={styles.inner}>
             {isDesktop ? <SpotlightCanvas /> : null}
+            {/* AnimationProvider는 마운트 시점의 카드만 관찰하므로, 카드 수가 바뀌면 다시 마운트해 새 카드도 관찰합니다. */}
             <AnimationProvider
               animationTrigger="on-visible"
               autoStaggerChildren={false}
+              key={visibleRepositoryMetadataList.length}
               runOnce
               visibilityOptions={15}
             >

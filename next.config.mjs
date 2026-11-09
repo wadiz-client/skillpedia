@@ -5,6 +5,8 @@ const withNextIntl = createNextIntlPlugin('./src/shared/i18n/request.ts');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // next dev가 AGENTS.md를 자동으로 생성하지 않도록 합니다.
+  agentRules: false,
   reactStrictMode: true,
   // @primer/react는 CSS 모듈을 포함해서 트랜스파일 대상에 추가합니다.
   transpilePackages: ['@primer/react'],
